@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color: #0F172A;
+  background-color: #F8FAFC;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #F8FAFC;
+  color: #0F172A;
+}
+
+@layer components {
+  .study-card {
+    @apply bg-white border border-slate-200 rounded-2xl shadow-sm p-8 transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100;
+  }
+
+  .btn-secondary {
+    @apply bg-white border border-slate-200 hover:border-indigo-200 text-slate-700 px-6 py-3 rounded-xl font-semibold transition-all;
+  }
+
+  .heading-main {
+    font-family: 'Poppins', sans-serif;
+    @apply text-3xl font-bold text-slate-900;
+  }
+}
+
+.prose p {
+  @apply mb-4 leading-relaxed text-slate-600;
+}
+
+::selection {
+  background-color: #C7D2FE;
+  color: #3730A3;
+}
