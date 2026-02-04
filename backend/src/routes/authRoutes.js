@@ -1,6 +1,6 @@
 const express = require('express');
 const authController = require('../controllers/authController');
-const learningRoutes = require('./learningRoutes'); // to access protect middleware if exported, simplified below
+const userController = require('../controllers/userController');
 
 const protect = async (req, res, next) => {
     // Basic implementation for token check - reusing logic from learningRoutes or should be centralized
@@ -41,5 +41,6 @@ const router = express.Router();
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.get('/me', protect, authController.getMe);
+router.patch('/update-language', protect, userController.updateLanguage);
 
 module.exports = router;

@@ -9,7 +9,7 @@ exports.startSession = async (req, res) => {
         const userId = req.user.id; // Assume middleware adds user to req
 
         // Generative AI content
-        const aiContent = await aiService.generateSessionContent(topic, level);
+        const aiContent = await aiService.generateSessionContent(topic, level, null, req.user.preferredLanguage);
 
         const newSession = await Session.create({
             userId,
@@ -64,7 +64,9 @@ exports.submitAnswer = async (req, res) => {
             data: {
                 isCorrect,
                 correctAnswer: question.correctAnswer,
-                explanation: question.explanation
+                explanation: (req.user.preferredLanguage === 'Tamil' && question.explanation_tamil) ? question.explanation_tamil :
+                    (req.user.preferredLanguage === 'Telugu' && question.explanation_telugu) ? question.explanation_telugu :
+                        question.explanation
             }
         });
 
@@ -115,7 +117,7 @@ exports.analyzeAndContinue = async (req, res) => {
         }
 
         // Generate new part
-        const aiContent = await aiService.generateSessionContent(session.topic, nextLevel, context);
+        const aiContent = await aiService.generateSessionContent(session.topic, nextLevel, context, req.user.preferredLanguage);
 
         // Update session or create new one? 
         // Let's append to current session or update it for simplicity of tracking "Concept Loop"

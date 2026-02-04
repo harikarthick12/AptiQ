@@ -10,7 +10,8 @@ import {
     Lightbulb,
     BookOpen,
     GraduationCap,
-    Sparkles
+    Sparkles,
+    Languages
 } from 'lucide-react';
 import api from '../api/axios';
 import Logo from '../components/Logo';
@@ -69,6 +70,9 @@ const LearningPage = () => {
     const nextQuestion = async () => {
         setFeedback(null);
         setSelectedOption(null);
+
+        // If it was a mistake and user just viewed it, naturally move to next or session end
+        // No auto-reset to first question here
 
         if (currentQuestionIndex < session.questions.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
@@ -154,6 +158,12 @@ const LearningPage = () => {
                                     <Lightbulb className="w-6 h-6" />
                                 </div>
                                 <h3 className="text-2xl font-bold font-['Poppins']">Concept Overview</h3>
+                                <div className="ml-auto flex items-center gap-1.5 px-3 py-1 bg-indigo-50/50 border border-indigo-100 rounded-full">
+                                    <Languages className="w-3 h-3 text-indigo-600" />
+                                    <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest leading-none">
+                                        {session.explanation.includes('சுருக்கமாக') || session.explanation.includes('விழுக்காடு') ? 'Tamil' : session.explanation.includes('శాతం') ? 'Telugu' : 'English'}
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="prose prose-slate max-w-none text-slate-600 text-lg leading-relaxed whitespace-pre-line">
@@ -285,7 +295,18 @@ const LearningPage = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="mt-8 flex justify-end">
+                                            <div className="mt-8 flex justify-end gap-3">
+                                                {!feedback.isCorrect && (
+                                                    <button
+                                                        onClick={() => {
+                                                            setFeedback(null);
+                                                            setSelectedOption(null);
+                                                        }}
+                                                        className="px-6 h-12 rounded-xl border-2 border-slate-200 text-slate-600 font-bold hover:bg-slate-50 transition-colors"
+                                                    >
+                                                        Try Again
+                                                    </button>
+                                                )}
                                                 <button
                                                     onClick={nextQuestion}
                                                     className={`btn-primary ${feedback.isCorrect ? 'bg-green-600 hover:bg-green-700 shadow-green-200' : 'bg-slate-800 hover:bg-slate-900'} px-10`}

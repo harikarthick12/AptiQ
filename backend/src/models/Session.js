@@ -25,6 +25,8 @@ const sessionSchema = new mongoose.Schema({
         options: [String],
         correctAnswer: String,
         explanation: String,
+        explanation_tamil: String,
+        explanation_telugu: String,
         userAnswer: String,
         isCorrect: Boolean,
         difficulty: String

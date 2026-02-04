@@ -11,7 +11,9 @@ import {
     Target,
     Award,
     TrendingUp,
-    Activity
+    Activity,
+    Languages,
+    Check
 } from 'lucide-react';
 import api from '../api/axios';
 import Logo from '../components/Logo';
@@ -38,10 +40,23 @@ const topics = [
 ];
 
 const DashboardPage = () => {
-    const { user, logout } = useAuth();
+    const { user, logout, updateUser } = useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [activeTopic, setActiveTopic] = useState(null);
+    const [isLangUpdating, setIsLangUpdating] = useState(false);
+
+    const changeLanguage = async (newLang) => {
+        setIsLangUpdating(true);
+        try {
+            const res = await api.patch('/auth/update-language', { language: newLang });
+            updateUser(res.data.data.user);
+        } catch (err) {
+            console.error("Failed to update language:", err);
+        } finally {
+            setIsLangUpdating(false);
+        }
+    };
 
     const startLearning = async (topic) => {
         setLoading(true);
@@ -67,10 +82,27 @@ const DashboardPage = () => {
                 <div className="max-w-[1000px] mx-auto px-6 h-20 flex justify-between items-center">
                     <Logo className="h-10 w-auto" />
 
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4">
+                        {/* Language Selector */}
+                        <div className="hidden md:flex items-center bg-slate-50 border border-slate-100 rounded-xl p-1 gap-1">
+                            {['English', 'Tamil', 'Telugu'].map((lang) => (
+                                <button
+                                    key={lang}
+                                    onClick={() => changeLanguage(lang)}
+                                    disabled={isLangUpdating}
+                                    className={`px-3 py-1.5 text-[11px] font-bold rounded-lg transition-all ${user?.preferredLanguage === lang
+                                            ? 'bg-white text-indigo-600 shadow-sm'
+                                            : 'text-slate-400 hover:text-slate-600'
+                                        }`}
+                                >
+                                    {lang}
+                                </button>
+                            ))}
+                        </div>
+
                         <div className="text-right hidden sm:block">
                             <p className="text-sm font-bold text-slate-900">{user?.name}</p>
-                            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">Free Plan</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">{user?.preferredLanguage} Mode</p>
                         </div>
                         <button
                             onClick={logout}
