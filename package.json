@@ -6,8 +6,8 @@
     "scripts": {
         "start": "node server.js",
         "dev": "nodemon server.js",
-        "build": "cd frontend && npm install --include=dev && npm run build",
-        "heroku-postbuild": "cd frontend && npm install --include=dev && npm run build"
+        "build": "npm install && cd frontend && npm install --include=dev && npm run build",
+        "heroku-postbuild": "npm install && cd frontend && npm install --include=dev && npm run build"
     },
     "keywords": [],
     "author": "",
