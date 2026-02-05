@@ -22,10 +22,19 @@ app.use(express.json());
 app.use('/auth', authRoutes);
 app.use('/learn', learningRoutes);
 
-// Health Check
-app.get('/', (req, res) => {
-    res.send('AptiQ Backend is Running');
-});
+// Serve Static Files (Frontend)
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, 'frontend/dist')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+    });
+} else {
+    // Health Check for dev
+    app.get('/', (req, res) => {
+        res.send('AptiQ Backend is Running (Development Mode)');
+    });
+}
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
