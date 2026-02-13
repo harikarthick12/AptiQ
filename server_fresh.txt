@@ -1,0 +1,20 @@
+Attempting to connect to MongoDB...
+Server running on port 5000
+✅ MongoDB Connected: localhost
+[0mPOST /auth/signup [32m201[0m 1744.750 ms - 471[0m
+[0mPOST /learn/start [32m200[0m 117.270 ms - 1464[0m
+[0mPOST /learn/start [32m200[0m 24.850 ms - 1402[0m
+[0mPOST /learn/start [32m200[0m 28.154 ms - 1473[0m
+[0mPOST /learn/start [32m200[0m 24.517 ms - 908[0m
+[0mPOST /learn/start [32m200[0m 32.008 ms - 1463[0m
+[0mPOST /learn/start [32m200[0m 19.556 ms - 1464[0m
+[0mPATCH /auth/update-language [32m200[0m 38.758 ms - 361[0m
+[0mPOST /learn/start [32m200[0m 25.641 ms - 1928[0m
+[0mPATCH /auth/update-language [32m200[0m 22.476 ms - 362[0m
+[0mPOST /learn/start [32m200[0m 16.983 ms - 1745[0m
+[0mPATCH /auth/update-language [32m200[0m 14.681 ms - 363[0m
+[0mPOST /learn/start [32m200[0m 22.113 ms - 1473[0m
+[0mPOST /learn/start [32m200[0m 17.706 ms - 1402[0m
+[0mPOST /learn/start [32m200[0m 21.643 ms - 1473[0m
+[0mPOST /learn/start [32m200[0m 16.420 ms - 1402[0m
+[0mPOST /learn/start [32m200[0m 19.016 ms - 1473[0m

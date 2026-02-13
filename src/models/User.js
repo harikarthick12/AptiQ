@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
     of: {
       level: { type: String, enum: ['Beginner', 'Intermediate', 'Advanced'], default: 'Beginner' },
       score: { type: Number, default: 0 },
-      attempts: { type: Number, default: 0 }
+      attempts: { type: Number, default: 0 },
+      seenQuestionIds: [String] // Track IDs of questions already asked
     },
     default: {}
   }

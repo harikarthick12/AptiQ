@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -15,7 +16,7 @@ import {
     Languages,
     Check
 } from 'lucide-react';
-import api from '../api/axios';
+import questionService from '../services/questionService';
 import Logo from '../components/Logo';
 
 const topics = [
@@ -49,8 +50,7 @@ const DashboardPage = () => {
     const changeLanguage = async (newLang) => {
         setIsLangUpdating(true);
         try {
-            const res = await api.patch('/auth/update-language', { language: newLang });
-            updateUser(res.data.data.user);
+            await updateUser({ preferredLanguage: newLang });
         } catch (err) {
             console.error("Failed to update language:", err);
         } finally {
@@ -62,11 +62,33 @@ const DashboardPage = () => {
         setLoading(true);
         setActiveTopic(topic);
         try {
-            const res = await api.post('/learn/start', {
+            const seenIds = (user?.progress && user.progress[topic])
+                ? user.progress[topic].seenQuestionIds || []
+                : [];
+
+            const content = await questionService.getSessionContent(topic, 'Beginner', seenIds);
+
+            const session = {
+                _id: 'local_' + Date.now(),
                 topic,
-                level: 'Beginner'
-            });
-            navigate('/learn', { state: { session: res.data.data.session } });
+                level: 'Beginner',
+                explanation: (user?.preferredLanguage === 'Tamil' && content.explanation_tamil) ? content.explanation_tamil :
+                    (user?.preferredLanguage === 'Telugu' && content.explanation_telugu) ? content.explanation_telugu :
+                        content.explanation,
+                workedExample: content.workedExample,
+                questions: content.questions,
+                currentStep: 'explanation'
+            };
+
+            const newSeenIds = [...new Set([...seenIds, ...content.questions.map(q => q.id)])];
+            const updatedProgress = { ...(user?.progress || {}) };
+            updatedProgress[topic] = {
+                level: 'Beginner',
+                seenQuestionIds: newSeenIds
+            };
+
+            await updateUser({ progress: updatedProgress });
+            navigate('/learn', { state: { session } });
         } catch (err) {
             console.error("Failed to start session:", err);
         } finally {
@@ -91,8 +113,8 @@ const DashboardPage = () => {
                                     onClick={() => changeLanguage(lang)}
                                     disabled={isLangUpdating}
                                     className={`px-3 py-1.5 text-[11px] font-bold rounded-lg transition-all ${user?.preferredLanguage === lang
-                                            ? 'bg-white text-indigo-600 shadow-sm'
-                                            : 'text-slate-400 hover:text-slate-600'
+                                        ? 'bg-white text-indigo-600 shadow-sm'
+                                        : 'text-slate-400 hover:text-slate-600'
                                         }`}
                                 >
                                     {lang}
@@ -227,7 +249,6 @@ const DashboardPage = () => {
                 <footer className="mt-24 pt-12 border-t border-slate-100 text-center">
                     <p className="text-slate-400 text-sm italic font-medium">"Focus is the foundation of knowledge." — AptiQ Tutor</p>
                     <div className="mt-6 flex justify-center gap-8 opacity-50 grayscale contrast-125">
-                        {/* Subtle placeholders for trust/partners or just decorative */}
                         <div className="h-4 w-24 bg-slate-200 rounded-full" />
                         <div className="h-4 w-16 bg-slate-200 rounded-full" />
                         <div className="h-4 w-20 bg-slate-200 rounded-full" />

@@ -12,7 +12,7 @@ const LandingPage = () => {
                 <Logo className="h-10 w-auto" />
                 <div className="flex items-center gap-6">
                     <Link to="/login" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">Login</Link>
-                    <Link to="/login" className="btn-primary !py-2 !px-5 text-sm">Join Registry</Link>
+                    <Link to="/login" className="btn-primary !py-2 !px-5 text-sm">New Registration</Link>
                 </div>
             </nav>
 
@@ -95,7 +95,7 @@ const LandingPage = () => {
                 <footer className="mt-40 border-t border-slate-100 pt-10 w-full flex flex-col items-center gap-6">
                     <p className="text-slate-400 text-xs flex items-center gap-1">
                         <ShieldCheck className="w-3 h-3 text-emerald-500" />
-                        Simple design. No stress, just learning.
+                        Made with love by AptiQ
                     </p>
                     <div className="text-[10px] text-slate-300 font-bold uppercase tracking-widest">
                         © 2026 AptiQ

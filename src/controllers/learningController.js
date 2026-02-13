@@ -1,59 +1,63 @@
+
 const Session = require('../models/Session');
 const User = require('../models/User');
-// Using mock AI service to avoid OpenAI rate limits
-const aiService = require('../services/mockAIService');
+const questionService = require('../services/questionService');
 
 exports.startSession = async (req, res) => {
     try {
         const { topic, level } = req.body;
-        const userId = req.user.id; // Assume middleware adds user to req
+        const userId = req.user.id;
+        const user = await User.findById(userId);
 
-        // Generative AI content
-        const aiContent = await aiService.generateSessionContent(topic, level, null, req.user.preferredLanguage);
+        const content = await questionService.getSessionContent(topic, level, user);
 
         const newSession = await Session.create({
             userId,
             topic,
             level,
-            explanation: aiContent.explanation,
-            workedExample: aiContent.workedExample,
-            questions: aiContent.questions,
+            explanation: content.explanation,
+            workedExample: content.workedExample,
+            questions: content.questions,
             score: 0,
             mistakes: []
         });
 
-        res.status(200).json({
-            status: 'success',
-            data: {
-                session: newSession
+        // Update user seen questions
+        const topicProgress = (user.progress && user.progress.has(topic))
+            ? user.progress.get(topic)
+            : { level: 'Beginner', seenQuestionIds: [] };
+
+        if (!topicProgress.seenQuestionIds) topicProgress.seenQuestionIds = [];
+
+        content.questions.forEach(q => {
+            if (!topicProgress.seenQuestionIds.includes(q.id)) {
+                topicProgress.seenQuestionIds.push(q.id);
             }
         });
-    } catch (err) {
-        res.status(500).json({
-            status: 'error',
-            message: err.message
+        user.progress.set(topic, topicProgress);
+        user.markModified('progress');
+        await user.save();
+
+        res.status(200).json({
+            status: 'success',
+            data: { session: newSession }
         });
+    } catch (err) {
+        console.error("DEBUG START SESSION ERROR:", err);
+        res.status(500).json({ status: 'error', message: err.message });
     }
 };
 
 exports.submitAnswer = async (req, res) => {
     try {
         const { sessionId, questionId, answer } = req.body;
-
         const session = await Session.findById(sessionId);
-        if (!session) {
-            return res.status(404).json({ message: 'Session not found' });
-        }
+        if (!session) return res.status(404).json({ message: 'Session not found' });
 
         const question = session.questions.id(questionId);
-        if (!question) {
-            return res.status(404).json({ message: 'Question not found' });
-        }
+        if (!question) return res.status(404).json({ message: 'Question not found' });
 
-        // Evaluate
-        // Simple string matching for now, maybe need smarter check later
         const isCorrect = question.correctAnswer.toLowerCase().trim() === answer.toLowerCase().trim();
-
         question.userAnswer = answer;
         question.isCorrect = isCorrect;
 
@@ -69,82 +73,59 @@ exports.submitAnswer = async (req, res) => {
                         question.explanation
             }
         });
-
     } catch (err) {
-        res.status(500).json({
-            status: 'error',
-            message: err.message
-        });
+        res.status(500).json({ status: 'error', message: err.message });
     }
 };
 
 exports.analyzeAndContinue = async (req, res) => {
     try {
         const { sessionId } = req.body;
-        const session = await Session.findById(sessionId); // .populate('userId');
+        const session = await Session.findById(sessionId);
+        const user = await User.findById(session.userId);
 
-        // Logic for adaptation
-        // Count correct answers
-        const titleQuestions = session.questions.length;
         const correctCount = session.questions.filter(q => q.isCorrect).length;
-        const wrongCount = titleQuestions - correctCount;
+        const total = session.questions.length;
 
-        // Determine next step
         let nextLevel = session.level;
-        let context = null;
-
-        if (correctCount === titleQuestions) {
-            // 3 correct (assuming 3 qs) -> next level
+        if (correctCount === total) {
             if (session.level === 'Beginner') nextLevel = 'Intermediate';
             else if (session.level === 'Intermediate') nextLevel = 'Advanced';
-        } else if (wrongCount >= 2) {
-            // 2 wrong -> go back (or stay)
-            if (session.level === 'Advanced') nextLevel = 'Intermediate';
-            else if (session.level === 'Intermediate') nextLevel = 'Beginner';
-            // If already beginner, provide more basics
         }
 
-        // If wrong, we might want to pass the last wrong question context to AI
-        if (wrongCount > 0) {
-            const lastWrong = session.questions.find(q => !q.isCorrect && q.userAnswer);
-            if (lastWrong) {
-                context = {
-                    userAnswer: lastWrong.userAnswer,
-                    correctAnswer: lastWrong.correctAnswer,
-                    previousQuestion: lastWrong.questionText
-                };
-            }
-        }
-
-        // Generate new part
-        const aiContent = await aiService.generateSessionContent(session.topic, nextLevel, context, req.user.preferredLanguage);
-
-        // Update session or create new one? 
-        // Let's append to current session or update it for simplicity of tracking "Concept Loop"
-        // But user model updates might be better. 
-        // For now, let's return the new content and update the session's level/content.
+        const content = await questionService.getSessionContent(session.topic, nextLevel, user);
 
         session.level = nextLevel;
-        session.explanation = aiContent.explanation; // New explanation
-        session.workedExample = aiContent.workedExample;
-        session.questions = aiContent.questions; // New set of questions
-        // Reset steps for UI
-        session.currentStep = 'explanation';
+        session.questions = content.questions;
+        session.explanation = content.explanation;
+        session.workedExample = content.workedExample;
+        session.currentStep = 'practice';
 
         await session.save();
 
-        res.status(200).json({
-            status: 'success',
-            data: {
-                level: session.level,
-                session: session // Return the full session with generated _ids
+        // Update user seen questions
+        const topicProgress = (user.progress && user.progress.has(session.topic))
+            ? user.progress.get(session.topic)
+            : { level: nextLevel, seenQuestionIds: [] };
+
+        topicProgress.level = nextLevel;
+        if (!topicProgress.seenQuestionIds) topicProgress.seenQuestionIds = [];
+
+        content.questions.forEach(q => {
+            if (!topicProgress.seenQuestionIds.includes(q.id)) {
+                topicProgress.seenQuestionIds.push(q.id);
             }
         });
 
-    } catch (err) {
-        res.status(500).json({
-            status: 'error',
-            message: err.message
+        user.progress.set(session.topic, topicProgress);
+        user.markModified('progress');
+        await user.save();
+
+        res.status(200).json({
+            status: 'success',
+            data: { level: session.level, session: session }
         });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
     }
 }

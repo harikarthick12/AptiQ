@@ -1,5 +1,13 @@
+
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import api from '../api/axios';
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from 'firebase/auth';
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 
 const AuthContext = createContext();
 
@@ -10,44 +18,56 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Check if user is logged in (e.g., check token validity or fetch profile)
-        // For now, simple check
-        const token = localStorage.getItem('token');
-        const userData = localStorage.getItem('user');
+        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+            if (firebaseUser) {
+                // Fetch additional user data from Firestore
+                const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+                if (userDoc.exists()) {
+                    setUser({ uid: firebaseUser.uid, ...userDoc.data() });
+                } else {
+                    setUser({ uid: firebaseUser.uid, email: firebaseUser.email });
+                }
+            } else {
+                setUser(null);
+            }
+            setLoading(false);
+        });
 
-        if (token && userData) {
-            setUser(JSON.parse(userData));
-        }
-        setLoading(false);
+        return unsubscribe;
     }, []);
 
-    const login = async (email, password) => {
-        const res = await api.post('/auth/login', { email, password });
-        const { token, data } = res.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
-        return data.user;
+    const signup = async (name, email, password) => {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const newUser = {
+            name,
+            email,
+            preferredLanguage: 'English',
+            progress: {}, // { topic: { level: 'Beginner', seenQuestionIds: [] } }
+            createdAt: new Date().toISOString()
+        };
+
+        await setDoc(doc(db, 'users', userCredential.user.uid), newUser);
+        setUser({ uid: userCredential.user.uid, ...newUser });
+        return newUser;
     };
 
-    const signup = async (name, email, password) => {
-        const res = await api.post('/auth/signup', { name, email, password });
-        const { token, data } = res.data;
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);
-        return data.user;
+    const login = async (email, password) => {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+        const userData = { uid: userCredential.user.uid, ...userDoc.data() };
+        setUser(userData);
+        return userData;
     };
 
     const logout = () => {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        setUser(null);
+        return signOut(auth);
     };
 
-    const updateUser = (updatedUser) => {
-        localStorage.setItem('user', JSON.stringify(updatedUser));
-        setUser(updatedUser);
+    const updateUser = async (updatedData) => {
+        if (!user) return;
+        const userRef = doc(db, 'users', user.uid);
+        await updateDoc(userRef, updatedData);
+        setUser(prev => ({ ...prev, ...updatedData }));
     };
 
     const value = {

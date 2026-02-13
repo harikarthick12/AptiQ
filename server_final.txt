@@ -1,0 +1,3 @@
+Attempting to connect to MongoDB...
+Server running on port 5000
+✅ MongoDB Connected: localhost

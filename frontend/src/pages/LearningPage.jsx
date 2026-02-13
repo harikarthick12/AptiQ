@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,12 +14,14 @@ import {
     Sparkles,
     Languages
 } from 'lucide-react';
-import api from '../api/axios';
+import { useAuth } from '../context/AuthContext';
+import questionService from '../services/questionService';
 import Logo from '../components/Logo';
 
 const LearningPage = () => {
     const { state } = useLocation();
     const navigate = useNavigate();
+    const { user, updateUser } = useAuth();
 
     const [session, setSession] = useState(state?.session);
     const [view, setView] = useState('explanation');
@@ -53,38 +56,66 @@ const LearningPage = () => {
         setIsSubmitting(true);
         const currentQ = session.questions[currentQuestionIndex];
 
-        try {
-            const res = await api.post('/learn/answer', {
-                sessionId: session._id,
-                questionId: currentQ._id,
-                answer: selectedOption
-            });
-            setFeedback(res.data.data);
-        } catch (err) {
-            console.error(err);
-        } finally {
-            setIsSubmitting(false);
-        }
+        const isCorrect = currentQ.correctAnswer.toLowerCase().trim() === selectedOption.toLowerCase().trim();
+
+        // Mocking the backend response for explanation based on language
+        const explanation = (user?.preferredLanguage === 'Tamil' && currentQ.explanation_tamil) ? currentQ.explanation_tamil :
+            (user?.preferredLanguage === 'Telugu' && currentQ.explanation_telugu) ? currentQ.explanation_telugu :
+                currentQ.explanation;
+
+        setFeedback({
+            isCorrect,
+            correctAnswer: currentQ.correctAnswer,
+            explanation: explanation
+        });
+
+        setIsSubmitting(false);
     };
 
     const nextQuestion = async () => {
         setFeedback(null);
         setSelectedOption(null);
 
-        // If it was a mistake and user just viewed it, naturally move to next or session end
-        // No auto-reset to first question here
-
         if (currentQuestionIndex < session.questions.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
         } else {
             setLoading(true);
             try {
-                const res = await api.post('/learn/continue', { sessionId: session._id });
-                if (res.data.data.session) {
-                    setSession(res.data.data.session);
-                    setCurrentQuestionIndex(0);
-                    setView('explanation');
-                }
+                // Determine next level or repeat
+                // For now, keep it simple: stay on Beginner until user finishes bank
+                const nextLevel = 'Beginner';
+
+                const seenIds = (user?.progress && user.progress[session.topic])
+                    ? user.progress[session.topic].seenQuestionIds || []
+                    : [];
+
+                const content = await questionService.getSessionContent(session.topic, nextLevel, seenIds);
+
+                const newSession = {
+                    _id: 'local_' + Date.now(),
+                    topic: session.topic,
+                    level: nextLevel,
+                    explanation: (user?.preferredLanguage === 'Tamil' && content.explanation_tamil) ? content.explanation_tamil :
+                        (user?.preferredLanguage === 'Telugu' && content.explanation_telugu) ? content.explanation_telugu :
+                            content.explanation,
+                    workedExample: content.workedExample,
+                    questions: content.questions,
+                    currentStep: 'practice'
+                };
+
+                // Update seen questions in user profile (Firestone)
+                const newSeenIds = [...new Set([...seenIds, ...content.questions.map(q => q.id)])];
+                const updatedProgress = { ...(user?.progress || {}) };
+                updatedProgress[session.topic] = {
+                    level: nextLevel,
+                    seenQuestionIds: newSeenIds
+                };
+
+                await updateUser({ progress: updatedProgress });
+
+                setSession(newSession);
+                setCurrentQuestionIndex(0);
+                setView('question'); // Direct to question to keep flow
             } catch (err) {
                 console.error(err);
             } finally {
@@ -95,7 +126,7 @@ const LearningPage = () => {
 
     return (
         <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-indigo-100 selection:text-indigo-700">
-            {/* Minimal Header */}
+            {/* Header */}
             <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
                 <div className="max-w-[900px] mx-auto px-6 h-16 flex items-center justify-between">
                     <button
@@ -116,7 +147,6 @@ const LearningPage = () => {
                     </div>
                 </div>
 
-                {/* Progress Bar */}
                 <div className="w-full h-1 bg-slate-100 mt-auto">
                     <motion.div
                         initial={{ width: 0 }}
@@ -142,7 +172,7 @@ const LearningPage = () => {
                             </div>
                             <div className="text-center">
                                 <h3 className="text-xl font-semibold text-slate-900">Personalizing your next steps...</h3>
-                                <p className="text-slate-500">Our AI tutor is analyzing your performance.</p>
+                                <p className="text-slate-500">Our tutor is analyzing your performance.</p>
                             </div>
                         </motion.div>
                     ) : view === 'explanation' ? (
@@ -161,7 +191,7 @@ const LearningPage = () => {
                                 <div className="ml-auto flex items-center gap-1.5 px-3 py-1 bg-indigo-50/50 border border-indigo-100 rounded-full">
                                     <Languages className="w-3 h-3 text-indigo-600" />
                                     <span className="text-[10px] font-bold text-indigo-600 uppercase tracking-widest leading-none">
-                                        {session.explanation.includes('சுருக்கமாக') || session.explanation.includes('விழுக்காடு') ? 'Tamil' : session.explanation.includes('శాతం') ? 'Telugu' : 'English'}
+                                        {user?.preferredLanguage || 'English'}
                                     </span>
                                 </div>
                             </div>
