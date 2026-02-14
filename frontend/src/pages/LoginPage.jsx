@@ -25,7 +25,7 @@ const LoginPage = () => {
             }
             navigate('/dashboard');
         } catch (err) {
-            setError(err.response?.data?.message || 'Authentication failed. Please check your credentials.');
+            setError(err.message || 'Authentication failed. Please check your credentials.');
         } finally {
             setIsLoading(false);
         }
