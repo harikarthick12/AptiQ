@@ -1,13 +1,6 @@
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import {
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
-} from 'firebase/auth';
-import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
-import { auth, db } from '../firebase';
+import { supabase } from '../supabase';
 
 const AuthContext = createContext();
 
@@ -18,56 +11,115 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-            if (firebaseUser) {
-                // Fetch additional user data from Firestore
-                const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-                if (userDoc.exists()) {
-                    setUser({ uid: firebaseUser.uid, ...userDoc.data() });
-                } else {
-                    setUser({ uid: firebaseUser.uid, email: firebaseUser.email });
-                }
+        // 1. Check active session
+        const initAuth = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                await fetchProfile(session.user.id);
+            }
+            setLoading(false);
+        };
+
+        initAuth();
+
+        // 2. Listen for auth changes
+        const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+            if (session) {
+                await fetchProfile(session.user.id);
             } else {
                 setUser(null);
             }
-            setLoading(false);
         });
 
-        return unsubscribe;
+        return () => subscription.unsubscribe();
     }, []);
 
-    const signup = async (name, email, password) => {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const newUser = {
-            name,
-            email,
-            preferredLanguage: 'English',
-            progress: {}, // { topic: { level: 'Beginner', seenQuestionIds: [] } }
-            createdAt: new Date().toISOString()
-        };
+    const fetchProfile = async (userId) => {
+        const { data, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userId)
+            .single();
 
-        await setDoc(doc(db, 'users', userCredential.user.uid), newUser);
-        setUser({ uid: userCredential.user.uid, ...newUser });
-        return newUser;
+        if (data) {
+            // Map snake_case from DB to camelCase for frontend
+            const formattedUser = {
+                uid: userId,
+                ...data,
+                preferredLanguage: data.preferred_language
+            };
+            setUser(formattedUser);
+        }
+    };
+
+    const signup = async (name, email, password) => {
+        const { data, error } = await supabase.auth.signUp({
+            email,
+            password,
+        });
+
+        if (error) throw error;
+
+        if (data.user) {
+            // Create profile in profiles table
+            const profileData = {
+                id: data.user.id,
+                name,
+                email,
+                preferred_language: 'English',
+                progress: {}
+            };
+
+            const { error: profileError } = await supabase
+                .from('profiles')
+                .insert([profileData]);
+
+            if (profileError) throw profileError;
+
+            setUser({ uid: data.user.id, ...profileData });
+            return profileData;
+        }
     };
 
     const login = async (email, password) => {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
-        const userData = { uid: userCredential.user.uid, ...userDoc.data() };
-        setUser(userData);
-        return userData;
+        const { data, error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        });
+
+        if (error) throw error;
+
+        if (data.user) {
+            await fetchProfile(data.user.id);
+        }
+        return data.user;
     };
 
-    const logout = () => {
-        return signOut(auth);
+    const logout = async () => {
+        await supabase.auth.signOut();
+        setUser(null);
     };
 
     const updateUser = async (updatedData) => {
         if (!user) return;
-        const userRef = doc(db, 'users', user.uid);
-        await updateDoc(userRef, updatedData);
-        setUser(prev => ({ ...prev, ...updatedData }));
+
+        // Map frontend camelCase to database snake_case if necessary
+        // In our dashboard we use 'preferredLanguage', let's map it.
+        const dbData = { ...updatedData };
+        if (dbData.preferredLanguage) {
+            dbData.preferred_language = dbData.preferredLanguage;
+            delete dbData.preferredLanguage;
+        }
+
+        const { error } = await supabase
+            .from('profiles')
+            .update(dbData)
+            .eq('id', user.uid);
+
+        if (error) throw error;
+
+        // Fetch fresh data
+        await fetchProfile(user.uid);
     };
 
     const value = {
