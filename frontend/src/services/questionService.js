@@ -6,7 +6,7 @@ class QuestionService {
      * Gets content for a session, picking questions the user HAS NOT seen yet.
      */
     async getSessionContent(topic, level, seenIds = []) {
-        const topicData = questionBank[topic] || questionBank['Percentages'];
+        const topicData = questionBank[topic] || questionBank['Number System'];
 
         // 1. Get base explanation and example
         let explanation = topicData.explanation;

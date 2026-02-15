@@ -67,6 +67,14 @@ const LoginPage = () => {
                     </motion.div>
                 )}
 
+                {/* Test User Hint */}
+                {isLogin && (
+                    <div className="bg-indigo-50 border border-indigo-100 text-indigo-700 p-4 rounded-xl mb-6 text-[11px] font-medium leading-relaxed">
+                        <strong className="block mb-1">Local Testing Mode:</strong>
+                        Use <code className="bg-white px-1 py-0.5 rounded border">test@example.com</code> and <code className="bg-white px-1 py-0.5 rounded border">password123</code>
+                    </div>
+                )}
+
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {!isLogin && (
                         <div className="relative">
