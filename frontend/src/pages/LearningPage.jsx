@@ -39,14 +39,22 @@ const LearningPage = () => {
 
     if (!session) return null;
 
-    const steps = ['explanation', 'example', ...session.questions.map((_, i) => `question-${i}`)];
+    const steps = [
+        'explanation',
+        ...(session.workedExample ? ['example'] : []),
+        ...session.questions.map((_, i) => `question-${i}`)
+    ];
+
     const currentStepIndex = view.startsWith('question')
-        ? 2 + currentQuestionIndex
+        ? (session.workedExample ? 2 : 1) + currentQuestionIndex
         : view === 'explanation' ? 0 : 1;
     const progress = ((currentStepIndex + 1) / steps.length) * 100;
 
     const handleNext = () => {
-        if (view === 'explanation') setView('example');
+        if (view === 'explanation') {
+            if (session.workedExample) setView('example');
+            else setView('question');
+        }
         else if (view === 'example') setView('question');
     };
 

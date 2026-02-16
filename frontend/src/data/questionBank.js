@@ -176,6 +176,10 @@ const questionBank = {
     },
     'Arrays': {
         explanation: "Arrays are contiguous memory locations to store similar types of data. Accessing elements by index is extremely fast, but inserting or deleting elements can be slow as it might require shifting other elements.",
+        workedExample: {
+            problem: "Find the element at index 2 in array [10, 20, 30, 40].",
+            solution: "Indexing starts at 0. \nIndex 0: 10 \nIndex 1: 20 \nIndex 2: 30 \nAnswer: 30."
+        },
         questions: [
             { id: 'ar1', questionText: "Access time for an array element by index is?", options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"], correctAnswer: "O(1)", explanation: "Direct indexing is constant time.", difficulty: "Beginner" },
             { id: 'ar3', questionText: "If an array has size 10, what is the index of the last element?", options: ["10", "11", "9", "0"], correctAnswer: "9", explanation: "Array indexing starts from 0, so last index is size-1.", difficulty: "Beginner" }
@@ -194,6 +198,10 @@ const questionBank = {
     },
     'Searching': {
         explanation: "Searching algorithms find the position of a target value within a structure. Linear Search checks every element, whereas Binary Search requires a sorted list to divide and conquer the search space.",
+        workedExample: {
+            problem: "Search for 7 in sorted array [1, 3, 5, 7, 9] using Binary Search.",
+            solution: "1. Mid is 5. 7 > 5, search right. \n2. New range [7, 9]. Mid is 7. \n3. Found at index 3."
+        },
         questions: [
             { id: 'sc1', questionText: "Linear search has a time complexity of?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(n)", explanation: "In the worst case, you must check every element once.", difficulty: "Beginner" },
             { id: 'sc2', questionText: "Binary search works on which type of arrays?", options: ["Unsorted", "Sorted", "Any", "Small"], correctAnswer: "Sorted", explanation: "Binary search depends on the ordering to eliminate half the space.", difficulty: "Beginner" }
@@ -201,6 +209,10 @@ const questionBank = {
     },
     'Sorting': {
         explanation: "Sorting arranges elements in a specific order (ascending or descending). Basic algorithms include Bubble and Selection sort. Advanced ones like Quick and Merge sort use partitioning and merging for better efficiency.",
+        workedExample: {
+            problem: "Perform one pass of Bubble Sort on [5, 1, 4].",
+            solution: "1. Compare 5 and 1: Swap -> [1, 5, 4] \n2. Compare 5 and 4: Swap -> [1, 4, 5] \nResult: [1, 4, 5]."
+        },
         questions: [
             { id: 'so1', questionText: "What is the worst-case complexity of Bubble Sort?", options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"], correctAnswer: "O(n²)", explanation: "Nested loops cause quadratic time in the worst case.", difficulty: "Beginner" },
             { id: 'so2', questionText: "Which sorting algorithm uses Divide and Conquer?", options: ["Bubble Sort", "Merge Sort", "Selection Sort", "Insertion Sort"], correctAnswer: "Merge Sort", explanation: "Merge sort recursively divides the array and then merges them.", difficulty: "Beginner" }
@@ -219,6 +231,10 @@ const questionBank = {
     },
     'Stack': {
         explanation: "A Stack is a linear data structure that follows the LIFO (Last In, First Out) principle. Common operations are Push (add) and Pop (remove). Applications include function calls, undo mechanisms, and expression parsing.",
+        workedExample: {
+            problem: "If we Push 10, then Push 20, then Pop. What is the state of stack?",
+            solution: "1. Push 10: [10] \n2. Push 20: [10, 20] \n3. Pop: removes 20. \nFinal Stack: [10]."
+        },
         questions: [
             { id: 'sk1', questionText: "Which principle does a Stack follow?", options: ["FIFO", "LIFO", "LILO", "Random"], correctAnswer: "LIFO", explanation: "Last In, First Out.", difficulty: "Beginner" },
             { id: 'sk2', questionText: "Operation to remove an element from stack is?", options: ["Push", "Pop", "Enqueue", "Peek"], correctAnswer: "Pop", explanation: "Pop removes the top element.", difficulty: "Beginner" }
@@ -226,6 +242,10 @@ const questionBank = {
     },
     'Queue': {
         explanation: "A Queue follows the FIFO (First In, First Out) principle. Elements are added at the 'rear' and removed from the 'front'. Variations include Circular Queues and Priority Queues.",
+        workedExample: {
+            problem: "If we Enqueue 10, Enqueue 20, then Dequeue. Who left first?",
+            solution: "1. Enqueue 10: [10] \n2. Enqueue 20: [10, 20] \n3. Dequeue: removes Front (10). \nAnswer: 10."
+        },
         questions: [
             { id: 'qu1', questionText: "Which principle does a Queue follow?", options: ["LIFO", "FIFO", "FILO", "Random"], correctAnswer: "FIFO", explanation: "First In, First Out.", difficulty: "Beginner" },
             { id: 'qu2', questionText: "Where are new elements added in a queue?", options: ["Front", "Middle", "Rear", "Top"], correctAnswer: "Rear", explanation: "Enqueue operation happens at the rear/back.", difficulty: "Beginner" }
@@ -233,6 +253,10 @@ const questionBank = {
     },
     'Linked List': {
         explanation: "A Linked List is a dynamic data structure where each element (node) contains data and a reference (pointer) to the next node. Singly linked lists point one way, while doubly linked lists point both ways.",
+        workedExample: {
+            problem: "How do you reach the 3rd node in a Singly Linked List?",
+            solution: "Start at Head. \nFollow Head->Next (2nd node). \nFollow 2nd->Next (3rd node)."
+        },
         questions: [
             { id: 'll1', questionText: "Time complexity to search an element in a linked list of size n?", options: ["O(1)", "O(log n)", "O(n)", "O(n²)"], correctAnswer: "O(n)", explanation: "You must traverse from the head until the element is found.", difficulty: "Beginner" },
             { id: 'll2', questionText: "What does the 'next' pointer of the last node in a singly linked list point to?", options: ["Head", "Previous node", "Null/None", "Itself"], correctAnswer: "Null/None", explanation: "The end of the list is marked by a null pointer.", difficulty: "Beginner" }
@@ -240,6 +264,10 @@ const questionBank = {
     },
     'Trees': {
         explanation: "A Tree is a hierarchical structure with a root node and children nodes. A Binary Tree has at most two children per node. Binary Search Trees (BST) keep nodes ordered for efficient searching.",
+        workedExample: {
+            problem: "Where would you insert 5 in a BST with Root 10?",
+            solution: "In BST, left child < Parent. Since 5 < 10, insert in the Left subtree of 10."
+        },
         questions: [
             { id: 'tr1', questionText: "Maximum number of children a node can have in a Binary Tree?", options: ["1", "2", "Unlimited", "0"], correctAnswer: "2", explanation: "A 'Binary' tree is restricted to two children.", difficulty: "Beginner" },
             { id: 'tr2', questionText: "The topmost node of a tree is called?", options: ["Leaf", "Stem", "Root", "Branch"], correctAnswer: "Root", explanation: "The root is the entry point of the tree structure.", difficulty: "Beginner" }
@@ -247,6 +275,10 @@ const questionBank = {
     },
     'Hashing': {
         explanation: "Hashing maps data to a fixed-size value (hash code) using a hash function. It allows for efficient data retrieval in Map and Set structures, often in average O(1) time.",
+        workedExample: {
+            problem: "Map 'Key=5' to an array of size 10 using H(k) = k % 10.",
+            solution: "Index = 5 % 10 = 5. \nThe data will be stored at index 5."
+        },
         questions: [
             { id: 'ha1', questionText: "Average time complexity for searching in a Hash Map?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Hashing provides direct access via keys.", difficulty: "Beginner" },
             { id: 'ha2', questionText: "What is it called when two keys hash to the same value?", options: ["Conflict", "Collision", "Matching", "Overlay"], correctAnswer: "Collision", explanation: "Hash collisions must be handled using techniques like chaining or open addressing.", difficulty: "Beginner" }
@@ -254,6 +286,10 @@ const questionBank = {
     },
     'OOPS': {
         explanation: "Object-Oriented Programming (OOPS) is based on 'objects' and 'classes'. Core pillars are Encapsulation (data hiding), Abstraction (hiding complexity), Inheritance (reusing code), and Polymorphism (many forms).",
+        workedExample: {
+            problem: "Give an example of Inheritance.",
+            solution: "A 'Car' class inheriting properties from a 'Vehicle' class. Car is a specific type of Vehicle."
+        },
         questions: [
             { id: 'oo1', questionText: "Hiding internal details and showing only functionality is?", options: ["Encapsulation", "Abstraction", "Inheritance", "Polymorphism"], correctAnswer: "Abstraction", explanation: "Abstraction focuses on 'what' it does rather than 'how'.", difficulty: "Beginner" },
             { id: 'oo4', questionText: "Combining data and methods into a single unit is?", options: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"], correctAnswer: "Encapsulation", explanation: "Encapsulation wraps data and code together.", difficulty: "Beginner" }
@@ -261,6 +297,10 @@ const questionBank = {
     },
     'Functions': {
         explanation: "Functions are reusable blocks of code. They can take parameters (inputs) and return values. 'Call by value' passes a copy of the data, while 'Call by reference' passes the address.",
+        workedExample: {
+            problem: "What is the output of: func add(a, b) { return a+b }; add(2, 3)?",
+            solution: "a=2, b=3. Return 2+3 = 5."
+        },
         questions: [
             { id: 'fn1', questionText: "A function that does not return any value usually has return type?", options: ["int", "void", "null", "empty"], correctAnswer: "void", explanation: "'void' signifies no return value.", difficulty: "Beginner" },
             { id: 'fn2', questionText: "What is 'Scope' of a variable?", options: ["Its lifetime", "Region where it's accessible", "Its memory size", "Its data type"], correctAnswer: "Region where it's accessible", explanation: "Scope defines the boundaries within which a variable can be used.", difficulty: "Beginner" }
@@ -268,6 +308,10 @@ const questionBank = {
     },
     'DBMS Basics': {
         explanation: "Database Management Systems (DBMS) organize and manage data. Relational databases use Tables, Primary Keys (uniquely identify rows), and Foreign Keys (link tables). SQL is used to query these databases.",
+        workedExample: {
+            problem: "Which key is used to connect a 'Orders' table to a 'Customers' table?",
+            solution: "The 'Customer_ID' which is a Primary Key in Customers table would be a **Foreign Key** in the Orders table."
+        },
         questions: [
             { id: 'db1', questionText: "Which key uniquely identifies a record in a table?", options: ["Foreign Key", "Primary Key", "Composite Key", "Unique Key"], correctAnswer: "Primary Key", explanation: "Every table must have a Primary Key for row identification.", difficulty: "Beginner" },
             { id: 'db2', questionText: "What does SQL stand for?", options: ["Simple Query Logic", "Structured Query Language", "Standard Query Level", "System Query Link"], correctAnswer: "Structured Query Language", explanation: "The standard language for RDBMS.", difficulty: "Beginner" }
@@ -275,6 +319,10 @@ const questionBank = {
     },
     'OS Basics': {
         explanation: "Operating Systems (OS) manage hardware and software resources. Core concepts include Processes (running programs), Threads (units of execution within a process), and Memory Management.",
+        workedExample: {
+            problem: "If multiple tasks run on a single CPU core, how does it look like they run at once?",
+            solution: "The OS uses **Time Slicing** (Context Switching) to rapidly swap between processes."
+        },
         questions: [
             { id: 'os1', questionText: "A process that is currently being executed is in which state?", options: ["Ready", "Running", "Waiting", "Terminated"], correctAnswer: "Running", explanation: "Running state means it's using the CPU.", difficulty: "Beginner" },
             { id: 'os2', questionText: "Process vs Thread: Which shares the same memory space?", options: ["Processes", "Threads", "Both", "Neither"], correctAnswer: "Threads", explanation: "Threads of the same process share memory, making them lightweight.", difficulty: "Beginner" }
@@ -325,6 +373,10 @@ const questionBank = {
     },
     'Classification': {
         explanation: "Classification (Odd One Out) requires identifying the item that does not share the common characteristic of the other items in the group.",
+        workedExample: {
+            problem: "Which is different: Rose, Lily, Potato, Jasmine?",
+            solution: "Rose, Lily, and Jasmine are flowers. Potato is a tuber/vegetable. \nOdd one: Potato."
+        },
         questions: [
             { id: 'cl1', questionText: "Find the odd one out: Apple, Mango, Carrot, Banana", options: ["Apple", "Mango", "Carrot", "Banana"], correctAnswer: "Carrot", explanation: "Carrot is a vegetable/root, others are fruits.", difficulty: "Beginner" }
         ]
@@ -352,6 +404,10 @@ const questionBank = {
     },
     'Clock and Calendar': {
         explanation: "Clock problems involve finding angles between hands. Calendar problems involve finding days based on date and 'odd days' logic.",
+        workedExample: {
+            problem: "What is the angle between hands at 6:00?",
+            solution: "At 6:00, hands are opposite. Angle = 180°."
+        },
         questions: [
             { id: 'cc1', questionText: "What is the angle between hour and minute hand at 3:00?", options: ["90°", "45°", "180°", "0°"], correctAnswer: "90°", explanation: "Minute is at 12, Hour is at 3. Difference is 3 hours * 30°/hour = 90°.", difficulty: "Beginner" },
             { id: 'cc2', questionText: "If today is Monday, what was the day 63 days ago?", options: ["Monday", "Tuesday", "Sunday", "Saturday"], correctAnswer: "Monday", explanation: "63 is exactly 9 weeks (63/7=9, rem 0). So it remains Monday.", difficulty: "Intermediate" }
@@ -359,6 +415,10 @@ const questionBank = {
     },
     'Seating Arrangement': {
         explanation: "Seating arrangement involves placing people in specific positions based on clues about who is next to whom, essentially a logic puzzle.",
+        workedExample: {
+            problem: "A sits next to B. C sits next to B. D is far left. Order?",
+            solution: "Order: D, A, B, C (assuming A is on B's left)."
+        },
         questions: [
             { id: 'sa1', questionText: "A, B, C, D are in a row. C is between A and D. B is at right end. Who is at left end?", options: ["A", "D", "C", "Cannot tell"], correctAnswer: "A", explanation: "If B is at right, and C is between A and D, flow must be A, C, D, B or D, C, A, B. Since B is at 'right end', A or D could be at left. Typically A is assumed unless more clues given.", difficulty: "Intermediate" }
         ]
@@ -375,12 +435,20 @@ const questionBank = {
     },
     'Venn Diagrams': {
         explanation: "Venn Diagrams use circles to represent relationships between different groups or sets.",
+        workedExample: {
+            problem: "Represent 'Doctors' and 'Women'.",
+            solution: "Two overlapping circles. The overlap represents 'Women who are Doctors'."
+        },
         questions: [
             { id: 'vd1', questionText: "Which diagram represents: Fruits, Apple, Vegetables?", options: ["Two separate circles", "One circle inside another, plus a third separate circle", "Three overlapping circles", "One circle containing two other overlapping circles"], correctAnswer: "One circle inside another, plus a third separate circle", explanation: "Apple is inside Fruits. Vegetables is a separate category.", difficulty: "Intermediate" }
         ]
     },
     'Visual Reasoning': {
         explanation: "Visual Reasoning includes Mirror images, Water images, and Paper folding patterns.",
+        workedExample: {
+            problem: "Mirror image of 'M'?",
+            solution: "M is vertically symmetrical. Its mirror image is still 'M'."
+        },
         questions: [
             { id: 'vr1', questionText: "Which letter looks the same in a mirror?", options: ["B", "P", "A", "C"], correctAnswer: "A", explanation: "A has vertical symmetry.", difficulty: "Beginner" }
         ]
