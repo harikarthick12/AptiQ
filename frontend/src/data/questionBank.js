@@ -162,31 +162,122 @@ const questionBank = {
         ]
     },
 
-    // TECHNICAL SECTION (Keeping as is)
-    'OOPS': {
-        explanation: "Object-Oriented Programming uses 'objects' to represent data and methods. Core pillars: Encapsulation, Abstraction, Inheritance, Polymorphism.",
+    // TECHNICAL SECTION - EXPANDED
+    'Time Complexity': {
+        explanation: "Time Complexity measures the time an algorithm takes to run as a function of the length of the input. Big-O notation is used to describe the worst-case scenario, while Omega and Theta describe best and average cases.",
         workedExample: {
-            problem: "Give an example of Inheritance.",
-            solution: "A 'Car' class inheriting properties from a 'Vehicle' class."
+            problem: "What is the time complexity of a nested loop where both loops run 'n' times?",
+            solution: "The outer loop runs n times. For each outer iteration, the inner loop runs n times. Total iterations = n * n = n². Complexity is O(n²)."
         },
         questions: [
-            { id: 'oo1', questionText: "Which concept allows using a child class object where a parent is expected?", options: ["Encapsulation", "Polymorphism", "Abstraction", "Inheritance"], correctAnswer: "Polymorphism", explanation: "Specifically subtype polymorphism.", difficulty: "Beginner" },
-            { id: 'oo2', questionText: "What is an instance of a class called?", options: ["Interface", "Object", "Method", "Variable"], correctAnswer: "Object", explanation: "Objects are instances of classes.", difficulty: "Beginner" },
-            { id: 'oo3', questionText: "Which keyword is used for inheritance in Java?", options: ["implements", "inherits", "extends", "module"], correctAnswer: "extends", explanation: "Class A extends B.", difficulty: "Beginner" }
+            { id: 'tc1', questionText: "Which complexity is more efficient?", options: ["O(n)", "O(n²)", "O(log n)", "O(2ⁿ)"], correctAnswer: "O(log n)", explanation: "Logarithmic time grows much slower than linear or quadratic time.", difficulty: "Beginner" },
+            { id: 'tc2', questionText: "Worst case time complexity of Binary Search is?", options: ["O(n)", "O(log n)", "O(n log n)", "O(1)"], correctAnswer: "O(log n)", explanation: "Binary search halves the search space in each step.", difficulty: "Beginner" }
         ]
     },
     'Arrays': {
-        explanation: "Arrays are contiguous memory locations to store similar types of data.",
+        explanation: "Arrays are contiguous memory locations to store similar types of data. Accessing elements by index is extremely fast, but inserting or deleting elements can be slow as it might require shifting other elements.",
         questions: [
             { id: 'ar1', questionText: "Access time for an array element by index is?", options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"], correctAnswer: "O(1)", explanation: "Direct indexing is constant time.", difficulty: "Beginner" },
-            { id: 'ar2', questionText: "Base address of array is address of first element?", options: ["True", "False"], correctAnswer: "True", explanation: "Standard definition.", difficulty: "Beginner" }
+            { id: 'ar3', questionText: "If an array has size 10, what is the index of the last element?", options: ["10", "11", "9", "0"], correctAnswer: "9", explanation: "Array indexing starts from 0, so last index is size-1.", difficulty: "Beginner" }
         ]
     },
-    'Data Structures': {
-        explanation: "Methods of organizing data in computers to use efficiently.",
+    'Strings': {
+        explanation: "Strings are sequences of characters. Common operations include concatenation, substring extraction, and searching. Key problems include checking for Palindromes (reads same forwards and backwards) and Anagrams (contains same characters in different order).",
+        workedExample: {
+            problem: "Check if 'racecar' is a palindrome.",
+            solution: "The word reversed is 'racecar'. Since original == reversed, it is a palindrome."
+        },
         questions: [
-            { id: 'ds1', questionText: "Which DS uses LIFO?", options: ["Queue", "Stack", "Tree", "Linked List"], correctAnswer: "Stack", explanation: "Last In First Out.", difficulty: "Beginner" },
-            { id: 'ds2', questionText: "Which DS uses FIFO?", options: ["Queue", "Stack", "Tree", "Graph"], correctAnswer: "Queue", explanation: "First In First Out.", difficulty: "Beginner" }
+            { id: 'st1', questionText: "Which of these is a palindrome?", options: ["hello", "madam", "world", "coding"], correctAnswer: "madam", explanation: "'madam' read backwards is still 'madam'.", difficulty: "Beginner" },
+            { id: 'st2', questionText: "What is an anagram of 'listen'?", options: ["silent", "list", "tent", "line"], correctAnswer: "silent", explanation: "Both 'listen' and 'silent' use the same set of characters.", difficulty: "Beginner" }
+        ]
+    },
+    'Searching': {
+        explanation: "Searching algorithms find the position of a target value within a structure. Linear Search checks every element, whereas Binary Search requires a sorted list to divide and conquer the search space.",
+        questions: [
+            { id: 'sc1', questionText: "Linear search has a time complexity of?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(n)", explanation: "In the worst case, you must check every element once.", difficulty: "Beginner" },
+            { id: 'sc2', questionText: "Binary search works on which type of arrays?", options: ["Unsorted", "Sorted", "Any", "Small"], correctAnswer: "Sorted", explanation: "Binary search depends on the ordering to eliminate half the space.", difficulty: "Beginner" }
+        ]
+    },
+    'Sorting': {
+        explanation: "Sorting arranges elements in a specific order (ascending or descending). Basic algorithms include Bubble and Selection sort. Advanced ones like Quick and Merge sort use partitioning and merging for better efficiency.",
+        questions: [
+            { id: 'so1', questionText: "What is the worst-case complexity of Bubble Sort?", options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"], correctAnswer: "O(n²)", explanation: "Nested loops cause quadratic time in the worst case.", difficulty: "Beginner" },
+            { id: 'so2', questionText: "Which sorting algorithm uses Divide and Conquer?", options: ["Bubble Sort", "Merge Sort", "Selection Sort", "Insertion Sort"], correctAnswer: "Merge Sort", explanation: "Merge sort recursively divides the array and then merges them.", difficulty: "Beginner" }
+        ]
+    },
+    'Recursion': {
+        explanation: "Recursion is a programming technique where a function calls itself to solve smaller instances of the same problem. A base case is essential to prevent infinite loops.",
+        workedExample: {
+            problem: "Find factorial of 3 using recursion.",
+            solution: "fact(3) = 3 * fact(2) = 3 * 2 * fact(1) = 3 * 2 * 1 = 6."
+        },
+        questions: [
+            { id: 're1', questionText: "What happens if a recursive function has no base case?", options: ["It runs once", "Stack Overflow", "It returns 0", "Compile error"], correctAnswer: "Stack Overflow", explanation: "Infinite calls will eventually exhaust the recursion stack memory.", difficulty: "Beginner" },
+            { id: 're2', questionText: "Fibonacci sequence: 1, 1, 2, 3, 5... what is the next term?", options: ["6", "7", "8", "10"], correctAnswer: "8", explanation: "3 + 5 = 8.", difficulty: "Beginner" }
+        ]
+    },
+    'Stack': {
+        explanation: "A Stack is a linear data structure that follows the LIFO (Last In, First Out) principle. Common operations are Push (add) and Pop (remove). Applications include function calls, undo mechanisms, and expression parsing.",
+        questions: [
+            { id: 'sk1', questionText: "Which principle does a Stack follow?", options: ["FIFO", "LIFO", "LILO", "Random"], correctAnswer: "LIFO", explanation: "Last In, First Out.", difficulty: "Beginner" },
+            { id: 'sk2', questionText: "Operation to remove an element from stack is?", options: ["Push", "Pop", "Enqueue", "Peek"], correctAnswer: "Pop", explanation: "Pop removes the top element.", difficulty: "Beginner" }
+        ]
+    },
+    'Queue': {
+        explanation: "A Queue follows the FIFO (First In, First Out) principle. Elements are added at the 'rear' and removed from the 'front'. Variations include Circular Queues and Priority Queues.",
+        questions: [
+            { id: 'qu1', questionText: "Which principle does a Queue follow?", options: ["LIFO", "FIFO", "FILO", "Random"], correctAnswer: "FIFO", explanation: "First In, First Out.", difficulty: "Beginner" },
+            { id: 'qu2', questionText: "Where are new elements added in a queue?", options: ["Front", "Middle", "Rear", "Top"], correctAnswer: "Rear", explanation: "Enqueue operation happens at the rear/back.", difficulty: "Beginner" }
+        ]
+    },
+    'Linked List': {
+        explanation: "A Linked List is a dynamic data structure where each element (node) contains data and a reference (pointer) to the next node. Singly linked lists point one way, while doubly linked lists point both ways.",
+        questions: [
+            { id: 'll1', questionText: "Time complexity to search an element in a linked list of size n?", options: ["O(1)", "O(log n)", "O(n)", "O(n²)"], correctAnswer: "O(n)", explanation: "You must traverse from the head until the element is found.", difficulty: "Beginner" },
+            { id: 'll2', questionText: "What does the 'next' pointer of the last node in a singly linked list point to?", options: ["Head", "Previous node", "Null/None", "Itself"], correctAnswer: "Null/None", explanation: "The end of the list is marked by a null pointer.", difficulty: "Beginner" }
+        ]
+    },
+    'Trees': {
+        explanation: "A Tree is a hierarchical structure with a root node and children nodes. A Binary Tree has at most two children per node. Binary Search Trees (BST) keep nodes ordered for efficient searching.",
+        questions: [
+            { id: 'tr1', questionText: "Maximum number of children a node can have in a Binary Tree?", options: ["1", "2", "Unlimited", "0"], correctAnswer: "2", explanation: "A 'Binary' tree is restricted to two children.", difficulty: "Beginner" },
+            { id: 'tr2', questionText: "The topmost node of a tree is called?", options: ["Leaf", "Stem", "Root", "Branch"], correctAnswer: "Root", explanation: "The root is the entry point of the tree structure.", difficulty: "Beginner" }
+        ]
+    },
+    'Hashing': {
+        explanation: "Hashing maps data to a fixed-size value (hash code) using a hash function. It allows for efficient data retrieval in Map and Set structures, often in average O(1) time.",
+        questions: [
+            { id: 'ha1', questionText: "Average time complexity for searching in a Hash Map?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Hashing provides direct access via keys.", difficulty: "Beginner" },
+            { id: 'ha2', questionText: "What is it called when two keys hash to the same value?", options: ["Conflict", "Collision", "Matching", "Overlay"], correctAnswer: "Collision", explanation: "Hash collisions must be handled using techniques like chaining or open addressing.", difficulty: "Beginner" }
+        ]
+    },
+    'OOPS': {
+        explanation: "Object-Oriented Programming (OOPS) is based on 'objects' and 'classes'. Core pillars are Encapsulation (data hiding), Abstraction (hiding complexity), Inheritance (reusing code), and Polymorphism (many forms).",
+        questions: [
+            { id: 'oo1', questionText: "Hiding internal details and showing only functionality is?", options: ["Encapsulation", "Abstraction", "Inheritance", "Polymorphism"], correctAnswer: "Abstraction", explanation: "Abstraction focuses on 'what' it does rather than 'how'.", difficulty: "Beginner" },
+            { id: 'oo4', questionText: "Combining data and methods into a single unit is?", options: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"], correctAnswer: "Encapsulation", explanation: "Encapsulation wraps data and code together.", difficulty: "Beginner" }
+        ]
+    },
+    'Functions': {
+        explanation: "Functions are reusable blocks of code. They can take parameters (inputs) and return values. 'Call by value' passes a copy of the data, while 'Call by reference' passes the address.",
+        questions: [
+            { id: 'fn1', questionText: "A function that does not return any value usually has return type?", options: ["int", "void", "null", "empty"], correctAnswer: "void", explanation: "'void' signifies no return value.", difficulty: "Beginner" },
+            { id: 'fn2', questionText: "What is 'Scope' of a variable?", options: ["Its lifetime", "Region where it's accessible", "Its memory size", "Its data type"], correctAnswer: "Region where it's accessible", explanation: "Scope defines the boundaries within which a variable can be used.", difficulty: "Beginner" }
+        ]
+    },
+    'DBMS Basics': {
+        explanation: "Database Management Systems (DBMS) organize and manage data. Relational databases use Tables, Primary Keys (uniquely identify rows), and Foreign Keys (link tables). SQL is used to query these databases.",
+        questions: [
+            { id: 'db1', questionText: "Which key uniquely identifies a record in a table?", options: ["Foreign Key", "Primary Key", "Composite Key", "Unique Key"], correctAnswer: "Primary Key", explanation: "Every table must have a Primary Key for row identification.", difficulty: "Beginner" },
+            { id: 'db2', questionText: "What does SQL stand for?", options: ["Simple Query Logic", "Structured Query Language", "Standard Query Level", "System Query Link"], correctAnswer: "Structured Query Language", explanation: "The standard language for RDBMS.", difficulty: "Beginner" }
+        ]
+    },
+    'OS Basics': {
+        explanation: "Operating Systems (OS) manage hardware and software resources. Core concepts include Processes (running programs), Threads (units of execution within a process), and Memory Management.",
+        questions: [
+            { id: 'os1', questionText: "A process that is currently being executed is in which state?", options: ["Ready", "Running", "Waiting", "Terminated"], correctAnswer: "Running", explanation: "Running state means it's using the CPU.", difficulty: "Beginner" },
+            { id: 'os2', questionText: "Process vs Thread: Which shares the same memory space?", options: ["Processes", "Threads", "Both", "Neither"], correctAnswer: "Threads", explanation: "Threads of the same process share memory, making them lightweight.", difficulty: "Beginner" }
         ]
     },
 

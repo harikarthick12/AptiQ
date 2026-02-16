@@ -32,7 +32,7 @@ const topics = [
         category: 'Technical',
         icon: <Code className="w-5 h-5" />,
         color: 'bg-indigo-50 text-indigo-600',
-        items: ['OOPS', 'Arrays', 'Data Structures']
+        items: ['Arrays', 'Strings', 'Searching', 'Sorting', 'Recursion', 'Stack', 'Queue', 'Linked List', 'Trees', 'Hashing', 'OOPS', 'Time Complexity', 'Functions', 'DBMS Basics', 'OS Basics']
     },
     {
         category: 'Logical',
