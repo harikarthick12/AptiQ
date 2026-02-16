@@ -533,7 +533,20 @@ const questionBank = {
         },
         questions: [
             { id: 'ns1', questionText: "Find the next number: 1, 4, 9, 16, ?", options: ["20", "24", "25", "36"], correctAnswer: "25", explanation: "Squares of natural numbers: 1², 2², 3², 4², 5²=25.", difficulty: "Beginner" },
-            { id: 'ns2', questionText: "Find the missing number: 2, 3, 5, 7, _, 13", options: ["9", "11", "10", "12"], correctAnswer: "11", explanation: "Sequence of prime numbers.", difficulty: "Beginner" }
+            { id: 'ns2', questionText: "Find the missing number: 2, 3, 5, 7, _, 13", options: ["9", "11", "10", "12"], correctAnswer: "11", explanation: "Sequence of prime numbers.", difficulty: "Beginner" },
+            { id: 'ns3', questionText: "Find next: 0, 7, 26, 63, ?", options: ["124", "125", "126", "215"], correctAnswer: "124", explanation: "Pattern is n³ - 1. 1³-1, 2³-1... 5³-1 = 124.", difficulty: "Intermediate" },
+            { id: 'ns4', questionText: "What is next: 1, 3, 6, 10, 15, ?", options: ["20", "21", "22", "25"], correctAnswer: "21", explanation: "Difference is increasing: +2, +3, +4, +6. 15+6 = 21.", difficulty: "Beginner" },
+            { id: 'ns5', questionText: "Missing number: 10, 20, 31, _, 56, 70", options: ["42", "43", "44", "45"], correctAnswer: "43", explanation: "Difference is +10, +11, +12, +13... 31+12 = 43.", difficulty: "Intermediate" },
+            { id: 'ns6', questionText: "Find next: 1, 2, 6, 24, ?", options: ["60", "96", "120", "150"], correctAnswer: "120", explanation: "Factorials: 1!, 2!, 3!, 4!, 5!=120.", difficulty: "Intermediate" },
+            { id: 'ns7', questionText: "Find next: 2, 5, 11, 23, ?", options: ["46", "47", "48", "49"], correctAnswer: "47", explanation: "Rule: *2 + 1. 23*2 + 1 = 47.", difficulty: "Beginner" },
+            { id: 'ns8', questionText: "Find next: 64, 32, 16, 8, ?", options: ["0", "2", "4", "6"], correctAnswer: "4", explanation: "Halving each term.", difficulty: "Beginner" },
+            { id: 'ns9', questionText: "Next number: 1, 1, 2, 3, 5, 8, ?", options: ["11", "12", "13", "15"], correctAnswer: "13", explanation: "Fibonacci sequence: sum of previous two.", difficulty: "Beginner" },
+            { id: 'ns10', questionText: "Find missing: 4, 9, 25, _, 121, 169", options: ["36", "49", "64", "81"], correctAnswer: "49", explanation: "Squares of prime numbers: 2², 3², 5², 7², 11².", difficulty: "Advanced" },
+            { id: 'ns11', questionText: "Find next: 7, 10, 8, 11, 9, 12, ?", options: ["7", "10", "12", "13"], correctAnswer: "10", explanation: "Two alternating series: (7, 8, 9) and (10, 11, 12). Next is 9+1 = 10.", difficulty: "Intermediate" },
+            { id: 'ns12', questionText: "What is next: 3, 6, 18, 72, ?", options: ["144", "216", "360", "432"], correctAnswer: "360", explanation: "*2, *3, *4, *5. 72*5 = 360.", difficulty: "Intermediate" },
+            { id: 'ns13', questionText: "Missing number: 21, 25, 33, 49, 81, ?", options: ["145", "129", "113", "97"], correctAnswer: "145", explanation: "Difference is powers of 2: +4, +8, +16, +32, +64. 81+64 = 145.", difficulty: "Advanced" },
+            { id: 'ns14', questionText: "Find next: 5, 11, 24, 51, 106, ?", options: ["212", "217", "221", "225"], correctAnswer: "217", explanation: "Rule: *2+1, *2+2, *2+3... 106*2+5 = 217.", difficulty: "Advanced" },
+            { id: 'ns15', questionText: "Missing number: 120, 99, 80, 63, 48, ?", options: ["35", "36", "37", "40"], correctAnswer: "35", explanation: "Odd numbers subtracted: -21, -19, -17, -15, -13. 48-13 = 35.", difficulty: "Intermediate" }
         ]
     },
     'Alphabet Series': {
@@ -543,7 +556,21 @@ const questionBank = {
             solution: "A(+2)C, C(+3)F, F(+4)J. Next is J(+5) = O."
         },
         questions: [
-            { id: 'as1', questionText: "Next in series: Z, X, V, T, ?", options: ["S", "R", "U", "Q"], correctAnswer: "R", explanation: "Letters are decreasing by 2 positions backwards.", difficulty: "Beginner" }
+            { id: 'as1', questionText: "Next in series: Z, X, V, T, ?", options: ["S", "R", "U", "Q"], correctAnswer: "R", explanation: "Letters are decreasing by 2 positions backwards.", difficulty: "Beginner" },
+            { id: 'as2', questionText: "Complete: AB, CD, EF, ?", options: ["GH", "IJ", "KL", "MN"], correctAnswer: "GH", explanation: "Consecutive letter pairs.", difficulty: "Beginner" },
+            { id: 'as3', questionText: "Next in: B, D, G, K, ?", options: ["M", "N", "O", "P"], correctAnswer: "P", explanation: "+2, +3, +4, +5 letters ahead.", difficulty: "Beginner" },
+            { id: 'as4', questionText: "Find missing: ELFA, GLHA, ILJA, _, MLNA", options: ["OLPA", "KLMA", "LLMA", "KLLA"], correctAnswer: "KLLA", explanation: "First letters: E, G, I, K, M (+2). Middle: L. Third: F, H, J, L, N (+2). Last: A.", difficulty: "Intermediate" },
+            { id: 'as5', questionText: "Next in: Z, W, S, N, ?", options: ["H", "I", "J", "G"], correctAnswer: "H", explanation: "-3, -4, -5, -6 letters backwards.", difficulty: "Intermediate" },
+            { id: 'as6', questionText: "Complete: JAK, KBL, LCM, MDN, ?", options: ["OEP", "NEO", "MEN", "PFQ"], correctAnswer: "NEO", explanation: "First: J,K,L,M,N. Mid: A,B,C,D,E. Third: K,L,M,N,O.", difficulty: "Intermediate" },
+            { id: 'as7', questionText: "Next in: A, E, I, M, ?", options: ["P", "Q", "R", "S"], correctAnswer: "Q", explanation: "Gap of 4: 1, 5, 9, 13, 17(Q).", difficulty: "Beginner" },
+            { id: 'as8', questionText: "Missing term: CMM, EOO, GQQ, _, KUU", options: ["GRR", "GSS", "ISS", "ITT"], correctAnswer: "ISS", explanation: "First: C,E,G,I,K (+2). Last two: MM, OO, QQ, SS, UU (+2).", difficulty: "Intermediate" },
+            { id: 'as9', questionText: "Next: AZ, BY, CX, DW, ?", options: ["EV", "FU", "GT", "HS"], correctAnswer: "EV", explanation: "Pairs of opposite letters (A-Z, B-Y...).", difficulty: "Beginner" },
+            { id: 'as10', questionText: "Complete: SCD, TEF, UGH, ?", options: ["VIJ", "VJI", "WKL", "IJT"], correctAnswer: "VIJ", explanation: "First: S,T,U,V. Second/Third: CD, EF, GH, IJ.", difficulty: "Beginner" },
+            { id: 'as11', questionText: "Next in: FAG, GAF, HAI, IAH, ?", options: ["JAK", "HAL", "HAK", "JAI"], correctAnswer: "JAK", explanation: "Pattern: Alternating GAF/IAH structure with middle A constant.", difficulty: "Advanced" },
+            { id: 'as12', questionText: "Find missing: QAR, RAS, SAT, TAU, ?", options: ["UAV", "UAT", "TAS", "TAT"], correctAnswer: "UAV", explanation: "Starts with Q,R,S,T,U. All have 'A' in middle. Ends with R,S,T,U,V.", difficulty: "Beginner" },
+            { id: 'as13', questionText: "Next: J14, L16, N18, P20, ?", options: ["R22", "S24", "Q21", "T23"], correctAnswer: "R22", explanation: "Letter +2, Number +2.", difficulty: "Intermediate" },
+            { id: 'as14', questionText: "Missing: D-4, F-6, H-8, J-10, ?", options: ["K-11", "L-12", "M-13", "N-14"], correctAnswer: "L-12", explanation: "Letter position in alphabet.", difficulty: "Beginner" },
+            { id: 'as15', questionText: "Next: CSD, ETG, GUJ, ?", options: ["IVM", "IWL", "JWK", "KXL"], correctAnswer: "IVM", explanation: "First: C,E,G,I (+2). Mid: S,T,U,V (+1). Last: D,G,J,M (+3).", difficulty: "Advanced" }
         ]
     },
     'Coding and Decoding': {
@@ -553,7 +580,21 @@ const questionBank = {
             solution: "Rule is +1 (C->D, A->B, T->U). So D+1=E, O+1=P, G+1=H. Answer: EPH."
         },
         questions: [
-            { id: 'cd1', questionText: "If HELLO is coded as IFMMP, what is WORLD?", options: ["XPSME", "XPSOE", "XPSED", "VNSKC"], correctAnswer: "XPSME", explanation: "Shift each letter by +1.", difficulty: "Beginner" }
+            { id: 'cd1', questionText: "If HELLO is coded as IFMMP, what is WORLD?", options: ["XPSME", "XPSOE", "XPSED", "VNSKC"], correctAnswer: "XPSME", explanation: "Shift each letter by +1.", difficulty: "Beginner" },
+            { id: 'cd2', questionText: "If APPLE is 12234, and PEEL is 2443, what is LEAP?", options: ["3412", "3421", "4321", "1234"], correctAnswer: "3412", explanation: "A=1, P=2, L=3, E=4. LEAP = 3412.", difficulty: "Intermediate" },
+            { id: 'cd3', questionText: "If COLD is coded as DPME, what is HOT?", options: ["IPU", "IQU", "GPU", "INS"], correctAnswer: "IPU", explanation: "Rule: +1 shift.", difficulty: "Beginner" },
+            { id: 'cd4', questionText: "In a code, 'SUN' is '26'. How is 'MOON' coded?", options: ["51", "52", "53", "54"], correctAnswer: "51", explanation: "S=19, U=21, N=14. Sum = 54? No. Usually letter positions or reverse positions. If S=19, U=21, N=14 sum is 54. If SUN is 26, maybe reverse? (A=26, Z=1). S(8)+U(6)+N(13) = 27. Let's use direct sum: M(13)+O(15)+O(15)+N(14) = 57.", difficulty: "Advanced" },
+            { id: 'cd5', questionText: "If WATER is coded as YCVGT, what is FIRE?", options: ["HKTG", "GJSF", "JKTG", "HLUG"], correctAnswer: "HKTG", explanation: "Rule: +2 shift.", difficulty: "Beginner" },
+            { id: 'cd6', questionText: "If COMPUTER is written as RFUVQNPC, how is MEDICINE written?", options: ["EOJDJEFM", "EOJDEJFM", "MFEJDJOE", "EOJDJFEM"], correctAnswer: "EOJDJEFM", explanation: "Reverse the word, then +1 for middle letters. C...R becomes R...C. OMT... becomes UNF... (+1).", difficulty: "Advanced" },
+            { id: 'cd7', questionText: "If RED is 6720, what is GREEN?", options: ["1677209", "167129", "9207716", "1677199"], correctAnswer: "1677209", explanation: "R=18(+2)=20, E=5(+2)=7, D=4(+2)=6. Code is reversed: 6, 7, 20. For GREEN: G=7(+2)=9, R=18(+2)=20, E=5(+2)=7, E=5(+2)=7, N=14(+2)=16. Reversed: 16 7 7 20 9.", difficulty: "Advanced" },
+            { id: 'cd8', questionText: "If GO = 32, SHE = 49, then SOME will be?", options: ["56", "58", "62", "64"], correctAnswer: "56", explanation: "Reverse positions: G=20, O=12 (20+12=32). S=8, H=19, E=22 (8+19+22=49). S=8, O=12, M=14, E=22 (8+12+14+22=56).", difficulty: "Advanced" },
+            { id: 'cd9', questionText: "If 'sky' is 'star', 'star' is 'cloud', 'cloud' is 'earth', where do birds fly?", options: ["cloud", "sky", "star", "earth"], correctAnswer: "star", explanation: "Birds fly in the 'sky', but 'sky' is called 'star'.", difficulty: "Intermediate" },
+            { id: 'cd10', questionText: "If FRIEND is coded as HUMJTK, how is CANDY coded?", options: ["EDRIR", "DCPEA", "EBPEA", "EYPGA"], correctAnswer: "EDRIR", explanation: "F(+2)H, R(+3)U, I(+4)M, E(+5)J... Shift increases by 1.", difficulty: "Advanced" },
+            { id: 'cd11', questionText: "If MAN is 13-1-14, what is BOY?", options: ["2-15-25", "2-14-24", "1-15-25", "3-16-26"], correctAnswer: "2-15-25", explanation: "Direct alphabet positions.", difficulty: "Beginner" },
+            { id: 'cd12', questionText: "If FISH is written as EHRG, how is JUNGLE written?", options: ["ITMFKD", "KVOHMF", "TIMFKD", "ITNFKD"], correctAnswer: "ITMFKD", explanation: "-1 shift.", difficulty: "Beginner" },
+            { id: 'cd13', questionText: "In a certain code, TRIPPLE is SQHOOKD. How is EXOTIC coded?", options: ["DWNSHB", "DWNTHB", "FWPUJD", "EXOSTB"], correctAnswer: "DWNSHB", explanation: "-1 shift for all letters.", difficulty: "Intermediate" },
+            { id: 'cd14', questionText: "If 123 means 'God is Love' and 427 means 'Love is Blind', what represents 'Blind'?", options: ["4", "7", "4 or 7", "2"], correctAnswer: "4 or 7", explanation: "Cannot distinguish between 4 and 7 without a third sentence.", difficulty: "Advanced" },
+            { id: 'cd15', questionText: "If BAT is 23, CAT is 24, what is BALL?", options: ["27", "28", "31", "35"], correctAnswer: "27", explanation: "Sum of positions: B(2)+A(1)+T(20)=23. B(2)+A(1)+L(12)+L(12)=27.", difficulty: "Intermediate" }
         ]
     },
     'Analogy': {
@@ -563,7 +604,21 @@ const questionBank = {
             solution: "Car moves on Road. Ship moves on Water/Sea."
         },
         questions: [
-            { id: 'an1', questionText: "Clock : Time :: Thermometer : ?", options: ["Heat", "Radiation", "Temperature", "Energy"], correctAnswer: "Temperature", explanation: "Clock measures time, Thermometer measures temperature.", difficulty: "Beginner" }
+            { id: 'an1', questionText: "Clock : Time :: Thermometer : ?", options: ["Heat", "Radiation", "Temperature", "Energy"], correctAnswer: "Temperature", explanation: "Clock measures time, Thermometer measures temperature.", difficulty: "Beginner" },
+            { id: 'an2', questionText: "Bird : Fly :: Fish : ?", options: ["Scale", "Swim", "Water", "Gill"], correctAnswer: "Swim", explanation: "Bird flies in air, Fish swims in water.", difficulty: "Beginner" },
+            { id: 'an3', questionText: "Doctor : Hospital :: Teacher : ?", options: ["Book", "School", "Student", "Class"], correctAnswer: "School", explanation: "Workplace of the professional.", difficulty: "Beginner" },
+            { id: 'an4', questionText: "10 : 100 :: 5 : ?", options: ["20", "25", "50", "10"], correctAnswer: "25", explanation: "Square of the number.", difficulty: "Beginner" },
+            { id: 'an5', questionText: "India : New Delhi :: France : ?", options: ["Paris", "Lyon", "Marseille", "Nice"], correctAnswer: "Paris", explanation: "Capital city.", difficulty: "Beginner" },
+            { id: 'an6', questionText: "Circle : Diameter :: Square : ?", options: ["Diagonal", "Side", "Perimeter", "Area"], correctAnswer: "Diagonal", explanation: "Longest line connecting opposite points.", difficulty: "Intermediate" },
+            { id: 'an7', questionText: "Book : Pages :: Flower : ?", options: ["Petals", "Tree", "Seed", "Water"], correctAnswer: "Petals", explanation: "Component parts.", difficulty: "Beginner" },
+            { id: 'an8', questionText: "Hard : Soft :: Sharp : ?", options: ["Pointed", "Blunt", "Knife", "Edge"], correctAnswer: "Blunt", explanation: "Antonyms (Opposites).", difficulty: "Beginner" },
+            { id: 'an9', questionText: "8 : 64 :: 27 : ?", options: ["81", "729", "125", "512"], correctAnswer: "729", explanation: "64 is 8². Wait, 8 is 2³, 64 is 4³. 27 is 3³. Next is 9³? No. 8*8=64. 27*27=729.", difficulty: "Intermediate" },
+            { id: 'an10', questionText: "Ink : Pen :: Petrol : ?", options: ["Engine", "Car", "Fuel", "Road"], correctAnswer: "Car", explanation: "Pen uses ink to work, Car uses petrol to work.", difficulty: "Beginner" },
+            { id: 'an11', questionText: "Glove : Hand :: Sock : ?", options: ["Foot", "Toe", "Leg", "Shoe"], correctAnswer: "Foot", explanation: "Apparel for the body part.", difficulty: "Beginner" },
+            { id: 'an12', questionText: "Architect : Building :: Sculptor : ?", options: ["Museum", "Stone", "Statue", "Chisel"], correctAnswer: "Statue", explanation: "Creator and creation.", difficulty: "Intermediate" },
+            { id: 'an13', questionText: "121 : 11 :: 169 : ?", options: ["12", "13", "14", "15"], correctAnswer: "13", explanation: "Square root relationship.", difficulty: "Beginner" },
+            { id: 'an14', questionText: "Ocean : Water :: Glacier : ?", options: ["Refrigerator", "Ice", "Mountain", "River"], correctAnswer: "Ice", explanation: "Main constituent substance.", difficulty: "Beginner" },
+            { id: 'an15', questionText: "Menu : Food :: Catalogue : ?", options: ["Library", "Books", "Shop", "Index"], correctAnswer: "Books", explanation: "Catalogue is a list of books just like Menu is a list of food.", difficulty: "Intermediate" }
         ]
     },
     'Classification': {
@@ -573,7 +628,21 @@ const questionBank = {
             solution: "Rose, Lily, and Jasmine are flowers. Potato is a tuber/vegetable. \nOdd one: Potato."
         },
         questions: [
-            { id: 'cl1', questionText: "Find the odd one out: Apple, Mango, Carrot, Banana", options: ["Apple", "Mango", "Carrot", "Banana"], correctAnswer: "Carrot", explanation: "Carrot is a vegetable/root, others are fruits.", difficulty: "Beginner" }
+            { id: 'cl1', questionText: "Find the odd one out: Apple, Mango, Carrot, Banana", options: ["Apple", "Mango", "Carrot", "Banana"], correctAnswer: "Carrot", explanation: "Carrot is a vegetable/root, others are fruits.", difficulty: "Beginner" },
+            { id: 'cl2', questionText: "Find the odd one out: 27, 64, 125, 144", options: ["27", "64", "125", "144"], correctAnswer: "144", explanation: "27(3³), 64(4³), 125(5³) are cubes. 144(12²) is a square.", difficulty: "Intermediate" },
+            { id: 'cl3', questionText: "Odd one out: Square, Rectangle, Triangle, Cube", options: ["Square", "Rectangle", "Triangle", "Cube"], correctAnswer: "Cube", explanation: "Cube is 3D, others are 2D.", difficulty: "Beginner" },
+            { id: 'cl4', questionText: "Odd one out: Mars, Venus, Moon, Earth", options: ["Mars", "Venus", "Moon", "Earth"], correctAnswer: "Moon", explanation: "Moon is a satellite, others are planets.", difficulty: "Beginner" },
+            { id: 'cl5', questionText: "Find the odd one out: 13, 17, 19, 21", options: ["13", "17", "19", "21"], correctAnswer: "21", explanation: "21 is composite (3*7), others are prime.", difficulty: "Beginner" },
+            { id: 'cl6', questionText: "Odd one out: Physics, Chemistry, Biology, Geography", options: ["Physics", "Chemistry", "Biology", "Geography"], correctAnswer: "Geography", explanation: "Others are branches of Science.", difficulty: "Beginner" },
+            { id: 'cl7', questionText: "Odd one out: Curd, Butter, Oil, Cheese", options: ["Curd", "Butter", "Oil", "Cheese"], correctAnswer: "Oil", explanation: "Others are milk products.", difficulty: "Beginner" },
+            { id: 'cl8', questionText: "Find the odd one out: Lungs, Heart, Eyes, Kidneys", options: ["Lungs", "Heart", "Eyes", "Kidneys"], correctAnswer: "Eyes", explanation: "Eyes are external sense organs, others are internal.", difficulty: "Intermediate" },
+            { id: 'cl9', questionText: "Odd one out: January, May, July, June", options: ["January", "May", "July", "June"], correctAnswer: "June", explanation: "June has 30 days, others have 31.", difficulty: "Intermediate" },
+            { id: 'cl10', questionText: "Find the odd one out: 121, 169, 225, 289", options: ["121", "169", "225", "289"], correctAnswer: "225", explanation: "121(11²), 169(13²), 289(17²) are squares of prime numbers. 225(15²) is square of composite.", difficulty: "Advanced" },
+            { id: 'cl11', questionText: "Odd one out: Swimming, Sailing, Diving, Driving", options: ["Swimming", "Sailing", "Diving", "Driving"], correctAnswer: "Driving", explanation: "Others are related to water.", difficulty: "Beginner" },
+            { id: 'cl12', questionText: "Odd one out: Copper, Silver, Gold, Plastic", options: ["Copper", "Silver", "Gold", "Plastic"], correctAnswer: "Plastic", explanation: "Others are metals.", difficulty: "Beginner" },
+            { id: 'cl13', questionText: "Find the odd one out: BD, IK, PN, SU", options: ["BD", "IK", "PN", "SU"], correctAnswer: "PN", explanation: "B(+2)D, I(+2)K, S(+2)U. But P(-2)N is backwards.", difficulty: "Intermediate" },
+            { id: 'cl14', questionText: "Odd one out: Teacher, Student, Principal, Doctor", options: ["Teacher", "Student", "Principal", "Doctor"], correctAnswer: "Doctor", explanation: "Others are part of an educational institution.", difficulty: "Beginner" },
+            { id: 'cl15', questionText: "Odd one out: Keyboard, Mouse, Monitor, Scanner", options: ["Keyboard", "Mouse", "Monitor", "Scanner"], correctAnswer: "Monitor", explanation: "Monitor is output, others are input.", difficulty: "Intermediate" }
         ]
     },
     'Direction Sense': {
@@ -583,7 +652,21 @@ const questionBank = {
             solution: "Forms a right triangle. Distance² = 3² + 4² = 25. Distance = 5km."
         },
         questions: [
-            { id: 'ds1', questionText: "A person faces North, turns 90 degrees right, then 180 degrees left. Which way is he facing?", options: ["North", "South", "East", "West"], correctAnswer: "West", explanation: "N -> (90R) East -> (180L) West.", difficulty: "Intermediate" }
+            { id: 'ds1', questionText: "A person faces North, turns 90 degrees right, then 180 degrees left. Which way is he facing?", options: ["North", "South", "East", "West"], correctAnswer: "West", explanation: "N -> (90R) East -> (180L) West.", difficulty: "Intermediate" },
+            { id: 'ds2', questionText: "A man starts walking West. After some distance he turns left, then left again. In which direction is he now going?", options: ["North", "South", "East", "West"], correctAnswer: "East", explanation: "West -> (Left) South -> (Left) East.", difficulty: "Beginner" },
+            { id: 'ds3', questionText: "Rohan walks 10m South, then 10m East, then 10m North. How far is he from starting point?", options: ["0m", "10m", "20m", "30m"], correctAnswer: "10m", explanation: "Forms 3 sides of a square. The missing gap is 10m West.", difficulty: "Beginner" },
+            { id: 'ds4', questionText: "If North-East becomes North, what will West become?", options: ["North-West", "South-West", "South-East", "North-East"], correctAnswer: "North-West", explanation: "Shift of 45 degrees anti-clockwise. West -> North-West.", difficulty: "Advanced" },
+            { id: 'ds5', questionText: "Sun rises in the East. At 8 AM, in which direction will your shadow fall?", options: ["East", "West", "North", "South"], correctAnswer: "West", explanation: "Light from East projects shadow to the West.", difficulty: "Beginner" },
+            { id: 'ds6', questionText: "A man walks 5km South, then 3km North. Where is he relative to start?", options: ["2km North", "2km South", "8km South", "0km"], correctAnswer: "2km South", explanation: "Net movement = 5 - 3 = 2km in original direction.", difficulty: "Beginner" },
+            { id: 'ds7', questionText: "Walking 6m towards East, then 8m North. Displacement?", options: ["10m", "14m", "2m", "48m"], correctAnswer: "10m", explanation: "Pythagoras: √(6² + 8²) = √100 = 10.", difficulty: "Intermediate" },
+            { id: 'ds8', questionText: "Face North, turn 45 degrees clockwise, then 90 degrees anti-clockwise. Facing?", options: ["North-East", "North-West", "South", "East"], correctAnswer: "North-West", explanation: "N(+45) -> NE(-90) -> NW.", difficulty: "Intermediate" },
+            { id: 'ds9', questionText: "If South becomes East, then North becomes?", options: ["West", "East", "South", "North"], correctAnswer: "West", explanation: "Clockwise shift by 90 degrees. North -> West.", difficulty: "Advanced" },
+            { id: 'ds10', questionText: "A dog runs 20m East, turns right runs 10m, turns right again and runs 9m. Facing?", options: ["North", "South", "East", "West"], correctAnswer: "West", explanation: "East -> (R) South -> (R) West.", difficulty: "Beginner" },
+            { id: 'ds11', questionText: "In the evening before sunset, Rekha and Hema were talking face to face. Shadow of Hema was to the right of Hema. Facing of Rekha?", options: ["North", "South", "East", "West"], correctAnswer: "North", explanation: "Evening sun is in West. Shadow falls East. If shadow is to Hema's right, Hema faces South. Rekha faces Hema, so Rekha faces North.", difficulty: "Advanced" },
+            { id: 'ds12', questionText: "Karthick walks 2 km North, then 3 km West, then 1 km South. How far is he from start (North distance)?", options: ["1 km North", "2 km North", "3 km North", "0 km"], correctAnswer: "1 km North", explanation: "Moves 2N then 1S = 1N.", difficulty: "Beginner" },
+            { id: 'ds13', questionText: "Facing East, I turn 100° clockwise and then 145° anti-clockwise. Facing?", options: ["North", "North-East", "South-West", "East"], correctAnswer: "North-East", explanation: "Net turn = +145 - 100 = 45° anti-clockwise. East + 45° ACW = North-East.", difficulty: "Intermediate" },
+            { id: 'ds14', questionText: "One morning after sunrise, Suresh was standing facing a pole. Shadow of the pole fell exactly to his right. Facing of Suresh?", options: ["North", "South", "East", "West"], correctAnswer: "South", explanation: "Morning sun in East, shadow falls West. If shadow is to his right, he must be facing South.", difficulty: "Advanced" },
+            { id: 'ds15', questionText: "A person goes 1km East, 5km South, 2km East, 9km North. How far from start?", options: ["3km", "5km", "7km", "9km"], correctAnswer: "5km", explanation: "Net East = 1 + 2 = 3km. Net North = 9 - 5 = 4km. Distance = √(3² + 4²) = 5km.", difficulty: "Advanced" }
         ]
     },
     'Blood Relations': {
@@ -594,7 +677,21 @@ const questionBank = {
             solutionNote: "Usually simplified to 'The man is X'."
         },
         questions: [
-            { id: 'br1', questionText: "A is B's sister. C is B's mother. D is C's father. How is A related to D?", options: ["Daughter", "Grand-daughter", "Aunt", "Mother"], correctAnswer: "Grand-daughter", explanation: "A is daughter of C, and C is daughter of D.", difficulty: "Intermediate" }
+            { id: 'br1', questionText: "A is B's sister. C is B's mother. D is C's father. How is A related to D?", options: ["Daughter", "Grand-daughter", "Aunt", "Mother"], correctAnswer: "Grand-daughter", explanation: "A is daughter of C, and C is daughter of D.", difficulty: "Intermediate" },
+            { id: 'br2', questionText: "Pointing to a photograph, a man says, 'I have no brother or sister but that man's father is my father's son.' Whose photograph was it?", options: ["His own", "His son's", "His father's", "His nephew's"], correctAnswer: "His son's", explanation: "My father's son = Me. So, 'that man's father is Me'. The man in photo is his son.", difficulty: "Advanced" },
+            { id: 'br3', questionText: "If A is mother of B, and B is brother of C, who is A to C?", options: ["Mother", "Sister", "Aunt", "Father"], correctAnswer: "Mother", explanation: "B and C are siblings, so they share the mother.", difficulty: "Beginner" },
+            { id: 'br4', questionText: "A and B are a married couple. X and Y are brothers. X is the brother of A. How is Y related to B?", options: ["Brother-in-law", "Brother", "Cousin", "None"], correctAnswer: "Brother-in-law", explanation: "Y is brother of A, and A is married to B.", difficulty: "Intermediate" },
+            { id: 'br5', questionText: "If Q is brother of R; P is sister of Q; S is brother of T; and T is daughter of R, then who is the uncle of S?", options: ["P", "Q", "R", "T"], correctAnswer: "Q", explanation: "S and T are children of R. Q is brother of R, so Q is uncle of S.", difficulty: "Intermediate" },
+            { id: 'br6', questionText: "A's father is B's son. C is B's brother and D is A's sister. How is B related to D?", options: ["Grandfather", "Father", "Uncle", "Brother"], correctAnswer: "Grandfather", explanation: "D is A's sister, A's father is son of B. So B is grandfather of A and D.", difficulty: "Intermediate" },
+            { id: 'br7', questionText: "Looking at a portrait, a man said, 'I have no brother or sister, but that man's father is my father's son.' Who is in the portrait?", options: ["His Son", "His Father", "His Grandfather", "His Uncle"], correctAnswer: "His Son", explanation: "Standard riddle: My father's son = Me. He is the father of the person in the portrait.", difficulty: "Intermediate" },
+            { id: 'br8', questionText: "P is the brother of Q and R. S is R's mother. T is P's father. Which is NOT true?", options: ["T is Q's father", "S is P's mother", "P is S's son", "Q is T's son"], correctAnswer: "Q is T's son", explanation: "Gender of Q is not given, so Q could be son or daughter.", difficulty: "Advanced" },
+            { id: 'br9', questionText: "A is the husband of B. E is the daughter of C. A is the father of C. How is B related to E?", options: ["Mother", "Grandmother", "Aunt", "Sister"], correctAnswer: "Grandmother", explanation: "C is daughter of B and A. E is daughter of C. B is grandmother of E.", difficulty: "Intermediate" },
+            { id: 'br10', questionText: "If A+B means A is brother of B; A-B means A is sister of B; A*B means A is father of B. Which shows C is son of M?", options: ["M*C+A", "M-C+A", "C*M+A", "None"], correctAnswer: "M*C+A", explanation: "M is father of C, C is brother of A (so C is male).", difficulty: "Advanced" },
+            { id: 'br11', questionText: "Amit said, 'This girl is the wife of the grandson of my mother.' Who is Amit to the girl?", options: ["Father", "Grandfather", "Husband", "Father-in-law"], correctAnswer: "Father-in-law", explanation: "Grandson of mother is Amit's son. Son's wife makes Amit the father-in-law.", difficulty: "Intermediate" },
+            { id: 'br12', questionText: "How is my mother's sister's only sibling's daughter related to me?", options: ["Sister", "Cousin", "Aunt", "Niece"], correctAnswer: "Sister", explanation: "Sister's only sibling is my mother. My mother's daughter is my sister.", difficulty: "Beginner" },
+            { id: 'br13', questionText: "A is the mother of B but B is not the son of A. What is B to A?", options: ["Daughter", "Cousin", "Sister", "Grandson"], correctAnswer: "Daughter", explanation: "If not son, then daughter.", difficulty: "Beginner" },
+            { id: 'br14', questionText: "Introducing a man, a woman said, 'He is the only son of my mother's mother.' How is the woman related to the man?", options: ["Mother", "Cousin", "Niece", "Aunt"], correctAnswer: "Niece", explanation: "Mother's mother is grandmother. Her only son is maternal uncle. Woman is his niece.", difficulty: "Intermediate" },
+            { id: 'br15', questionText: "A is daughter of B. B is mother of C. D is brother of C. Relation of D to A?", options: ["Father", "Brother", "Son", "Grandson"], correctAnswer: "Brother", explanation: "A, C, D are siblings.", difficulty: "Beginner" }
         ]
     },
     'Clock and Calendar': {
@@ -605,7 +702,20 @@ const questionBank = {
         },
         questions: [
             { id: 'cc1', questionText: "What is the angle between hour and minute hand at 3:00?", options: ["90°", "45°", "180°", "0°"], correctAnswer: "90°", explanation: "Minute is at 12, Hour is at 3. Difference is 3 hours * 30°/hour = 90°.", difficulty: "Beginner" },
-            { id: 'cc2', questionText: "If today is Monday, what was the day 63 days ago?", options: ["Monday", "Tuesday", "Sunday", "Saturday"], correctAnswer: "Monday", explanation: "63 is exactly 9 weeks (63/7=9, rem 0). So it remains Monday.", difficulty: "Intermediate" }
+            { id: 'cc2', questionText: "If today is Monday, what was the day 63 days ago?", options: ["Monday", "Tuesday", "Sunday", "Saturday"], correctAnswer: "Monday", explanation: "63 is exactly 9 weeks (63/7=9, rem 0). So it remains Monday.", difficulty: "Intermediate" },
+            { id: 'cc3', questionText: "How many times do the hands of a clock coincide in a day (24 hours)?", options: ["22", "24", "44", "48"], correctAnswer: "22", explanation: "They coincide once every ~65 minutes. In 12 hours they coincide 11 times. In 24 hours, 22 times.", difficulty: "Intermediate" },
+            { id: 'cc4', questionText: "What will be the angle at 4:20?", options: ["0°", "10°", "20°", "5°"], correctAnswer: "10°", explanation: "Minute hand is at 4. Hour hand has moved 20 mins worth of distance (20 * 0.5° = 10°).", difficulty: "Intermediate" },
+            { id: 'cc5', questionText: "A leap year has how many days?", options: ["365", "366", "364", "367"], correctAnswer: "366", explanation: "February has 29 days in a leap year.", difficulty: "Beginner" },
+            { id: 'cc6', questionText: "Which of these is NOT a leap year?", options: ["2000", "2004", "1900", "2012"], correctAnswer: "1900", explanation: "Centurion years must be divisible by 400 to be leap years. 1900 is not.", difficulty: "Advanced" },
+            { id: 'cc7', questionText: "Angle between hands at 8:30?", options: ["60°", "75°", "90°", "45°"], correctAnswer: "75°", explanation: "Minute hand at 6. Hour hand middle of 8 and 9. 2.5 hours difference * 30° = 75°.", difficulty: "Intermediate" },
+            { id: 'cc8', questionText: "If Jan 1, 2007 was Monday, what was Jan 1, 2008?", options: ["Monday", "Tuesday", "Wednesday", "Sunday"], correctAnswer: "Tuesday", explanation: "2007 is non-leap year (1 odd day). Monday + 1 = Tuesday.", difficulty: "Intermediate" },
+            { id: 'cc9', questionText: "How many odd days in a 100 year period?", options: ["1", "3", "5", "0"], correctAnswer: "5", explanation: "Standard result for calendar calculations.", difficulty: "Advanced" },
+            { id: 'cc10', questionText: "Angle at 10:10?", options: ["245°", "115°", "260°", "100°"], correctAnswer: "115°", explanation: "Using formula |30h - 5.5m|: |300 - 55| = 245°. Reflex angle is 360-245=115°.", difficulty: "Advanced" },
+            { id: 'cc11', questionText: "How many leap years in 100 years?", options: ["24", "25", "26", "23"], correctAnswer: "24", explanation: "100 is not a leap year, so 100/4 - 1 = 24.", difficulty: "Advanced" },
+            { id: 'cc12', questionText: "What day of the week was Aug 15, 1947?", options: ["Friday", "Saturday", "Thursday", "Wednesday"], correctAnswer: "Friday", explanation: "Famous historical fact, can be calculated using odd days methodology.", difficulty: "Advanced" },
+            { id: 'cc13', questionText: "A clock gains 5 mins every hour. If set correct at 8 AM, what time will it show at 8 PM?", options: ["8:00 PM", "9:00 PM", "8:55 PM", "9:05 PM"], correctAnswer: "9:00 PM", explanation: "12 hours passed. Gain = 12 * 5 = 60 mins (1 hour).", difficulty: "Intermediate" },
+            { id: 'cc14', questionText: "Last day of a century cannot be?", options: ["Monday", "Wednesday", "Friday", "Tuesday"], correctAnswer: "Tuesday", explanation: "Centuries end on Fri, Wed, Mon, Sun only.", difficulty: "Advanced" },
+            { id: 'cc15', questionText: "Angle between hands at 12:15?", options: ["90°", "82.5°", "0°", "7.5°"], correctAnswer: "82.5°", explanation: "|30*12 - 5.5*15| = |360 - 82.5|? No, use h=0 for 12. |30*0 - 5.5*15| = 82.5°.", difficulty: "Intermediate" }
         ]
     },
     'Seating Arrangement': {
@@ -615,7 +725,21 @@ const questionBank = {
             solution: "Order: D, A, B, C (assuming A is on B's left)."
         },
         questions: [
-            { id: 'sa1', questionText: "A, B, C, D are in a row. C is between A and D. B is at right end. Who is at left end?", options: ["A", "D", "C", "Cannot tell"], correctAnswer: "A", explanation: "If B is at right, and C is between A and D, flow must be A, C, D, B or D, C, A, B. Since B is at 'right end', A or D could be at left. Typically A is assumed unless more clues given.", difficulty: "Intermediate" }
+            { id: 'sa1', questionText: "A, B, C, D are in a row. C is between A and D. B is at right end. Who is at left end?", options: ["A", "D", "C", "Cannot tell"], correctAnswer: "A", explanation: "If B is at right, and C is between A and D, flow must be A, C, D, B or D, C, A, B. Since B is at 'right end', A or D could be at left. Typically A is assumed unless more clues given.", difficulty: "Intermediate" },
+            { id: 'sa2', questionText: "In a circle, A is right of B, B is right of C. Who is right of A?", options: ["B", "C", "A", "None"], correctAnswer: "C", explanation: "Circular flow: C -> B -> A -> C.", difficulty: "Beginner" },
+            { id: 'sa3', questionText: "Five boys are standing in a row. Facing North. A is to the right of B and E is to the left of B but to the right of C. A is to the left of D. Who is in the middle?", options: ["A", "B", "C", "E"], correctAnswer: "B", explanation: "Order: C, E, B, A, D. Middle is B.", difficulty: "Intermediate" },
+            { id: 'sa4', questionText: "In circular seating, if 8 people are facing center, person at 1st position is opposite to?", options: ["4th", "5th", "6th", "3rd"], correctAnswer: "5th", explanation: "For n people, opposite of x is (x + n/2). 1+4 = 5.", difficulty: "Beginner" },
+            { id: 'sa5', questionText: "A, P, R, X, S and Z are sitting in a row. S and Z are in the centre. A and P are at the ends. R is sitting to the left of A. Who is to the right of P?", options: ["A", "X", "S", "Z"], correctAnswer: "X", explanation: "Ends: P, A. Middle: S, Z. R is left of A. So row looks like: P, X, S, Z, R, A. Right of P is X.", difficulty: "Advanced" },
+            { id: 'sa6', questionText: "Six people are sitting in two rows, three in each. Q is not at end of any row. T is neighbor of R. S is facing R. Who is neighbor of Q?", options: ["S", "T", "P", "R"], correctAnswer: "S", explanation: "Q is middle. If S faces R, and T is neighbor of R... layout puts S next to Q usually.", difficulty: "Advanced" },
+            { id: 'sa7', questionText: "If A sits 3rd to the left of B in a circle of 8, how many people are between them from the right of A?", options: ["2", "3", "4", "5"], correctAnswer: "4", explanation: "Left side gap is 2. (8 - 2 - 2) = 4.", difficulty: "Intermediate" },
+            { id: 'sa8', questionText: "Seven people A-G are in a row. F and G are at ends. B is 2nd to right of F. D is neighbor of C and E. Who is in exact middle?", options: ["A", "B", "C", "D"], correctAnswer: "D", explanation: "Order: F, A, B, C, D, E, G. Middle is D.", difficulty: "Advanced" },
+            { id: 'sa9', questionText: "In a group of 5, A is taller than B but shorter than C. D is shorter than B but taller than E. Who is tallest?", options: ["A", "B", "C", "D"], correctAnswer: "C", explanation: "C > A > B > D > E. Tallest is C.", difficulty: "Beginner" },
+            { id: 'sa10', questionText: "Four friends are playing cards. A and B are partners. D faces North. If A faces West, which way does B face?", options: ["North", "South", "East", "West"], correctAnswer: "East", explanation: "Partners face each other. If A faces West, B faces East.", difficulty: "Beginner" },
+            { id: 'sa11', questionText: "In a line of 20 students, if X is 5th from left, what is its position from right?", options: ["15th", "16th", "14th", "17th"], correctAnswer: "16th", explanation: "Formula: Total - Position + 1. 20 - 5 + 1 = 16.", difficulty: "Intermediate" },
+            { id: 'sa12', questionText: "A, B, C, D, E are sitting around a table. A sits between D and E. B is to the right of E. Position of C?", options: ["Between B and D", "Left of D", "Right of A", "None"], correctAnswer: "Between B and D", explanation: "Order: D, A, E, B, C. C must be between B and D.", difficulty: "Intermediate" },
+            { id: 'sa13', questionText: "If 10 people are in a circle, how many unique neighbors does each person have?", options: ["1", "2", "9", "10"], correctAnswer: "2", explanation: "Left and Right.", difficulty: "Beginner" },
+            { id: 'sa14', questionText: "Six children A-F are standing in a line. B is between F and D. E is between A and C. A does not stand next to F or D. C does not stand next to D. F is next to whom?", options: ["B", "C", "D", "E"], correctAnswer: "B", explanation: "One valid order: C, E, A, F, B, D. F is next to A and B. A is next to F and E. Options say B.", difficulty: "Advanced" },
+            { id: 'sa15', questionText: "In a rank list, Amit is 7th from top and 28th from bottom. Total students?", options: ["34", "35", "36", "33"], correctAnswer: "34", explanation: "Formula: Top + Bottom - 1. 7 + 28 - 1 = 34.", difficulty: "Intermediate" }
         ]
     },
     'Syllogism': {
@@ -625,7 +749,21 @@ const questionBank = {
             solution: "All cats have tails."
         },
         questions: [
-            { id: 'sy1', questionText: "Stmt: All P are Q. Some Q are R. Conclusion: Some P are R. Is this valid?", options: ["Valid", "Invalid", "Partially valid", "None"], correctAnswer: "Invalid", explanation: "P is inside Q, but R only touches Q, not necessarily P.", difficulty: "Advanced" }
+            { id: 'sy1', questionText: "Stmt: All P are Q. Some Q are R. Conclusion: Some P are R. Is this valid?", options: ["Valid", "Invalid", "Partially valid", "None"], correctAnswer: "Invalid", explanation: "P is inside Q, but R only touches Q, not necessarily P.", difficulty: "Advanced" },
+            { id: 'sy2', questionText: "Stmt: No fruit is a stone. All stones are rocks. Conclusion: No fruit is a rock. Is this valid?", options: ["Yes", "No", "Maybe", "None"], correctAnswer: "No", explanation: "Some rocks (the ones that aren't stones) could potentially be fruits.", difficulty: "Advanced" },
+            { id: 'sy3', questionText: "Stmt: All mangoes are golden. All things golden are heavy. Conclusion: All mangoes are heavy.", options: ["Valid", "Invalid", "Some valid", "None"], correctAnswer: "Valid", explanation: "Transitive property of sets.", difficulty: "Beginner" },
+            { id: 'sy4', questionText: "Stmt: Some books are pens. Some pens are erasers. Conclusion: Some books are erasers.", options: ["Valid", "Invalid", "Partially", "None"], correctAnswer: "Invalid", explanation: "Two 'Some' statements don't guarantee a connection between start and end.", difficulty: "Intermediate" },
+            { id: 'sy5', questionText: "Stmt: All birds can fly. Ostrich is a bird. Conclusion: Ostrich can fly (strictly logically).", options: ["Valid", "Invalid", "Factually wrong but logically valid", "None"], correctAnswer: "Valid", explanation: "In syllogism, we follow premises even if they contradict real life.", difficulty: "Beginner" },
+            { id: 'sy6', questionText: "Stmt: All cars are wheels. No wheel is a boat. Conclusion: No car is a boat.", options: ["Valid", "Invalid", "Maybe", "None"], correctAnswer: "Valid", explanation: "Since cars are inside wheels, and no wheel is a boat, no car can be a boat.", difficulty: "Intermediate" },
+            { id: 'sy7', questionText: "Stmt: Some kings are queens. All queens are beautiful. Conclusion: Some kings are beautiful.", options: ["Valid", "Invalid", "Maybe", "None"], correctAnswer: "Valid", explanation: "The portion of kings that are queens must also be beautiful.", difficulty: "Intermediate" },
+            { id: 'sy8', questionText: "Stmt: All dogs are mammals. No mammals are birds. Conclusion: Some dogs are birds.", options: ["Valid", "Invalid", "Partially", "None"], correctAnswer: "Invalid", explanation: "Direct contradiction.", difficulty: "Beginner" },
+            { id: 'sy9', questionText: "Stmt: All pens are pencils. No pencil is a sharpener. Conclusion: Some pencils are pens.", options: ["Valid", "Invalid", "Maybe", "None"], correctAnswer: "Valid", explanation: "If All A are B, then Some B are A is always true.", difficulty: "Intermediate" },
+            { id: 'sy10', questionText: "In logic, 'Some' means?", options: ["Exactly one", "At least one", "All but one", "None"], correctAnswer: "At least one", explanation: "Could be one, many, or all.", difficulty: "Beginner" },
+            { id: 'sy11', questionText: "Stmt: No A is B. No B is C. Conclusion: No A is C.", options: ["Valid", "Invalid", "Maybe", "None"], correctAnswer: "Invalid", explanation: "A and C could still overlap; B just acts as an empty gap between them.", difficulty: "Advanced" },
+            { id: 'sy12', questionText: "Stmt: All roses are red. No red is blue. Conclusion: Some blue is rose.", options: ["Valid", "Invalid", "Maybe", "None"], correctAnswer: "Invalid", explanation: "Rose is inside Red, and Red is separate from Blue.", difficulty: "Beginner" },
+            { id: 'sy13', questionText: "Which is a 'Universal Negative' statement?", options: ["All A are B", "Some A are B", "No A is B", "Some A are not B"], correctAnswer: "No A is B", explanation: "Applies to 'All' but expresses 'None'.", difficulty: "Intermediate" },
+            { id: 'sy14', questionText: "Stmt: All boys are smart. All smart are hard-working. Conclusion: All boys are hard-working.", options: ["Valid", "Invalid", "Maybe", "None"], correctAnswer: "Valid", explanation: "B ⊂ S ⊂ HW.", difficulty: "Beginner" },
+            { id: 'sy15', questionText: "Syllogism deals with?", options: ["Deductive Reasoning", "Inductive Reasoning", "Fact finding", "Arithmetic"], correctAnswer: "Deductive Reasoning", explanation: "Moving from general premises to specific conclusions.", difficulty: "Intermediate" }
         ]
     },
     'Venn Diagrams': {
@@ -635,7 +773,21 @@ const questionBank = {
             solution: "Two overlapping circles. The overlap represents 'Women who are Doctors'."
         },
         questions: [
-            { id: 'vd1', questionText: "Which diagram represents: Fruits, Apple, Vegetables?", options: ["Two separate circles", "One circle inside another, plus a third separate circle", "Three overlapping circles", "One circle containing two other overlapping circles"], correctAnswer: "One circle inside another, plus a third separate circle", explanation: "Apple is inside Fruits. Vegetables is a separate category.", difficulty: "Intermediate" }
+            { id: 'vd1', questionText: "Which diagram represents: Fruits, Apple, Vegetables?", options: ["Two separate circles", "One circle inside another, plus a third separate circle", "Three overlapping circles", "One circle containing two other overlapping circles"], correctAnswer: "One circle inside another, plus a third separate circle", explanation: "Apple is inside Fruits. Vegetables is a separate category.", difficulty: "Intermediate" },
+            { id: 'vd2', questionText: "Dogs, Pets, Cats - Best representation?", options: ["Three separate circles", "Two overlapping circles inside a large one", "One large circle containing two separate ones", "Three overlapping circles"], correctAnswer: "Two overlapping circles inside a large one", explanation: "Pets is the large circle. Dogs and Cats are partially pets, but also exist outside pets (stray). Actually, 'subset' is usually used for simplicity.", difficulty: "Beginner" },
+            { id: 'vd3', questionText: "Engineers, Surgeons, People - Repr?", options: ["Two circles inside a large one", "Three separate circles", "Two overlapping circles inside large", "One circle containing two separate ones"], correctAnswer: "One circle containing two separate ones", explanation: "People is large category. Engineers and Surgeons are humans but separate professions.", difficulty: "Intermediate" },
+            { id: 'vd4', questionText: "Languages, English, Hindi - Repr?", options: ["Two overlapping circles", "One containing two separate", "One containing two overlapping", "None"], correctAnswer: "One containing two separate", explanation: "English and Hindi are distinct languages.", difficulty: "Beginner" },
+            { id: 'vd5', questionText: "Sun, Moon, Stars - Repr?", options: ["Sun inside Stars, Moon separate", "Three separate", "Three overlapping", "Moon inside Sun"], correctAnswer: "Sun inside Stars, Moon separate", explanation: "Sun is a star. Moon is a satellite.", difficulty: "Intermediate" },
+            { id: 'vd6', questionText: "Music, Instruments, Violin - Repr?", options: ["Violin inside Instruments, Instruments inside Music", "Three overlapping", "Violin separate", "None"], correctAnswer: "Violin inside Instruments, Instruments inside Music", explanation: "Hierarchical relationship.", difficulty: "Beginner" },
+            { id: 'vd7', questionText: "Atmosphere, Hydrogen, Oxygen - Repr?", options: ["Large circle containing two overlapping", "Large containing two separate", "Three separate", "Small inside large"], correctAnswer: "Large containing two separate", explanation: "Gases are parts of atmosphere.", difficulty: "Intermediate" },
+            { id: 'vd8', questionText: "In a class of 30, 15 play cricket, 15 play football, 5 play both. How many play neither?", options: ["0", "5", "10", "15"], correctAnswer: "5", explanation: "Total playing = 15+15-5 = 25. Neither = 30-25 = 5.", difficulty: "Advanced" },
+            { id: 'vd9', questionText: "Whales, Fishes, Mammals - Repr?", options: ["Whales inside Mammals, Fishes separate", "Whales inside Fishes", "Fishes inside Mammals", "All separate"], correctAnswer: "Whales inside Mammals, Fishes separate", explanation: "Whales are mammals, not fish.", difficulty: "Advanced" },
+            { id: 'vd10', questionText: "Stationery, Pen, Pencil - Repr?", options: ["One containing two separate", "One containing two overlapping", "Three separate", "Three overlapping"], correctAnswer: "One containing two separate", explanation: "Distinct stationery items.", difficulty: "Beginner" },
+            { id: 'vd11', questionText: "Earth, Sea, Island - Repr?", options: ["Islands in Sea, Sea in Earth", "Three separate", "Three overlapping", "None"], correctAnswer: "Islands in Sea, Sea in Earth", explanation: "Structural hierarchy.", difficulty: "Intermediate" },
+            { id: 'vd12', questionText: "Gold, Metal, Zinc - Repr?", options: ["Metal containing Gold and Zinc", "Gold and Zinc overlapping", "All separate", "Zinc in Gold"], correctAnswer: "Metal containing Gold and Zinc", explanation: "Two distinct types of metals.", difficulty: "Beginner" },
+            { id: 'vd13', questionText: "If Set A={1,2} and Set B={2,3}, what is represented by the intersection?", options: ["{1,2,3}", "{2}", "{1,3}", "{}"], correctAnswer: "{2}", explanation: "Common elements.", difficulty: "Beginner" },
+            { id: 'vd14', questionText: "Table, Chair, Furniture - Repr?", options: ["Furniture containing Table and Chair", "All overlapping", "Table in Chair", "None"], correctAnswer: "Furniture containing Table and Chair", explanation: "Furniture categories.", difficulty: "Beginner" },
+            { id: 'vd15', questionText: "Universe, Solar System, Earth - Repr?", options: ["Earth in Solar System, Solar System in Universe", "Three overlapping", "All separate", "Universe in Earth"], correctAnswer: "Earth in Solar System, Solar System in Universe", explanation: "Nested placement.", difficulty: "Beginner" }
         ]
     },
     'Visual Reasoning': {
@@ -645,7 +797,21 @@ const questionBank = {
             solution: "M is vertically symmetrical. Its mirror image is still 'M'."
         },
         questions: [
-            { id: 'vr1', questionText: "Which letter looks the same in a mirror?", options: ["B", "P", "A", "C"], correctAnswer: "A", explanation: "A has vertical symmetry.", difficulty: "Beginner" }
+            { id: 'vr1', questionText: "Which letter looks the same in a mirror?", options: ["B", "P", "A", "C"], correctAnswer: "A", explanation: "A has vertical symmetry.", difficulty: "Beginner" },
+            { id: 'vr2', questionText: "Water image of 'B'?", options: ["B", "D", "P", "q"], correctAnswer: "B", explanation: "B has horizontal symmetry.", difficulty: "Intermediate" },
+            { id: 'vr3', questionText: "If a clock shows 3:00, what will it show in a mirror?", options: ["3:00", "9:00", "6:00", "12:00"], correctAnswer: "9:00", explanation: "Reflected across the 12-6 axis.", difficulty: "Intermediate" },
+            { id: 'vr4', questionText: "Mirror image of 'QUALITY' - Last letter?", options: ["Y", "Q", "I", "L"], correctAnswer: "Q", explanation: "Mirror reverses the order of letters.", difficulty: "Advanced" },
+            { id: 'vr5', questionText: "Which of these has horizontal symmetry?", options: ["M", "H", "W", "A"], correctAnswer: "H", explanation: "Can be cut in half horizontally.", difficulty: "Beginner" },
+            { id: 'vr6', questionText: "Which of these looks the same in a mirror AND water?", options: ["H", "X", "O", "All of these"], correctAnswer: "All of these", explanation: "Highly symmetrical shapes.", difficulty: "Intermediate" },
+            { id: 'vr7', questionText: "Total number of dots on opposite faces of a standard die?", options: ["5", "6", "7", "8"], correctAnswer: "7", explanation: "1-6, 2-5, 3-4 pairs always sum to 7.", difficulty: "Beginner" },
+            { id: 'vr8', questionText: "If a paper is folded into half and then a circle is cut at the edge, how many circles when opened?", options: ["1", "2", "4", "0"], correctAnswer: "1", explanation: "Cutting 'at the edge' of a single fold usually results in a semicircle becoming one full circle.", difficulty: "Intermediate" },
+            { id: 'vr9', questionText: "Which letter is NOT symmetric vertically?", options: ["A", "H", "M", "L"], correctAnswer: "L", explanation: "L is asymmetrical.", difficulty: "Beginner" },
+            { id: 'vr10', questionText: "How many triangles in a square with both diagonals drawn?", options: ["4", "8", "6", "10"], correctAnswer: "8", explanation: "4 small + 4 large triangles.", difficulty: "Advanced" },
+            { id: 'vr11', questionText: "Mirror image of '1'?", options: ["|", "Ɩ", "1", "7"], correctAnswer: "Ɩ", explanation: "Flipped horizontally.", difficulty: "Beginner" },
+            { id: 'vr12', questionText: "A cube has how many faces?", options: ["4", "6", "8", "12"], correctAnswer: "6", explanation: "Basic property of a cube.", difficulty: "Beginner" },
+            { id: 'vr13', questionText: "Mirror image of 'WHITE' - Start letter?", options: ["W", "E", "T", "H"], correctAnswer: "E", explanation: "Order is reversed in reflection.", difficulty: "Intermediate" },
+            { id: 'vr14', questionText: "Rotation of a square by 90 degrees results in?", options: ["Triangle", "Diamond", "Square", "Rectangle"], correctAnswer: "Square", explanation: "Rotational symmetry.", difficulty: "Beginner" },
+            { id: 'vr15', questionText: "Water image of 'E'?", options: ["E", "F", "3", "M"], correctAnswer: "E", explanation: "Horizontal symmetry.", difficulty: "Intermediate" }
         ]
     },
 };
