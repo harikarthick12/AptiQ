@@ -23,8 +23,8 @@ class QuestionService {
         // Shuffle available questions
         const shuffled = [...availableQuestions].sort(() => 0.5 - Math.random());
 
-        // Pick 3 questions
-        const batchSize = 3;
+        // Pick 10 questions
+        const batchSize = 10;
         const selected = shuffled.slice(0, batchSize);
 
         // Add a temporary MongoDB-like _id for frontend compatibility

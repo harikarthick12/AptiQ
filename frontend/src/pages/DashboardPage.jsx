@@ -26,19 +26,63 @@ const topics = [
         category: 'Aptitude',
         icon: <BookOpen className="w-5 h-5" />,
         color: 'bg-blue-50 text-blue-600',
-        items: ['Number System', 'HCF and LCM', 'Simplifications', 'Percentage', 'Profit and Loss', 'Average', 'Ratio and Proportion', 'Mixture and Alligations']
+        items: [
+            'Number System',
+            'HCF and LCM',
+            'Simplifications',
+            'Percentages',
+            'Profit and Loss',
+            'Average',
+            'Ratio and Proportion',
+            'Mixture and Alligations',
+            'Simple and Compound Interest',
+            'Time and Work',
+            'Pipes and Cisterns',
+            'Time Speed and Distance',
+            'Problems on Trains',
+            'Boats and Streams'
+        ]
     },
     {
         category: 'Technical',
         icon: <Code className="w-5 h-5" />,
         color: 'bg-indigo-50 text-indigo-600',
-        items: ['Arrays', 'Strings', 'Searching', 'Sorting', 'Recursion', 'Stack', 'Queue', 'Linked List', 'Trees', 'Hashing', 'OOPS', 'Time Complexity', 'Functions', 'DBMS Basics', 'OS Basics']
+        items: [
+            'Arrays',
+            'Strings',
+            'Searching',
+            'Sorting',
+            'Recursion',
+            'Stack',
+            'Queue',
+            'Linked List',
+            'Trees',
+            'Hashing',
+            'OOPS',
+            'Time Complexity',
+            'Functions',
+            'DBMS Basics',
+            'OS Basics'
+        ]
     },
     {
         category: 'Logical',
         icon: <Brain className="w-5 h-5" />,
         color: 'bg-emerald-50 text-emerald-600',
-        items: ['Number Series', 'Alphabet Series', 'Coding and Decoding', 'Analogy', 'Classification', 'Direction Sense', 'Blood Relations', 'Clock and Calendar', 'Seating Arrangement', 'Syllogism', 'Venn Diagrams', 'Visual Reasoning']
+        items: [
+            'Number Series',
+            'Alphabet Series',
+            'Coding and Decoding',
+            'Analogy',
+            'Classification',
+            'Direction Sense',
+            'Blood Relations',
+            'Clock and Calendar',
+            'Seating Arrangement',
+            'Syllogism',
+            'Venn Diagrams',
+            'Visual Reasoning'
+        ]
     }
 ];
 
