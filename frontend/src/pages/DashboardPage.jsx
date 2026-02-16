@@ -38,7 +38,7 @@ const topics = [
         category: 'Logical',
         icon: <Brain className="w-5 h-5" />,
         color: 'bg-emerald-50 text-emerald-600',
-        items: ['Reasoning basics', 'Puzzles', 'Series']
+        items: ['Number Series', 'Alphabet Series', 'Coding and Decoding', 'Analogy', 'Classification', 'Direction Sense', 'Blood Relations', 'Clock and Calendar', 'Seating Arrangement', 'Syllogism', 'Venn Diagrams', 'Visual Reasoning']
     }
 ];
 

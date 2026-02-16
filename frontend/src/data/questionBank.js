@@ -281,45 +281,110 @@ const questionBank = {
         ]
     },
 
-    // LOGICAL SECTION (Keeping as is)
-    'Reasoning basics': {
-        explanation: "Reasoning basics involve identifying patterns, relationships, and logical sequences.",
-        explanation_tamil: "அடிப்படை பகுத்தறிவு என்பது வடிவங்கள் மற்றும் தொடர்புகளைக் கண்டறிவதாகும்.",
+    // LOGICAL SECTION - EXPANDED
+    'Number Series': {
+        explanation: "Number series are sequences of numbers following a specific mathematical pattern like addition, square, prime numbers, or multi-step logic.",
         workedExample: {
-            problem: "If CAT is 3120, what is DOG?",
-            solution: "C=3, A=1, T=20. So D=4, O=15, G=7. Answer: 4157."
+            problem: "Find next: 2, 6, 12, 20, ?",
+            solution: "Gaps are +4, +6, +8. Next gap is +10. 20 + 10 = 30."
         },
         questions: [
-            { id: 'rb1', questionText: "If Apple is fruit, what is Carrot?", options: ["Fruit", "Vegetable", "Grain", "Meat"], correctAnswer: "Vegetable", explanation: "Carrot is a root vegetable.", difficulty: "Beginner" },
-            { id: 'rb2', questionText: "Find the odd one out: 2, 4, 8, 10, 16", options: ["2", "8", "10", "16"], correctAnswer: "10", explanation: "All others are powers of 2 (2^1, 2^2, 2^3, 2^4).", difficulty: "Beginner" },
-            { id: 'rb3', questionText: "Brother is to Sister as Son is to?", options: ["Mother", "Daughter", "Aunt", "Niece"], correctAnswer: "Daughter", explanation: "Opposite gender in same relation level.", difficulty: "Beginner" },
-            { id: 'rb10', questionText: "Pen is to Write as Knife is to?", options: ["Vegetable", "Cut", "Sharp", "Handle"], correctAnswer: "Cut", explanation: "Pen's function is to write, Knife's function is to cut.", difficulty: "Beginner" }
+            { id: 'ns1', questionText: "Find the next number: 1, 4, 9, 16, ?", options: ["20", "24", "25", "36"], correctAnswer: "25", explanation: "Squares of natural numbers: 1², 2², 3², 4², 5²=25.", difficulty: "Beginner" },
+            { id: 'ns2', questionText: "Find the missing number: 2, 3, 5, 7, _, 13", options: ["9", "11", "10", "12"], correctAnswer: "11", explanation: "Sequence of prime numbers.", difficulty: "Beginner" }
         ]
     },
-    'Puzzles': {
-        explanation: "Puzzles require out-of-the-box thinking and critical analysis of given clues.",
+    'Alphabet Series': {
+        explanation: "Alphabet series follow patterns based on the positions of letters (A=1, B=2, etc.) or skipping specific numbers of letters.",
         workedExample: {
-            problem: "A father has 4 daughters, and each daughter has a brother. How many children total?",
-            solution: "5. All daughters share the same one brother."
+            problem: "Next in series: A, C, F, J, ?",
+            solution: "A(+2)C, C(+3)F, F(+4)J. Next is J(+5) = O."
         },
         questions: [
-            { id: 'pz1', questionText: "A is the father of B, but B is not the son of A. What is B?", options: ["Brother", "Daughter", "Uncle", "Grandson"], correctAnswer: "Daughter", explanation: "If not a son, B must be a daughter.", difficulty: "Beginner" },
-            { id: 'pz2', questionText: "What comes once in a minute, twice in a moment, but never in a thousand years?", options: ["The letter M", "The letter T", "A second", "Light"], correctAnswer: "The letter M", explanation: "m-inute, mo-m-ent.", difficulty: "Beginner" },
-            { id: 'pz7', questionText: "If 5 cats catch 5 mice in 5 minutes, how long will it take 1 cat to catch 1 mouse?", options: ["1 minute", "5 minutes", "25 minutes", "10 minutes"], correctAnswer: "5 minutes", explanation: "Rate is the same.", difficulty: "Beginner" }
+            { id: 'as1', questionText: "Next in series: Z, X, V, T, ?", options: ["S", "R", "U", "Q"], correctAnswer: "R", explanation: "Letters are decreasing by 2 positions backwards.", difficulty: "Beginner" }
         ]
     },
-    'Series': {
-        explanation: "Series are sequences of numbers or letters following a specific mathematical or alphabetical rule.",
+    'Coding and Decoding': {
+        explanation: "Coding translates words or numbers into a secret format using a specific rule. Decoding is reversing that process.",
         workedExample: {
-            problem: "What is next: 2, 4, 6, 8, ...?",
-            solution: "Rule is +2. Next is 10."
+            problem: "If CAT is DBU, what is DOG?",
+            solution: "Rule is +1 (C->D, A->B, T->U). So D+1=E, O+1=P, G+1=H. Answer: EPH."
         },
         questions: [
-            { id: 'sr1', questionText: "Complete: 1, 4, 9, 16, ?", options: ["20", "24", "25", "30"], correctAnswer: "25", explanation: "Squares: 1^2, 2^2, 3^2, 4^2, 5^2.", difficulty: "Beginner" },
-            { id: 'sr2', questionText: "Complete: 2, 3, 5, 7, 11, ?", options: ["12", "13", "14", "15"], correctAnswer: "13", explanation: "Prime numbers sequence.", difficulty: "Beginner" },
-            { id: 'sr8', questionText: "Complete: 1, 1, 2, 3, 5, 8, ?", options: ["10", "11", "12", "13"], correctAnswer: "13", explanation: "Fibonacci sequence: Each is sum of previous two.", difficulty: "Beginner" }
+            { id: 'cd1', questionText: "If HELLO is coded as IFMMP, what is WORLD?", options: ["XPSME", "XPSOE", "XPSED", "VNSKC"], correctAnswer: "XPSME", explanation: "Shift each letter by +1.", difficulty: "Beginner" }
         ]
-    }
+    },
+    'Analogy': {
+        explanation: "Analogy involves finding a relationship between two words or numbers and applying that same relationship to another pair.",
+        workedExample: {
+            problem: "Car : Road :: Ship : ?",
+            solution: "Car moves on Road. Ship moves on Water/Sea."
+        },
+        questions: [
+            { id: 'an1', questionText: "Clock : Time :: Thermometer : ?", options: ["Heat", "Radiation", "Temperature", "Energy"], correctAnswer: "Temperature", explanation: "Clock measures time, Thermometer measures temperature.", difficulty: "Beginner" }
+        ]
+    },
+    'Classification': {
+        explanation: "Classification (Odd One Out) requires identifying the item that does not share the common characteristic of the other items in the group.",
+        questions: [
+            { id: 'cl1', questionText: "Find the odd one out: Apple, Mango, Carrot, Banana", options: ["Apple", "Mango", "Carrot", "Banana"], correctAnswer: "Carrot", explanation: "Carrot is a vegetable/root, others are fruits.", difficulty: "Beginner" }
+        ]
+    },
+    'Direction Sense': {
+        explanation: "Direction sense problems involve tracking a person's movement across North, South, East, and West to find final position or distance.",
+        workedExample: {
+            problem: "A man walks 3km North, then 4km East. How far is he from start?",
+            solution: "Forms a right triangle. Distance² = 3² + 4² = 25. Distance = 5km."
+        },
+        questions: [
+            { id: 'ds1', questionText: "A person faces North, turns 90 degrees right, then 180 degrees left. Which way is he facing?", options: ["North", "South", "East", "West"], correctAnswer: "West", explanation: "N -> (90R) East -> (180L) West.", difficulty: "Intermediate" }
+        ]
+    },
+    'Blood Relations': {
+        explanation: "Blood relations problems require mapping family trees based on provided descriptions of how people are related.",
+        workedExample: {
+            problem: "Pointing to a man, X says: 'He is my father's only son'. Who is the man?",
+            solution: "Father's only son is X himself (if X is male) or X's brother.",
+            solutionNote: "Usually simplified to 'The man is X'."
+        },
+        questions: [
+            { id: 'br1', questionText: "A is B's sister. C is B's mother. D is C's father. How is A related to D?", options: ["Daughter", "Grand-daughter", "Aunt", "Mother"], correctAnswer: "Grand-daughter", explanation: "A is daughter of C, and C is daughter of D.", difficulty: "Intermediate" }
+        ]
+    },
+    'Clock and Calendar': {
+        explanation: "Clock problems involve finding angles between hands. Calendar problems involve finding days based on date and 'odd days' logic.",
+        questions: [
+            { id: 'cc1', questionText: "What is the angle between hour and minute hand at 3:00?", options: ["90°", "45°", "180°", "0°"], correctAnswer: "90°", explanation: "Minute is at 12, Hour is at 3. Difference is 3 hours * 30°/hour = 90°.", difficulty: "Beginner" },
+            { id: 'cc2', questionText: "If today is Monday, what was the day 63 days ago?", options: ["Monday", "Tuesday", "Sunday", "Saturday"], correctAnswer: "Monday", explanation: "63 is exactly 9 weeks (63/7=9, rem 0). So it remains Monday.", difficulty: "Intermediate" }
+        ]
+    },
+    'Seating Arrangement': {
+        explanation: "Seating arrangement involves placing people in specific positions based on clues about who is next to whom, essentially a logic puzzle.",
+        questions: [
+            { id: 'sa1', questionText: "A, B, C, D are in a row. C is between A and D. B is at right end. Who is at left end?", options: ["A", "D", "C", "Cannot tell"], correctAnswer: "A", explanation: "If B is at right, and C is between A and D, flow must be A, C, D, B or D, C, A, B. Since B is at 'right end', A or D could be at left. Typically A is assumed unless more clues given.", difficulty: "Intermediate" }
+        ]
+    },
+    'Syllogism': {
+        explanation: "Syllogism involves drawing logical conclusions from two or more 'premises' (statements assumed to be true).",
+        workedExample: {
+            problem: "Stmt 1: All cats are animals. Stmt 2: All animals have tails. Conclusion?",
+            solution: "All cats have tails."
+        },
+        questions: [
+            { id: 'sy1', questionText: "Stmt: All P are Q. Some Q are R. Conclusion: Some P are R. Is this valid?", options: ["Valid", "Invalid", "Partially valid", "None"], correctAnswer: "Invalid", explanation: "P is inside Q, but R only touches Q, not necessarily P.", difficulty: "Advanced" }
+        ]
+    },
+    'Venn Diagrams': {
+        explanation: "Venn Diagrams use circles to represent relationships between different groups or sets.",
+        questions: [
+            { id: 'vd1', questionText: "Which diagram represents: Fruits, Apple, Vegetables?", options: ["Two separate circles", "One circle inside another, plus a third separate circle", "Three overlapping circles", "One circle containing two other overlapping circles"], correctAnswer: "One circle inside another, plus a third separate circle", explanation: "Apple is inside Fruits. Vegetables is a separate category.", difficulty: "Intermediate" }
+        ]
+    },
+    'Visual Reasoning': {
+        explanation: "Visual Reasoning includes Mirror images, Water images, and Paper folding patterns.",
+        questions: [
+            { id: 'vr1', questionText: "Which letter looks the same in a mirror?", options: ["B", "P", "A", "C"], correctAnswer: "A", explanation: "A has vertical symmetry.", difficulty: "Beginner" }
+        ]
+    },
 };
 
 export default questionBank;
