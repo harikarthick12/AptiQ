@@ -26,7 +26,7 @@ const topics = [
         category: 'Aptitude',
         icon: <BookOpen className="w-5 h-5" />,
         color: 'bg-blue-50 text-blue-600',
-        items: ['Number System', 'HCF and LCM', 'Simplifications', 'Percentage', 'Profit and Loss', 'Average']
+        items: ['Number System', 'HCF and LCM', 'Simplifications', 'Percentage', 'Profit and Loss', 'Average', 'Ratio and Proportion', 'Mixture and Alligations']
     },
     {
         category: 'Technical',

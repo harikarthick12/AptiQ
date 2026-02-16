@@ -119,6 +119,48 @@ const questionBank = {
             { id: 'av10', questionText: "The average of first five multiples of 3 is?", options: ["3", "9", "12", "15"], correctAnswer: "9", explanation: "3, 6, 9, 12, 15. Avg is middle term = 9.", difficulty: "Beginner" }
         ]
     },
+    'Ratio and Proportion': {
+        explanation: "Ratio and Proportion involves comparing quantities and finding relationships between them. Concepts include Compound, Duplicate, and Triplicate ratios; Mean, Third, and Fourth proportions; and applications in Partnership (Working/Sleeping partners), Age problems, Coin problems, and Income-Expenditure analysis.",
+        explanation_tamil: "விகிதம் மற்றும் விகிதாச்சாரம் என்பது அளவுகளை ஒப்பிட்டு அவற்றுக்கிடையேயான தொடர்புகளைக் கண்டறிவதாகும். இதில் கூட்டு விகிதம், இருபடி விகிதம், வயது கணக்குகள், நாணயக் கணக்குகள் மற்றும் கூட்டாண்மை ஆகியவை அடங்கும்.",
+        explanation_telugu: "నిష్పత్తి మరియు అనుపాతం పరిమాణాలను పోల్చడం మరియు వాటి మధ్య సంబంధాలను కనుగొనడం. ఇందులో సమ్మేళన నిష్పత్తి, వయస్సు సమస్యలు, నాణేల సమస్యలు మరియు భాగస్వామ్య వ్యాపార లెక్కలు ఉంటాయి.",
+        workedExample: {
+            problem: "If A:B = 2:3 and B:C = 4:5, find A:B:C.",
+            solution: "To combine, make B same in both. \nA:B = 2*4 : 3*4 = 8:12. \nB:C = 4*3 : 5*3 = 12:15. \nSo, A:B:C = 8:12:15."
+        },
+        questions: [
+            { id: 'rp1', questionText: "Find the fourth proportional to 4, 9, 12.", options: ["18", "27", "36", "48"], correctAnswer: "27", explanation: "4/9 = 12/x => 4x = 108 => x = 27.", difficulty: "Beginner" },
+            { id: 'rp2', questionText: "Find the triplicate ratio of 2:3.", options: ["4:9", "8:27", "√2:√3", "6:9"], correctAnswer: "8:27", explanation: "Triplicate ratio is a³:b³ = 2³:3³ = 8:27.", difficulty: "Beginner" },
+            { id: 'rp3', questionText: "A bag contains 50p, 25p and 10p coins in ratio 5:9:4 amounting to Rs. 206. Find number of 50p coins.", options: ["200", "360", "160", "400"], correctAnswer: "200", explanation: "Value ratio = (5*0.5):(9*0.25):(4*0.1) = 2.5 : 2.25 : 0.4 = 250:225:40 = 50:45:8. Sum = 103 units. 103u=206 => 1u=2. Coins = 50*4 = 200.", difficulty: "Intermediate" },
+            { id: 'rp4', questionText: "Ratio of ages of A and B is 3:4. After 10 years, it becomes 4:5. Find sum of current ages.", options: ["60", "70", "80", "90"], correctAnswer: "70", explanation: "Let ages be 3x, 4x. (3x+10)/(4x+10) = 4/5 => 15x+50 = 16x+40 => x=10. Current ages 30, 40. Sum = 70.", difficulty: "Intermediate" },
+            { id: 'rp5', questionText: "A and B start a business. A invests Rs 3000 for 8 months and B invests Rs 4000 for 6 months. Ratio of profit?", options: ["1:1", "3:4", "2:3", "4:3"], correctAnswer: "1:1", explanation: "Profit ratio = (3000*8):(4000*6) = 24000:24000 = 1:1.", difficulty: "Beginner" },
+            { id: 'rp6', questionText: "Find the mean proportional between 4 and 9.", options: ["6", "6.5", "13", "36"], correctAnswer: "6", explanation: "Mean prop = √(a*b) = √(4*9) = √36 = 6.", difficulty: "Beginner" },
+            { id: 'rp7', questionText: "If the duplicate ratio of a:b is 16:25, find a:b.", options: ["4:5", "2:3", "256:625", "√4:√5"], correctAnswer: "4:5", explanation: "Duplicate ratio is a²:b². √16:√25 = 4:5.", difficulty: "Beginner" },
+            { id: 'rp8', questionText: "A and B entered into a partnership and A is a working partner. For this he gets 10% of profit. If total profit is Rs 1000 and their investments are equal, find A's share.", options: ["Rs 550", "Rs 600", "Rs 500", "Rs 450"], correctAnswer: "Rs 550", explanation: "Working charge = 10% of 1000 = 100. Remaining = 900. Shared equally = 450 each. A gets 100+450 = 550.", difficulty: "Intermediate" },
+            { id: 'rp9', questionText: "Ratio of income of A and B is 5:4 and their expenditure is 3:2. If each saves Rs 1600, find income of A.", options: ["Rs 4000", "Rs 4500", "Rs 3200", "Rs 5000"], correctAnswer: "Rs 4000", explanation: "Let income be 5x, 4x. Savings are same. Difference in ratio is 2 (5-3 and 4-2). 2 units = 1600 => 1 unit = 800. Income A = 5*800 = 4000.", difficulty: "Intermediate" },
+            { id: 'rp10', questionText: "Sub-duplicate ratio of 49:81 is?", options: ["7:9", "2401:6561", "14:18", "3.5:4.5"], correctAnswer: "7:9", explanation: "Sub-duplicate is √a:√b = √49:√81 = 7:9.", difficulty: "Beginner" }
+        ]
+    },
+    'Mixture and Alligations': {
+        explanation: "Mixture and Alligation helps solve problems involving combinations of two or more entities. Key concepts: Rule of Alligation (Mean Price), mixing materials of different costs, and repeated process of removal and replacement.",
+        explanation_tamil: "கலவை மற்றும் அலிகேஷன் என்பது இரண்டு அல்லது அதற்கு மேற்பட்ட பொருட்களை இணைக்கும் கணக்குகளைத் தீர்க்க உதவுகிறது. இது சராசரி விலை மற்றும் பொருட்களைத் திரும்பத் திரும்ப மாற்றும் கணக்குகளை உள்ளடக்கியது.",
+        explanation_telugu: "మిశ్రమము మరియు అలిగేషన్ రెండు లేదా అంతకంటే ఎక్కువ వస్తువుల కలయికకు సంబంధించిన సమస్యలను పరిష్కరించడానికి ఉపయోగపడుతుంది. ఇందులో సగటు ధర మరియు పునరావృత తొలగింపు సమస్యలు ఉంటాయి.",
+        workedExample: {
+            problem: "In what ratio must rice at $10/kg be mixed with rice at $15/kg to get a mixture worth $12/kg?",
+            solution: "By Alligation rule: \nRatio = (Price of dearer - Mean price) : (Mean price - Price of cheaper) \nRatio = (15 - 12) : (12 - 10) = 3 : 2."
+        },
+        questions: [
+            { id: 'ma1', questionText: "In what ratio must tea at Rs. 62/kg be mixed with tea at Rs. 72/kg so that the mixture is worth Rs. 64.50/kg?", options: ["3:1", "3:2", "4:3", "5:3"], correctAnswer: "3:1", explanation: "Ratio = (72 - 64.5) : (64.5 - 62) = 7.5 : 2.5 = 3:1.", difficulty: "Beginner" },
+            { id: 'ma2', questionText: "A vessel contains 60L of milk. 6L is replaced by water. This is done two more times. Remaining milk amount?", options: ["43.74L", "54L", "48.6L", "40.5L"], correctAnswer: "43.74L", explanation: "Remain = Total * (1 - r/T)^n = 60 * (1 - 6/60)^3 = 60 * (0.9)^3 = 60 * 0.729 = 43.74L.", difficulty: "Advanced" },
+            { id: 'ma3', questionText: "How much water must be added to 60L of milk worth Rs 20/L to reduce its price to Rs 15/L?", options: ["20L", "15L", "10L", "30L"], correctAnswer: "20L", explanation: "Ratio milk:water = (15-0):(20-15) = 15:5 = 3:1. For 60L milk, need 20L water.", difficulty: "Intermediate" },
+            { id: 'ma4', questionText: "A container has 40L of milk. 4L is taken out and replaced with water. If this is done total twice, final milk:water ratio?", options: ["81:19", "9:1", "18:2", "4:1"], correctAnswer: "81:19", explanation: "Remaining = 40 * (36/40)^2 = 40 * 0.81 = 32.4. Water = 40 - 32.4 = 7.6. Ratio 32.4:7.6 = 81:19.", difficulty: "Advanced" },
+            { id: 'ma5', questionText: "Average speed of a journey is 40 kmph. One part at 30 kmph and other at 60 kmph. Ratio of time spent?", options: ["2:1", "1:2", "1:1", "3:2"], correctAnswer: "2:1", explanation: "By alligation on speed: Ratio of time = (60-40):(40-30) = 20:10 = 2:1.", difficulty: "Intermediate" },
+            { id: 'ma6', questionText: "Two jars have milk and water in ratios 5:2 and 7:6. To get 8:5 ratio, in what proportion should they mix?", options: ["7:9", "9:7", "1:1", "3:4"], correctAnswer: "7:9", explanation: "Using milk fractions: (5/7), (7/13), Mean (8/13). Ratio = (8/13 - 7/13) : (5/7 - 8/13) = (1/13) : (9/91) = 7:9.", difficulty: "Advanced" },
+            { id: 'ma7', questionText: "Find average price of a mixture of 10kg grain at Rs 30 and 20kg at Rs 60.", options: ["Rs 50", "Rs 45", "Rs 40", "Rs 55"], correctAnswer: "Rs 50", explanation: "Weighted avg = (10*30 + 20*60) / 30 = (300 + 1200) / 30 = 50.", difficulty: "Beginner" },
+            { id: 'ma8', questionText: "A person travelled 80km in 7 hours. Partly at 8 kmph and partly at 16 kmph. Distance covered at 8 kmph?", options: ["32 km", "48 km", "40 km", "30 km"], correctAnswer: "32 km", explanation: "Avg speed = 80/7. Ratio of time = (16-80/7):(80/7-8) = (32/7):(24/7) = 4:3. Time at 8kmph = (4/7)*7 = 4h. Dist = 4*8 = 32km.", difficulty: "Advanced" },
+            { id: 'ma9', questionText: "Ratio of milk and water in a mixture is 7:5. If 15L of water is added, ratio becomes 7:8. Amount of milk?", options: ["35L", "25L", "40L", "20L"], correctAnswer: "35L", explanation: "Milk 7x, Water 5x. 7x/(5x+15) = 7/8 => 8x = 5x+15 => 3x=15 => x=5. Milk = 7*5 = 35L.", difficulty: "Intermediate" },
+            { id: 'ma10', questionText: "Gold is 19 times as heavy as water and copper is 9 times as heavy. In what ratio must they mix to be 15 times heavier than water?", options: ["3:2", "2:3", "1:1", "4:1"], correctAnswer: "3:2", explanation: "Ratio = (15-9):(19-15) = 6:4 = 3:2.", difficulty: "Beginner" }
+        ]
+    },
 
     // TECHNICAL SECTION (Keeping as is)
     'OOPS': {
