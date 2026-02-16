@@ -291,7 +291,20 @@ const questionBank = {
         },
         questions: [
             { id: 're1', questionText: "What happens if a recursive function has no base case?", options: ["It runs once", "Stack Overflow", "It returns 0", "Compile error"], correctAnswer: "Stack Overflow", explanation: "Infinite calls will eventually exhaust the recursion stack memory.", difficulty: "Beginner" },
-            { id: 're2', questionText: "Fibonacci sequence: 1, 1, 2, 3, 5... what is the next term?", options: ["6", "7", "8", "10"], correctAnswer: "8", explanation: "3 + 5 = 8.", difficulty: "Beginner" }
+            { id: 're2', questionText: "Fibonacci sequence: 1, 1, 2, 3, 5... what is the next term?", options: ["6", "7", "8", "10"], correctAnswer: "8", explanation: "3 + 5 = 8.", difficulty: "Beginner" },
+            { id: 're3', questionText: "In recursion, where are intermediate results stored?", options: ["Heap", "Stack", "Queue", "Registers"], correctAnswer: "Stack", explanation: "The system uses a Call Stack to track recursive function calls.", difficulty: "Beginner" },
+            { id: 're4', questionText: "Recursive solution to Tower of Hanoi for n disks requires how many moves?", options: ["n²", "2ⁿ", "2ⁿ - 1", "n!"], correctAnswer: "2ⁿ - 1", explanation: "Classic exponential recursive problem.", difficulty: "Intermediate" },
+            { id: 're5', questionText: "What is Tail Recursion?", options: ["Recursion at start", "Recursive call is the last action", "Infinite recursion", "Recursion with two calls"], correctAnswer: "Recursive call is the last action", explanation: "Tail recursion can be optimized by compilers to save stack space.", difficulty: "Intermediate" },
+            { id: 're6', questionText: "Direct recursion is when?", options: ["A calls B, B calls A", "A calls A", "A calls itself inside a loop", "No base case"], correctAnswer: "A calls A", explanation: "Direct call to itself.", difficulty: "Beginner" },
+            { id: 're7', questionText: "Which data structure is most similar to the recursion mechanism?", options: ["Queue", "Stack", "Linked List", "Array"], correctAnswer: "Stack", explanation: "LIFO (Last In First Out) behavior of function calls.", difficulty: "Beginner" },
+            { id: 're8', questionText: "Complexity of recursive Binary Search?", options: ["O(n)", "O(n²)", "O(log n)", "O(n log n)"], correctAnswer: "O(log n)", explanation: "Standard divide and conquer.", difficulty: "Intermediate" },
+            { id: 're9', questionText: "Can any recursive function be written using loops?", options: ["Yes", "No", "Only some", "Only if it has a base case"], correctAnswer: "Yes", explanation: "Recursion and iteration are computationally equivalent.", difficulty: "Intermediate" },
+            { id: 're10', questionText: "Space complexity of Tail Call Optimization?", options: ["O(n)", "O(log n)", "O(1)", "O(n²)"], correctAnswer: "O(1)", explanation: "TCO reuses the current stack frame.", difficulty: "Advanced" },
+            { id: 're11', questionText: "Example of Indirect Recursion?", options: ["A calls A", "A calls B and B calls A", "A calls B and B returns", "No recursion"], correctAnswer: "A calls B and B calls A", explanation: "The cycle involves multiple functions.", difficulty: "Intermediate" },
+            { id: 're12', questionText: "What is 'Memoization' in recursion?", options: ["Forgetting results", "Storing results of subproblems", "Deleting base case", "Using loops"], correctAnswer: "Storing results of subproblems", explanation: "Used in Dynamic Programming to avoid redundant calls.", difficulty: "Advanced" },
+            { id: 're13', questionText: "Complexity of naive recursive Fibonacci(n)?", options: ["O(n)", "O(n log n)", "O(2ⁿ)", "O(n²)"], correctAnswer: "O(2ⁿ)", explanation: "Two recursive calls per step lead to exponential growth.", difficulty: "Advanced" },
+            { id: 're14', questionText: "Recursive depth is limited by?", options: ["RAM size", "Stack size", "CPU speed", "Hard disk"], correctAnswer: "Stack size", explanation: "Stack Overflow occurs when depth > allocated stack.", difficulty: "Beginner" },
+            { id: 're15', questionText: "Which technique uses recursion to explore all possible paths?", options: ["Greedy", "Backtracking", "Linear Search", "Sorting"], correctAnswer: "Backtracking", explanation: "Example: N-Queens, Sudoku solver.", difficulty: "Advanced" }
         ]
     },
     'Stack': {
@@ -302,7 +315,20 @@ const questionBank = {
         },
         questions: [
             { id: 'sk1', questionText: "Which principle does a Stack follow?", options: ["FIFO", "LIFO", "LILO", "Random"], correctAnswer: "LIFO", explanation: "Last In, First Out.", difficulty: "Beginner" },
-            { id: 'sk2', questionText: "Operation to remove an element from stack is?", options: ["Push", "Pop", "Enqueue", "Peek"], correctAnswer: "Pop", explanation: "Pop removes the top element.", difficulty: "Beginner" }
+            { id: 'sk2', questionText: "Operation to remove an element from stack is?", options: ["Push", "Pop", "Enqueue", "Peek"], correctAnswer: "Pop", explanation: "Pop removes the top element.", difficulty: "Beginner" },
+            { id: 'sk3', questionText: "Stack Overflow occurs when?", options: ["Stack is empty", "Stack is full", "Popping from empty", "Peek is called"], correctAnswer: "Stack is full", explanation: "Pushing into a full stack.", difficulty: "Beginner" },
+            { id: 'sk4', questionText: "Infix to Postfix conversion uses which data structure?", options: ["Queue", "Stack", "Linked List", "Array"], correctAnswer: "Stack", explanation: "Shunting-yard algorithm uses a stack for operators.", difficulty: "Intermediate" },
+            { id: 'sk5', questionText: "Complexity of Push operation?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Constant time addition at top.", difficulty: "Beginner" },
+            { id: 'sk6', questionText: "Which operation is used to see the top element without removing it?", options: ["Push", "Pop", "Peek", "Top"], correctAnswer: "Peek", explanation: "Retrieves top without modifying stack.", difficulty: "Beginner" },
+            { id: 'sk7', questionText: "Evaluating '3 4 + 5 *' using a stack results in?", options: ["12", "35", "25", "27"], correctAnswer: "35", explanation: "(3+4) * 5 = 35.", difficulty: "Intermediate" },
+            { id: 'sk8', questionText: "Reversing a string can be done using?", options: ["Queue", "Stack", "Tree", "Graph"], correctAnswer: "Stack", explanation: "Push all chars then pop them.", difficulty: "Beginner" },
+            { id: 'sk9', questionText: "A stack can be implemented using?", options: ["Array only", "Linked List only", "Both Array and Linked List", "None"], correctAnswer: "Both Array and Linked List", explanation: "Flexible implementation.", difficulty: "Intermediate" },
+            { id: 'sk10', questionText: "Minimum stacks required to implement a Queue?", options: ["1", "2", "3", "0"], correctAnswer: "2", explanation: "Standard Enqueue/Dequeue logic using two stacks.", difficulty: "Advanced" },
+            { id: 'sk11', questionText: "Recursive calls use which system structure?", options: ["System Queue", "Execution Stack", "Global Array", "Shared Heap"], correctAnswer: "Execution Stack", explanation: "Memory management for function hierarchy.", difficulty: "Intermediate" },
+            { id: 'sk12', questionText: "Balanced parentheses check uses?", options: ["Queue", "Stack", "BST", "Hash Map"], correctAnswer: "Stack", explanation: "Match open with close using LIFO.", difficulty: "Intermediate" },
+            { id: 'sk13', questionText: "Popping from an empty stack is called?", options: ["Overflow", "Underflow", "Empty flow", "Null point"], correctAnswer: "Underflow", explanation: "Illegal operation on empty structure.", difficulty: "Beginner" },
+            { id: 'sk14', questionText: "In a stack implemented with Array, 'Top' index initially is?", options: ["0", "-1", "1", "Null"], correctAnswer: "-1", explanation: "-1 indicates an empty stack.", difficulty: "Intermediate" },
+            { id: 'sk15', questionText: "Stack is used in which Graph traversal?", options: ["BFS", "DFS", "Dijkstra", "Kruskal"], correctAnswer: "DFS", explanation: "Depth First Search uses recursion or manual stack.", difficulty: "Intermediate" }
         ]
     },
     'Queue': {
@@ -313,7 +339,20 @@ const questionBank = {
         },
         questions: [
             { id: 'qu1', questionText: "Which principle does a Queue follow?", options: ["LIFO", "FIFO", "FILO", "Random"], correctAnswer: "FIFO", explanation: "First In, First Out.", difficulty: "Beginner" },
-            { id: 'qu2', questionText: "Where are new elements added in a queue?", options: ["Front", "Middle", "Rear", "Top"], correctAnswer: "Rear", explanation: "Enqueue operation happens at the rear/back.", difficulty: "Beginner" }
+            { id: 'qu2', questionText: "Where are new elements added in a queue?", options: ["Front", "Middle", "Rear", "Top"], correctAnswer: "Rear", explanation: "Enqueue operation happens at the rear/back.", difficulty: "Beginner" },
+            { id: 'qu3', questionText: "Complexity of Dequeue operation?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Constant time removal from front.", difficulty: "Beginner" },
+            { id: 'qu4', questionText: "A queue where elements are added/removed from both ends?", options: ["Circular Queue", "Deque", "Priority Queue", "Double Queue"], correctAnswer: "Deque", explanation: "Double Ended Queue.", difficulty: "Intermediate" },
+            { id: 'qu5', questionText: "Queue is used in which Graph traversal?", options: ["DFS", "BFS", "Topological Sort", "Bellman Ford"], correctAnswer: "BFS", explanation: "Breadth First Search uses a queue for level-order exploration.", difficulty: "Intermediate" },
+            { id: 'qu6', questionText: "Problem with using standard array for queue?", options: ["Slow Push", "Memory wastage at front", "Infinite size", "Cannot sort"], correctAnswer: "Memory wastage at front", explanation: "Front elements deleted leave empty slots that can't be reused without shifting.", difficulty: "Intermediate" },
+            { id: 'qu7', questionText: "Queue implementation that solves memory wastage?", options: ["Linear Queue", "Circular Queue", "Priority Queue", "Linked Queue"], correctAnswer: "Circular Queue", explanation: "Uses modulo logic to wrap around.", difficulty: "Intermediate" },
+            { id: 'qu8', questionText: "Priority Queue elements are removed based on?", options: ["Arrival time", "Value/Priority", "Random", "Size"], correctAnswer: "Value/Priority", explanation: "Highest (or lowest) priority first.", difficulty: "Intermediate" },
+            { id: 'qu9', questionText: "Complexity to find an element in a Queue?", options: ["O(1)", "O(log n)", "O(n)", "O(n²)"], correctAnswer: "O(n)", explanation: "Must scan through elements.", difficulty: "Beginner" },
+            { id: 'qu10', questionText: "Minimum queues to implement a Stack?", options: ["1", "2", "3", "0"], correctAnswer: "2", explanation: "Using two queues to simulate LIFO.", difficulty: "Advanced" },
+            { id: 'qu11', questionText: "Queue is a dynamic data structure if implemented using?", options: ["Array", "Linked List", "Stack", "Register"], correctAnswer: "Linked List", explanation: "Linked lists grow and shrink as needed.", difficulty: "Intermediate" },
+            { id: 'qu12', questionText: "Which application uses a queue?", options: ["Function calling", "Print spooler", "Undo operation", "Balanced parentheses"], correctAnswer: "Print spooler", explanation: "Jobs wait in line (FIFO).", difficulty: "Beginner" },
+            { id: 'qu13', questionText: "In a circular queue of size N, the next rear is calculated as?", options: ["(rear + 1)", "(rear + 1) * N", "(rear + 1) % N", "rear - 1"], correctAnswer: "(rear + 1) % N", explanation: "Modulo wraps index back to 0.", difficulty: "Intermediate" },
+            { id: 'qu14', questionText: "Queue underflow happens when?", options: ["Rear == Front", "Front == -1 or Dequeue from empty", "Queue is full", "Peek returns null"], correctAnswer: "Front == -1 or Dequeue from empty", explanation: "Trying to remove from empty queue.", difficulty: "Beginner" },
+            { id: 'qu15', questionText: "Complexity of Priority Queue (insert/remove) using Heaps?", options: ["O(n)", "O(log n)", "O(1)", "O(n log n)"], correctAnswer: "O(log n)", explanation: "Heap maintains property in logarithmic time.", difficulty: "Advanced" }
         ]
     },
     'Linked List': {
@@ -324,7 +363,20 @@ const questionBank = {
         },
         questions: [
             { id: 'll1', questionText: "Time complexity to search an element in a linked list of size n?", options: ["O(1)", "O(log n)", "O(n)", "O(n²)"], correctAnswer: "O(n)", explanation: "You must traverse from the head until the element is found.", difficulty: "Beginner" },
-            { id: 'll2', questionText: "What does the 'next' pointer of the last node in a singly linked list point to?", options: ["Head", "Previous node", "Null/None", "Itself"], correctAnswer: "Null/None", explanation: "The end of the list is marked by a null pointer.", difficulty: "Beginner" }
+            { id: 'll2', questionText: "What does the 'next' pointer of the last node in a singly linked list point to?", options: ["Head", "Previous node", "Null/None", "Itself"], correctAnswer: "Null/None", explanation: "The end of the list is marked by a null pointer.", difficulty: "Beginner" },
+            { id: 'll3', questionText: "Advantage of Linked List over Array?", options: ["Fast random access", "Dynamic size", "Cache friendly", "Low memory per node"], correctAnswer: "Dynamic size", explanation: "Can grow or shrink easily at runtime.", difficulty: "Beginner" },
+            { id: 'll4', questionText: "Complexity of inserting a node at the beginning?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Just update the new node's next and the head pointer.", difficulty: "Beginner" },
+            { id: 'll5', questionText: "Complexity of inserting a node at the end (with tail pointer)?", options: ["O(n)", "O(1)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Direct access via tail pointer.", difficulty: "Intermediate" },
+            { id: 'll6', questionText: "A node in a Doubly Linked List has how many pointers?", options: ["1", "2", "3", "0"], correctAnswer: "2", explanation: "Previous and Next pointers.", difficulty: "Beginner" },
+            { id: 'll7', questionText: "Floyd's Cycle-Finding Algorithm is used to?", options: ["Reverse list", "Find loops", "Sort list", "Delete mid"], correctAnswer: "Find loops", explanation: "Uses fast and slow pointers.", difficulty: "Advanced" },
+            { id: 'll8', questionText: "In a Circular Linked List, the last node points to?", options: ["Null", "Middle", "Head", "Previous"], correctAnswer: "Head", explanation: "Forms a circular loop.", difficulty: "Beginner" },
+            { id: 'll9', questionText: "Memory used by Linked List vs Array for n integers?", options: ["Lesser", "Equal", "More", "None"], correctAnswer: "More", explanation: "Extra memory needed for pointers at each node.", difficulty: "Intermediate" },
+            { id: 'll10', questionText: "Complexity to delete a node if pointer to it is given in Singly List?", options: ["O(1) with data copy", "O(1) always", "O(n)", "O(log n)"], correctAnswer: "O(1) with data copy", explanation: "Copy data from next node and delete next node.", difficulty: "Advanced" },
+            { id: 'll11', questionText: "Which linked list allows traversal in both directions?", options: ["Singly", "Doubly", "Circular Singly", "Sorted list"], correctAnswer: "Doubly", explanation: "Has 'prev' pointer.", difficulty: "Beginner" },
+            { id: 'll12', questionText: "Complexity of reversing a linked list?", options: ["O(n log n)", "O(n)", "O(1)", "O(n²)"], correctAnswer: "O(n)", explanation: "Single pass is sufficient.", difficulty: "Intermediate" },
+            { id: 'll13', questionText: "Time complexity to access the k-th element?", options: ["O(1)", "O(k)", "O(log k)", "O(1) if sorted"], correctAnswer: "O(k)", explanation: "Linked Lists lack random access.", difficulty: "Beginner" },
+            { id: 'll14', questionText: "Linked List implementation of a Queue adds at tail and removes from?", options: ["Tail", "Head", "Middle", "Anywhere"], correctAnswer: "Head", explanation: "Maintains FIFO.", difficulty: "Intermediate" },
+            { id: 'll15', questionText: "Which data structure can be used to implement a skip list?", options: ["Trees", "Linked List", "Array", "Stack"], correctAnswer: "Linked List", explanation: "Skip list is multi-level linked list.", difficulty: "Advanced" }
         ]
     },
     'Trees': {
@@ -335,7 +387,20 @@ const questionBank = {
         },
         questions: [
             { id: 'tr1', questionText: "Maximum number of children a node can have in a Binary Tree?", options: ["1", "2", "Unlimited", "0"], correctAnswer: "2", explanation: "A 'Binary' tree is restricted to two children.", difficulty: "Beginner" },
-            { id: 'tr2', questionText: "The topmost node of a tree is called?", options: ["Leaf", "Stem", "Root", "Branch"], correctAnswer: "Root", explanation: "The root is the entry point of the tree structure.", difficulty: "Beginner" }
+            { id: 'tr2', questionText: "The topmost node of a tree is called?", options: ["Leaf", "Stem", "Root", "Branch"], correctAnswer: "Root", explanation: "The root is the entry point of the tree structure.", difficulty: "Beginner" },
+            { id: 'tr3', questionText: "A tree with no nodes is called?", options: ["Empty Tree", "Null Tree", "Leaf Tree", "Binary Tree"], correctAnswer: "Empty Tree", explanation: "Root is null.", difficulty: "Beginner" },
+            { id: 'tr4', questionText: "Inorder traversal of a BST results in?", options: ["Decreasing order", "Increasing order", "Random order", "Level order"], correctAnswer: "Increasing order", explanation: "BST property: Left < Root < Right.", difficulty: "Intermediate" },
+            { id: 'tr5', questionText: "Complexity of searching in a Balanced Tree?", options: ["O(n)", "O(1)", "O(log n)", "O(n log n)"], correctAnswer: "O(log n)", explanation: "Height is logarithmic.", difficulty: "Beginner" },
+            { id: 'tr6', questionText: "Maximum nodes at level L of a binary tree (root is level 0)?", options: ["L", "2*L", "2ᴸ", "2ᴸ-1"], correctAnswer: "2ᴸ", explanation: "Exponential growth per level.", difficulty: "Intermediate" },
+            { id: 'tr7', questionText: "Total nodes in a full binary tree of height H?", options: ["2ᴴ", "2ᴴ⁺¹ - 1", "H²", "log H"], correctAnswer: "2ᴴ⁺¹ - 1", explanation: "Sum of geometric series.", difficulty: "Intermediate" },
+            { id: 'tr8', questionText: "A BST where height of left and right subtrees differs by at most 1?", options: ["Perfect Tree", "Full Tree", "AVL Tree", "Complete Tree"], correctAnswer: "AVL Tree", explanation: "Self-balancing binary search tree.", difficulty: "Advanced" },
+            { id: 'tr9', questionText: "Height of a node is defined as?", options: ["Distance from root", "Path to deepest leaf", "Number of children", "Value of node"], correctAnswer: "Path to deepest leaf", explanation: "Measure from bottom up.", difficulty: "Intermediate" },
+            { id: 'tr10', questionText: "DFS traversal in Trees can be?", options: ["Inorder", "Preorder", "Postorder", "All of these"], correctAnswer: "All of these", explanation: "Different ways to visit nodes recursively.", difficulty: "Beginner" },
+            { id: 'tr11', questionText: "BFS traversal in Trees is also called?", options: ["Inorder", "Level Order", "Postorder", "Depth Order"], correctAnswer: "Level Order", explanation: "Visiting nodes level by level.", difficulty: "Intermediate" },
+            { id: 'tr12', questionText: "Leaf nodes have how many children?", options: ["0", "1", "2", "At least 1"], correctAnswer: "0", explanation: "Terminal nodes in a tree.", difficulty: "Beginner" },
+            { id: 'tr13', questionText: "A tree where every node has 0 or 2 children?", options: ["Full Binary Tree", "Complete Binary Tree", "Perfect Binary Tree", "Skewed Tree"], correctAnswer: "Full Binary Tree", explanation: "Also called strictly binary tree.", difficulty: "Intermediate" },
+            { id: 'tr14', questionText: "Complexity of Heapify operation?", options: ["O(log n)", "O(n)", "O(1)", "O(n log n)"], correctAnswer: "O(log n)", explanation: "Sinking an element down the heap.", difficulty: "Advanced" },
+            { id: 'tr15', questionText: "Application of Trees?", options: ["File systems", "Database indexing", "Huffman coding", "All of these"], correctAnswer: "All of these", explanation: "Trees are fundamental in hierarchical storage.", difficulty: "Beginner" }
         ]
     },
     'Hashing': {
@@ -346,7 +411,20 @@ const questionBank = {
         },
         questions: [
             { id: 'ha1', questionText: "Average time complexity for searching in a Hash Map?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Hashing provides direct access via keys.", difficulty: "Beginner" },
-            { id: 'ha2', questionText: "What is it called when two keys hash to the same value?", options: ["Conflict", "Collision", "Matching", "Overlay"], correctAnswer: "Collision", explanation: "Hash collisions must be handled using techniques like chaining or open addressing.", difficulty: "Beginner" }
+            { id: 'ha2', questionText: "What is it called when two keys hash to the same value?", options: ["Conflict", "Collision", "Matching", "Overlay"], correctAnswer: "Collision", explanation: "Hash collisions must be handled using techniques like chaining or open addressing.", difficulty: "Beginner" },
+            { id: 'ha3', questionText: "Which part of a hash map handles collisions by storing multiple items in a list?", options: ["Linear Probing", "Chaining", "Double Hashing", "Rehashing"], correctAnswer: "Chaining", explanation: "Chaining uses linked lists at each index.", difficulty: "Intermediate" },
+            { id: 'ha4', questionText: "Worst case time complexity of Hash Map search?", options: ["O(1)", "O(log n)", "O(n)", "O(n²)"], correctAnswer: "O(n)", explanation: "Happens when all keys collide at the same index.", difficulty: "Intermediate" },
+            { id: 'ha5', questionText: "A good hash function should be?", options: ["Uniformly distributed", "Slow", "Random", "Large"], correctAnswer: "Uniformly distributed", explanation: "Minimizes collisions.", difficulty: "Beginner" },
+            { id: 'ha6', questionText: "In Open Addressing, if a slot is full, we look for?", options: ["Next available slot", "New hash function", "The head of list", "None"], correctAnswer: "Next available slot", explanation: "Probing for the next empty space.", difficulty: "Intermediate" },
+            { id: 'ha7', questionText: "Rehashing is done when?", options: ["Collision occurs", "Load factor exceeds threshold", "Key is deleted", "Always"], correctAnswer: "Load factor exceeds threshold", explanation: "Increases table size to maintain performance.", difficulty: "Advanced" },
+            { id: 'ha8', questionText: "Complexity of inserting a key in a hash table (average)?", options: ["O(1)", "O(n)", "O(log n)", "O(n²)"], correctAnswer: "O(1)", explanation: "Direct mapping.", difficulty: "Beginner" },
+            { id: 'ha9', questionText: "Which collision handling technique uses a second hash function?", options: ["Linear Probing", "Quadratic Probing", "Double Hashing", "Chaining"], correctAnswer: "Double Hashing", explanation: "Uses H2(k) to find step size.", difficulty: "Advanced" },
+            { id: 'ha10', questionText: "Load factor of a hash table is?", options: ["Size / Capacity", "n / m", "m / n", "n + m"], correctAnswer: "n / m", explanation: "Ratio of elements to slots.", difficulty: "Intermediate" },
+            { id: 'ha11', questionText: "Cryptographic hash functions must be?", options: ["One-way", "Reversible", "Simple", "Small"], correctAnswer: "One-way", explanation: "Impossible to retrieve input from output.", difficulty: "Advanced" },
+            { id: 'ha12', questionText: "Hash Map value can be accessed using?", options: ["Index", "Key", "Pointer", "Value itself"], correctAnswer: "Key", explanation: "Key-Value pair relationship.", difficulty: "Beginner" },
+            { id: 'ha13', questionText: "Problem with Linear Probing?", options: ["Clustering", "Slow insertion", "Large memory", "None"], correctAnswer: "Clustering", explanation: "Consecutive occupied slots slow down search.", difficulty: "Intermediate" },
+            { id: 'ha14', questionText: "Which is a valid Hash Function for strings?", options: ["Polynomial Rolling Hash", "Sum of ASCII", "XOR all chars", "All of these"], correctAnswer: "All of these", explanation: "Various ways to map strings to numbers.", difficulty: "Intermediate" },
+            { id: 'ha15', questionText: "Use of hashing in real world?", options: ["Password storage", "Data deduplication", "Caching", "All of these"], correctAnswer: "All of these", explanation: "Ubiquitous in security and performance.", difficulty: "Beginner" }
         ]
     },
     'OOPS': {
@@ -357,7 +435,20 @@ const questionBank = {
         },
         questions: [
             { id: 'oo1', questionText: "Hiding internal details and showing only functionality is?", options: ["Encapsulation", "Abstraction", "Inheritance", "Polymorphism"], correctAnswer: "Abstraction", explanation: "Abstraction focuses on 'what' it does rather than 'how'.", difficulty: "Beginner" },
-            { id: 'oo4', questionText: "Combining data and methods into a single unit is?", options: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"], correctAnswer: "Encapsulation", explanation: "Encapsulation wraps data and code together.", difficulty: "Beginner" }
+            { id: 'oo2', questionText: "Method Overloading is an example of?", options: ["Compile-time Polymorphism", "Runtime Polymorphism", "Inheritance", "Abstraction"], correctAnswer: "Compile-time Polymorphism", explanation: "Resolved by compiler based on signatures.", difficulty: "Intermediate" },
+            { id: 'oo3', questionText: "Method Overriding is an example of?", options: ["Compile-time Polymorphism", "Runtime Polymorphism", "Encapsulation", "None"], correctAnswer: "Runtime Polymorphism", explanation: "Resolved at runtime based on object type.", difficulty: "Intermediate" },
+            { id: 'oo4', questionText: "Combining data and methods into a single unit is?", options: ["Inheritance", "Polymorphism", "Encapsulation", "Abstraction"], correctAnswer: "Encapsulation", explanation: "Encapsulation wraps data and code together.", difficulty: "Beginner" },
+            { id: 'oo5', questionText: "A class that cannot be instantiated is called?", options: ["Final class", "Abstract class", "Static class", "Derived class"], correctAnswer: "Abstract class", explanation: "Blueprint for other classes.", difficulty: "Intermediate" },
+            { id: 'oo6', questionText: "Which pillar allows a subclass to use methods of a parent class?", options: ["Inheritance", "Abstraction", "Encapsulation", "Polymorphism"], correctAnswer: "Inheritance", explanation: "Promotes code reuse.", difficulty: "Beginner" },
+            { id: 'oo7', questionText: "Encapsulation is achieved using?", options: ["Access Modifiers", "Loops", "Pointers", "Global variables"], correctAnswer: "Access Modifiers", explanation: "Private, protected, public.", difficulty: "Beginner" },
+            { id: 'oo8', questionText: "The 'is-a' relationship refers to?", options: ["Inheritance", "Composition", "Aggregation", "Abstraction"], correctAnswer: "Inheritance", explanation: "Dog is-a Animal.", difficulty: "Beginner" },
+            { id: 'oo9', questionText: "The 'has-a' relationship refers to?", options: ["Inheritance", "Composition/Aggregation", "Polymorphism", "Abstraction"], correctAnswer: "Composition/Aggregation", explanation: "Car has-a Engine.", difficulty: "Intermediate" },
+            { id: 'oo10', questionText: "A function with same name but different parameters in same class?", options: ["Overriding", "Overloading", "Inheriting", "Abstraction"], correctAnswer: "Overloading", explanation: "Different signatures.", difficulty: "Beginner" },
+            { id: 'oo11', questionText: "What part of a class is called automatically during object creation?", options: ["Destructor", "Method", "Constructor", "Variable"], correctAnswer: "Constructor", explanation: "Initializes the object.", difficulty: "Beginner" },
+            { id: 'oo12', questionText: "Multiple inheritance is not supported in Java/C# to avoid?", options: ["Memory leaks", "Diamond Problem", "Overloading", "Stack Overflow"], correctAnswer: "Diamond Problem", explanation: "Ambiguity when two parents have same method.", difficulty: "Advanced" },
+            { id: 'oo13', questionText: "Which keyword is used to refer to current class instance?", options: ["this", "super", "self", "both this/self"], correctAnswer: "both this/self", explanation: "Varies by language (JS/Java use 'this', Python uses 'self').", difficulty: "Intermediate" },
+            { id: 'oo14', questionText: "Interfaces provide 100% of which pillar?", options: ["Inheritance", "Abstraction", "Encapsulation", "Polymorphism"], correctAnswer: "Abstraction", explanation: "No implementation details in pure interfaces.", difficulty: "Intermediate" },
+            { id: 'oo15', questionText: "Virtual functions are used for?", options: ["Overloading", "Overriding/Polymorphism", "Encapsulation", "Static binding"], correctAnswer: "Overriding/Polymorphism", explanation: "Allows dynamic binding in languages like C++.", difficulty: "Advanced" }
         ]
     },
     'Functions': {
@@ -368,7 +459,20 @@ const questionBank = {
         },
         questions: [
             { id: 'fn1', questionText: "A function that does not return any value usually has return type?", options: ["int", "void", "null", "empty"], correctAnswer: "void", explanation: "'void' signifies no return value.", difficulty: "Beginner" },
-            { id: 'fn2', questionText: "What is 'Scope' of a variable?", options: ["Its lifetime", "Region where it's accessible", "Its memory size", "Its data type"], correctAnswer: "Region where it's accessible", explanation: "Scope defines the boundaries within which a variable can be used.", difficulty: "Beginner" }
+            { id: 'fn2', questionText: "What is 'Scope' of a variable?", options: ["Its lifetime", "Region where it's accessible", "Its memory size", "Its data type"], correctAnswer: "Region where it's accessible", explanation: "Scope defines the boundaries within which a variable can be used.", difficulty: "Beginner" },
+            { id: 'fn3', questionText: "Variables declared inside a function are?", options: ["Global", "Local", "Static", "External"], correctAnswer: "Local", explanation: "Only accessible inside that function.", difficulty: "Beginner" },
+            { id: 'fn4', questionText: "Passing a copy of data to a function is?", options: ["Call by value", "Call by reference", "Call by name", "Call by result"], correctAnswer: "Call by value", explanation: "Original variable remains unchanged.", difficulty: "Beginner" },
+            { id: 'fn5', questionText: "Passing address of data to a function is?", options: ["Call by value", "Call by reference", "Call by name", "Call by data"], correctAnswer: "Call by reference", explanation: "Changes inside function affect original variable.", difficulty: "Intermediate" },
+            { id: 'fn6', questionText: "Function that calls itself is?", options: ["Loop", "Recursive function", "Main function", "Helper function"], correctAnswer: "Recursive function", explanation: "Solves subproblems.", difficulty: "Beginner" },
+            { id: 'fn7', questionText: "Memory used for local variables in a function?", options: ["Heap", "Stack", "Static area", "Cache"], correctAnswer: "Stack", explanation: "Automatic allocation on call.", difficulty: "Intermediate" },
+            { id: 'fn8', questionText: "What is a 'Parameter'?", options: ["Return value", "Input to a function", "Error code", "Memory address"], correctAnswer: "Input to a function", explanation: "Variables in function definition.", difficulty: "Beginner" },
+            { id: 'fn9', questionText: "Default return type of a function in old C?", options: ["void", "int", "char", "float"], correctAnswer: "int", explanation: "Lexical default.", difficulty: "Advanced" },
+            { id: 'fn10', questionText: "A function signature includes?", options: ["Body", "Name and Parameters", "Variables", "Compiler version"], correctAnswer: "Name and Parameters", explanation: "Defines the interface of the function.", difficulty: "Intermediate" },
+            { id: 'fn11', questionText: "Functions that are defined inside other functions are?", options: ["Inner/Nested Functions", "Protected Functions", "Global Functions", "Friend Functions"], correctAnswer: "Inner/Nested Functions", explanation: "Common in JS (Closures).", difficulty: "Intermediate" },
+            { id: 'fn12', questionText: "Pure functions have no?", options: ["Return", "Parameters", "Side effects", "Logic"], correctAnswer: "Side effects", explanation: "Output depends only on input.", difficulty: "Advanced" },
+            { id: 'fn13', questionText: "Anonymous functions have no?", options: ["Parameters", "Name", "Return", "Body"], correctAnswer: "Name", explanation: "Often used as callbacks (Lambdas).", difficulty: "Intermediate" },
+            { id: 'fn14', questionText: "Variables that persist across function calls?", options: ["Local", "Static", "Global", "Both Static and Global"], correctAnswer: "Both Static and Global", explanation: "Stored in data segment, not stack.", difficulty: "Intermediate" },
+            { id: 'fn15', questionText: "Entry point of a program is usually the?", options: ["Start", "Initial", "Main", "Execute"], correctAnswer: "Main", explanation: "Execution begins here.", difficulty: "Beginner" }
         ]
     },
     'DBMS Basics': {
@@ -379,7 +483,20 @@ const questionBank = {
         },
         questions: [
             { id: 'db1', questionText: "Which key uniquely identifies a record in a table?", options: ["Foreign Key", "Primary Key", "Composite Key", "Unique Key"], correctAnswer: "Primary Key", explanation: "Every table must have a Primary Key for row identification.", difficulty: "Beginner" },
-            { id: 'db2', questionText: "What does SQL stand for?", options: ["Simple Query Logic", "Structured Query Language", "Standard Query Level", "System Query Link"], correctAnswer: "Structured Query Language", explanation: "The standard language for RDBMS.", difficulty: "Beginner" }
+            { id: 'db2', questionText: "What does SQL stand for?", options: ["Simple Query Logic", "Structured Query Language", "Standard Query Level", "System Query Link"], correctAnswer: "Structured Query Language", explanation: "The standard language for RDBMS.", difficulty: "Beginner" },
+            { id: 'db3', questionText: "ACID properties: What does 'A' stand for?", options: ["Accuracy", "Atomicity", "Availability", "Access"], correctAnswer: "Atomicity", explanation: "Transactions are all-or-nothing.", difficulty: "Intermediate" },
+            { id: 'db4', questionText: "Which command is used to remove all records from a table but keep the structure?", options: ["DELETE", "DROP", "TRUNCATE", "REMOVE"], correctAnswer: "TRUNCATE", explanation: "TRUNCATE is a DDL command that resets the table.", difficulty: "Intermediate" },
+            { id: 'db5', questionText: "A row in a table is also known as a?", options: ["Field", "Tuple", "Attribute", "Relation"], correctAnswer: "Tuple", explanation: "Formal term for a record/row.", difficulty: "Beginner" },
+            { id: 'db6', questionText: "Which normalization form removes partial dependencies?", options: ["1NF", "2NF", "3NF", "BCNF"], correctAnswer: "2NF", explanation: "Ensures all non-key attributes depend on the full primary key.", difficulty: "Advanced" },
+            { id: 'db7', questionText: "What is a 'Foreign Key'?", options: ["A key from another country", "A key that links two tables", "A backup key", "A hidden key"], correctAnswer: "A key that links two tables", explanation: "Points to a Primary Key in another table.", difficulty: "Beginner" },
+            { id: 'db8', questionText: "SQL command to fetch unique values?", options: ["UNIQUE", "DISTINCT", "SINGLE", "ONLY"], correctAnswer: "DISTINCT", explanation: "Filters out duplicate rows.", difficulty: "Beginner" },
+            { id: 'db9', questionText: "Which JOIN returns all records when there is a match in either left or right table?", options: ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL OUTER JOIN"], correctAnswer: "FULL OUTER JOIN", explanation: "Combines results of both left and right outer joins.", difficulty: "Intermediate" },
+            { id: 'db10', questionText: "What does DDL stand for?", options: ["Data Definition Language", "Data Distribution Level", "Distant Data Link", "Detailed Data Logic"], correctAnswer: "Data Definition Language", explanation: "Commands like CREATE, ALTER, DROP.", difficulty: "Intermediate" },
+            { id: 'db11', questionText: "Database Indexing is used to?", options: ["Slow down writes", "Speed up data retrieval", "Encrypt data", "Save space"], correctAnswer: "Speed up data retrieval", explanation: "Creates a lookup structure for faster searching.", difficulty: "Beginner" },
+            { id: 'db12', questionText: "The 'R' in RDBMS stands for?", options: ["Rapid", "Relational", "Remote", "Robust"], correctAnswer: "Relational", explanation: "Based on the relational model (tables).", difficulty: "Beginner" },
+            { id: 'db13', questionText: "Which SQL clause is used to filter results of an aggregate function (like SUM)?", options: ["WHERE", "HAVING", "GROUP BY", "ORDER BY"], correctAnswer: "HAVING", explanation: "HAVING is used with GROUP BY.", difficulty: "Intermediate" },
+            { id: 'db14', questionText: "What is a 'Deadlock' in DBMS?", options: ["Database crash", "Two transactions waiting for each other", "Loss of connection", "Incorrect data entry"], correctAnswer: "Two transactions waiting for each other", explanation: "Circular wait condition.", difficulty: "Advanced" },
+            { id: 'db15', questionText: "The level of data abstraction that describes how data is actually stored?", options: ["Physical Level", "Logical Level", "View Level", "User Level"], correctAnswer: "Physical Level", explanation: "Lowest level of abstraction.", difficulty: "Advanced" }
         ]
     },
     'OS Basics': {
@@ -390,7 +507,20 @@ const questionBank = {
         },
         questions: [
             { id: 'os1', questionText: "A process that is currently being executed is in which state?", options: ["Ready", "Running", "Waiting", "Terminated"], correctAnswer: "Running", explanation: "Running state means it's using the CPU.", difficulty: "Beginner" },
-            { id: 'os2', questionText: "Process vs Thread: Which shares the same memory space?", options: ["Processes", "Threads", "Both", "Neither"], correctAnswer: "Threads", explanation: "Threads of the same process share memory, making them lightweight.", difficulty: "Beginner" }
+            { id: 'os2', questionText: "Process vs Thread: Which shares the same memory space?", options: ["Processes", "Threads", "Both", "Neither"], correctAnswer: "Threads", explanation: "Threads of the same process share memory, making them lightweight.", difficulty: "Beginner" },
+            { id: 'os3', questionText: "What is 'Virtual Memory'?", options: ["Extra RAM", "Using disk space as RAM", "Cloud memory", "Hidden memory"], correctAnswer: "Using disk space as RAM", explanation: "Allows running larger programs than physical RAM.", difficulty: "Intermediate" },
+            { id: 'os4', questionText: "Which scheduling algorithm gives each process a fixed time slice?", options: ["FCFS", "SJF", "Round Robin", "Priority"], correctAnswer: "Round Robin", explanation: "Fair distribution of CPU time.", difficulty: "Intermediate" },
+            { id: 'os5', questionText: "A situation where a process waits forever for a resource?", options: ["Interrupt", "Starvation", "Context Switch", "Throughput"], correctAnswer: "Starvation", explanation: "Lack of resource allocation.", difficulty: "Intermediate" },
+            { id: 'os6', questionText: "What is a 'Kernel'?", options: ["A shell", "Core of the OS", "A hardware part", "A user program"], correctAnswer: "Core of the OS", explanation: "Manages system calls and hardware.", difficulty: "Beginner" },
+            { id: 'os7', questionText: "What is 'Thrashing'?", options: ["CPU overheating", "Excessive paging leading to low CPU use", "Disk failure", "Fast execution"], correctAnswer: "Excessive paging leading to low CPU use", explanation: "OS spends more time swapping than executing.", difficulty: "Advanced" },
+            { id: 'os8', questionText: "Which is a non-preemptive scheduling algorithm?", options: ["Round Robin", "SRTF", "FCFS", "Multilevel Queue"], correctAnswer: "FCFS", explanation: "First Come First Served doesn't interrupt running processes.", difficulty: "Intermediate" },
+            { id: 'os9', questionText: "A 'Deadlock' requires how many conditions to occur?", options: ["1", "2", "4", "Unlimited"], correctAnswer: "4", explanation: "Mutual exclusion, Hold & Wait, No Preemption, Circular Wait.", difficulty: "Advanced" },
+            { id: 'os10', questionText: "What is 'GUI'?", options: ["General User Interface", "Graphical User Interface", "Global User Input", "Guided User Interaction"], correctAnswer: "Graphical User Interface", explanation: "Visual way to interact with computers.", difficulty: "Beginner" },
+            { id: 'os11', questionText: "Booting is?", options: ["Shutting down", "Starting the computer", "Installing OS", "Cleaning disk"], correctAnswer: "Starting the computer", explanation: "The initial load process.", difficulty: "Beginner" },
+            { id: 'os12', questionText: "Which component manages hardware interrupts?", options: ["RAM", "CPU/Kernel", "Hard Disk", "Monitor"], correctAnswer: "CPU/Kernel", explanation: "Handles signals from devices.", difficulty: "Intermediate" },
+            { id: 'os13', questionText: "Multitasking on a single-core CPU is achieved via?", options: ["Parallelism", "Time Slicing/Concurrency", "Dual booting", "More RAM"], correctAnswer: "Time Slicing/Concurrency", explanation: "Rapid switching between tasks.", difficulty: "Intermediate" },
+            { id: 'os14', questionText: "Memory management unit (MMU) is responsible for?", options: ["Disk cleanup", "Virtual to Physical address translation", "CPU scheduling", "Data encryption"], correctAnswer: "Virtual to Physical address translation", explanation: "Maps memory addresses.", difficulty: "Advanced" },
+            { id: 'os15', questionText: "Wait(S) and Signal(S) are operations on?", options: ["Threads", "Semaphores", "Waitlists", "Queues"], correctAnswer: "Semaphores", explanation: "Used for process synchronization.", difficulty: "Advanced" }
         ]
     },
 
