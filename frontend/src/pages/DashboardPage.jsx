@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
     BookOpen,
     Code,
@@ -16,10 +15,44 @@ import {
     Languages,
     Check,
     ArrowRight,
-    ArrowLeft
+    ArrowLeft,
+    Trophy,
+    Zap,
+    Star,
+    ShieldCheck,
+    Clock,
+    Flame,
+    Moon,
+    X,
+    Sparkles
 } from 'lucide-react';
 import questionService from '../services/questionService';
 import Logo from '../components/Logo';
+import SkillRadar from '../components/SkillRadar';
+
+const BADGE_DATA = {
+    'Early Bird': {
+        description: 'Completed a learning session before 9:00 AM. Start your day with a sharp mind!',
+        icon: <Clock className="w-5 h-5" />,
+        color: 'bg-amber-100 text-amber-600'
+    },
+    'Night Owl': {
+        description: 'Burned the midnight oil. Completed a session after 10:00 PM.',
+        icon: <Moon className="w-5 h-5" />,
+        color: 'bg-indigo-100 text-indigo-600'
+    },
+    'Streak Warrior': {
+        description: 'Maintained a logic-defying consistency of 3+ days!',
+        icon: <Flame className="w-5 h-5" />,
+        color: 'bg-orange-100 text-orange-600'
+    },
+    'Mastery Badge': {
+        description: 'Perfect score! Correctly answered all questions in a single session.',
+        icon: <Trophy className="w-5 h-5" />,
+        color: 'bg-purple-100 text-purple-600'
+    }
+};
+
 
 const topics = [
     {
@@ -94,6 +127,9 @@ const DashboardPage = () => {
     const [isLangUpdating, setIsLangUpdating] = useState(false);
 
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedBadge, setSelectedBadge] = useState(null);
+    const location = useLocation();
+    const [showEarnedPopup, setShowEarnedPopup] = useState(location.state?.badgeEarned || false);
 
     const changeLanguage = async (newLang) => {
         setIsLangUpdating(true);
@@ -110,16 +146,16 @@ const DashboardPage = () => {
         setLoading(true);
         setActiveTopic(topic);
         try {
-            const seenIds = (user?.progress && user.progress[topic])
-                ? user.progress[topic].seenQuestionIds || []
-                : [];
+            const topicProgress = (user?.progress && user.progress[topic]) ? user.progress[topic] : {};
+            const seenIds = topicProgress.seenQuestionIds || [];
+            const correctIds = topicProgress.correctQuestionIds || [];
 
-            const content = await questionService.getSessionContent(topic, 'Beginner', seenIds);
+            const content = await questionService.getSessionContent(topic, 'Beginner', seenIds, correctIds);
 
             const session = {
                 _id: 'local_' + Date.now(),
                 topic,
-                level: 'Beginner',
+                level: content.level, // Use the level determined by the service
                 explanation: (user?.preferredLanguage === 'Tamil' && content.explanation_tamil) ? content.explanation_tamil :
                     (user?.preferredLanguage === 'Telugu' && content.explanation_telugu) ? content.explanation_telugu :
                         content.explanation,
@@ -128,10 +164,12 @@ const DashboardPage = () => {
                 currentStep: 'explanation'
             };
 
+            // Update seen questions in user profile (Firestone / LocalStorage)
             const newSeenIds = [...new Set([...seenIds, ...content.questions.map(q => q.id)])];
             const updatedProgress = { ...(user?.progress || {}) };
             updatedProgress[topic] = {
-                level: 'Beginner',
+                ...topicProgress,
+                level: content.level,
                 seenQuestionIds: newSeenIds
             };
 
@@ -147,8 +185,31 @@ const DashboardPage = () => {
 
     const currentCategoryData = selectedCategory ? topics.find(t => t.category === selectedCategory) : null;
 
+    // Calculate Category Stats for Radar Chart
+    const getCategoryStats = () => {
+        const stats = { aptitude: 0, technical: 0, logical: 0 };
+        topics.forEach(cat => {
+            const totalQuestions = cat.items.length * 30;
+            let correctQuestions = 0;
+            cat.items.forEach(topic => {
+                if (user?.progress && user.progress[topic]) {
+                    correctQuestions += (user.progress[topic].correctQuestionIds?.length || 0);
+                }
+            });
+            const percentage = totalQuestions > 0 ? (correctQuestions / totalQuestions) * 100 : 0;
+            stats[cat.category.toLowerCase()] = Math.max(10, Math.round(percentage));
+        });
+        return stats;
+    };
+
+    const categoryStats = getCategoryStats();
+
     return (
-        <div className="min-h-screen bg-[#FBFCFE] text-slate-900 selection:bg-indigo-100 selection:text-indigo-700 font-['Inter']">
+        <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-indigo-100 selection:text-indigo-700 font-['Inter'] relative overflow-hidden">
+            {/* Background Decorative Blobs */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200/20 blur-[120px] rounded-full" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-200/20 blur-[120px] rounded-full" />
+
             {/* Header */}
             <header className="bg-white border-b border-slate-200 sticky top-0 z-40 backdrop-blur-md bg-white/80">
                 <div className="max-w-[1100px] mx-auto px-6 h-20 flex justify-between items-center">
@@ -193,75 +254,267 @@ const DashboardPage = () => {
                 {/* Hero Stats */}
                 {!selectedCategory && (
                     <section className="mb-16">
-                        <div className="flex flex-col md:flex-row gap-6">
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="flex-1 p-8 rounded-[32px] bg-white border border-slate-200 shadow-sm flex flex-col justify-between relative overflow-hidden group"
-                            >
-                                <div className="absolute top-0 right-0 p-8 opacity-[0.03] group-hover:scale-110 transition-transform duration-700">
-                                    <Activity className="w-32 h-32" />
-                                </div>
-                                <div className="flex justify-between items-start mb-4 relative z-10">
-                                    <div className="p-3 bg-indigo-50 rounded-2xl text-indigo-600">
-                                        <Activity className="w-6 h-6" />
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            {/* Left Side: User Summary */}
+                            <div className="lg:col-span-2 space-y-6">
+                                <motion.div
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    className="p-10 rounded-[40px] bg-white border border-slate-200 shadow-xl shadow-slate-200/40 relative overflow-hidden"
+                                >
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="h-16 w-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-200">
+                                                {user?.name?.charAt(0) || 'T'}
+                                            </div>
+                                            <div>
+                                                <h1 className="text-3xl font-black text-slate-900 tracking-tight">Welcome back, {user?.name?.split(' ')[0]}!</h1>
+                                                <p className="text-slate-500 font-medium tracking-tight">You're making incredible progress this week.</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                            <div className="p-5 rounded-3xl bg-slate-50 border border-slate-100">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
+                                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Streak</span>
+                                                </div>
+                                                <p className="text-2xl font-black text-slate-900">{user?.streak || 0} Days</p>
+                                            </div>
+                                            <div className="p-5 rounded-3xl bg-indigo-50/50 border border-indigo-100">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <Star className="w-4 h-4 text-indigo-600 fill-indigo-600" />
+                                                    <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">XP points</span>
+                                                </div>
+                                                <p className="text-2xl font-black text-indigo-600">{user?.xp || 0}</p>
+                                            </div>
+                                            <div className="p-5 rounded-3xl bg-purple-50/50 border border-purple-100">
+                                                <div className="flex items-center gap-2 mb-2">
+                                                    <Trophy className="w-4 h-4 text-purple-600 fill-purple-600" />
+                                                    <span className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Current Level</span>
+                                                </div>
+                                                <p className="text-2xl font-black text-purple-600">{Math.floor((user?.xp || 0) / 100) + 1}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mastery Level</span>
-                                </div>
-                                <div className="relative z-10">
-                                    <h3 className="text-4xl font-extrabold text-slate-900">12%</h3>
-                                    <p className="text-sm text-slate-500 mt-1 font-medium italic">"Keep pushing forward"</p>
-                                </div>
-                                <div className="w-full h-2 bg-slate-100 rounded-full mt-8 overflow-hidden relative z-10">
+
+                                    {/* Abstract background shape */}
+                                    <div className="absolute top-[-20%] right-[-10%] w-[300px] h-[300px] bg-indigo-50 rounded-full opacity-40 blur-3xl" />
+                                </motion.div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <motion.div
-                                        initial={{ width: 0 }}
-                                        animate={{ width: '12%' }}
-                                        transition={{ duration: 1, ease: "easeOut" }}
-                                        className="h-full bg-indigo-600 rounded-full"
-                                    />
-                                </div>
-                            </motion.div>
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.1 }}
+                                        className="p-8 rounded-[32px] bg-white border border-slate-200 shadow-sm flex flex-col justify-between"
+                                    >
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-600">
+                                                <Activity className="w-6 h-6" />
+                                            </div>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Mastery</span>
+                                        </div>
+                                        {(() => {
+                                            const totalPossible = topics.reduce((acc, cat) => acc + cat.items.length * 30, 0);
+                                            let totalCorrect = 0;
+                                            if (user?.progress) {
+                                                Object.values(user.progress).forEach(p => {
+                                                    totalCorrect += (p.correctQuestionIds?.length || 0);
+                                                });
+                                            }
+                                            const mastery = totalPossible > 0 ? Math.round((totalCorrect / totalPossible) * 100) : 0;
+                                            return (
+                                                <div className="pt-2">
+                                                    <h3 className="text-4xl font-black text-slate-900">{mastery}%</h3>
+                                                    <div className="w-full h-2 bg-slate-100 rounded-full mt-4 overflow-hidden">
+                                                        <motion.div
+                                                            initial={{ width: 0 }}
+                                                            animate={{ width: `${mastery}%` }}
+                                                            className="h-full bg-emerald-500 rounded-full"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            );
+                                        })()}
+                                    </motion.div>
 
-                            <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 }}
-                                className="flex-1 p-8 rounded-[32px] bg-white border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group"
-                            >
-                                <div className="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:-rotate-12 transition-transform duration-700">
-                                    <TrendingUp className="w-32 h-32" />
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="p-8 rounded-[32px] bg-slate-900 border border-slate-800 shadow-xl shadow-slate-900/20 flex flex-col justify-between text-white"
+                                    >
+                                        <div className="flex justify-between items-start mb-4">
+                                            <div className="p-3 bg-white/10 rounded-2xl text-white backdrop-blur-md">
+                                                <TrendingUp className="w-6 h-6" />
+                                            </div>
+                                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Accuracy</span>
+                                        </div>
+                                        {(() => {
+                                            let totalCorrect = 0;
+                                            let totalSeen = 0;
+                                            if (user?.progress) {
+                                                Object.values(user.progress).forEach(p => {
+                                                    totalCorrect += (p.correctQuestionIds?.length || 0);
+                                                    totalSeen += (p.seenQuestionIds?.length || 0);
+                                                });
+                                            }
+                                            const accuracy = totalSeen > 0 ? Math.round((totalCorrect / totalSeen) * 100) : 0;
+                                            return (
+                                                <div className="pt-2">
+                                                    <h3 className="text-4xl font-black text-white">{accuracy}%</h3>
+                                                    <p className="text-xs text-slate-400 mt-2 font-medium">Overall Precision Index</p>
+                                                </div>
+                                            );
+                                        })()}
+                                    </motion.div>
                                 </div>
-                                <div className="h-16 w-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-emerald-600 shrink-0 relative z-10">
-                                    <TrendingUp className="w-8 h-8" />
-                                </div>
-                                <div className="relative z-10">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Accuracy</p>
-                                    <h3 className="text-3xl font-extrabold text-slate-900">88%</h3>
-                                    <p className="text-xs text-slate-500 font-medium">Last 20 sessions</p>
-                                </div>
-                            </motion.div>
+                            </div>
 
+                            {/* Right Side: Radar Chart */}
                             <motion.div
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2 }}
-                                className="flex-1 p-8 rounded-[32px] bg-white border border-slate-200 shadow-sm flex items-center gap-6 relative overflow-hidden group"
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="p-8 rounded-[40px] bg-white border border-slate-200 shadow-xl shadow-slate-200/40 flex flex-col items-center justify-center text-center relative overflow-hidden"
                             >
-                                <div className="absolute -bottom-4 -right-4 opacity-[0.03] group-hover:-rotate-12 transition-transform duration-700">
-                                    <Award className="w-32 h-32" />
+                                <div className="relative z-10 w-full">
+                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-4">Skill Radar</h3>
+                                    <SkillRadar stats={categoryStats} />
+                                    <p className="text-xs text-slate-400 font-medium px-4 mt-4">
+                                        Your proficiency profile based on recent adaptive sessions.
+                                    </p>
                                 </div>
-                                <div className="h-16 w-16 bg-amber-50 rounded-2xl flex items-center justify-center text-amber-600 shrink-0 relative z-10">
-                                    <Award className="w-8 h-8" />
-                                </div>
-                                <div className="relative z-10">
-                                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Streak</p>
-                                    <h3 className="text-3xl font-extrabold text-slate-900">03</h3>
-                                    <p className="text-xs text-slate-500 font-medium">Days consistent</p>
-                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-50/30 -z-0" />
                             </motion.div>
                         </div>
                     </section>
                 )}
+
+                {/* Achievement Badges Section */}
+                {!selectedCategory && (
+                    <section className="mb-16">
+                        <div className="flex items-center gap-3 mb-8">
+                            <div className="h-8 w-8 bg-amber-100 rounded-lg flex items-center justify-center text-amber-600">
+                                <ShieldCheck className="w-5 h-5" />
+                            </div>
+                            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Achievements</h2>
+                        </div>
+                        <div className="flex flex-wrap gap-4">
+                            {(user?.badges || []).length > 0 ? (
+                                user.badges.map((badge, idx) => {
+                                    const details = BADGE_DATA[badge] || {
+                                        description: 'An achievement for your hard work!',
+                                        icon: <Award className="w-5 h-5" />,
+                                        color: 'bg-slate-100 text-slate-600'
+                                    };
+                                    return (
+                                        <motion.button
+                                            key={idx}
+                                            initial={{ opacity: 0, scale: 0.8 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            whileHover={{ y: -5 }}
+                                            onClick={() => setSelectedBadge({ name: badge, ...details })}
+                                            className="px-6 py-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center gap-4 group hover:border-indigo-200 transition-all text-left"
+                                        >
+                                            <div className={`h-10 w-10 rounded-full flex items-center justify-center ${details.color} group-hover:bg-indigo-600 group-hover:text-white transition-colors`}>
+                                                {details.icon}
+                                            </div>
+                                            <div>
+                                                <p className="text-sm font-bold text-slate-900">{badge}</p>
+                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Unlocked Achievement</p>
+                                            </div>
+                                        </motion.button>
+                                    );
+                                })
+                            ) : (
+                                <div className="w-full p-8 rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-center opacity-60">
+                                    <Award className="w-12 h-12 text-slate-300 mb-2" />
+                                    <p className="text-sm font-medium text-slate-500">No achievements yet. Keep learning to unlock!</p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Badge Detail Overlay */}
+                        <AnimatePresence>
+                            {selectedBadge && (
+                                <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        onClick={() => setSelectedBadge(null)}
+                                        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+                                    />
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                                        className="relative w-full max-w-sm bg-white rounded-[40px] shadow-2xl overflow-hidden"
+                                    >
+                                        <div className={`h-32 flex items-center justify-center relative ${selectedBadge.color}`}>
+                                            <div className="absolute top-6 right-6">
+                                                <button
+                                                    onClick={() => setSelectedBadge(null)}
+                                                    className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/40 transition-colors"
+                                                >
+                                                    <X className="w-5 h-5 text-white" />
+                                                </button>
+                                            </div>
+                                            <div className="h-20 w-20 bg-white rounded-3xl shadow-xl flex items-center justify-center text-indigo-600 scale-125">
+                                                {React.cloneElement(selectedBadge.icon, { className: 'w-10 h-10' })}
+                                            </div>
+                                        </div>
+                                        <div className="p-10 text-center">
+                                            <h3 className="text-2xl font-black text-slate-900 mb-2">{selectedBadge.name}</h3>
+                                            <div className="flex justify-center mb-6">
+                                                <div className="px-3 py-1 bg-amber-50 text-amber-600 rounded-full text-[10px] font-black uppercase tracking-widest">
+                                                    Official Achievement
+                                                </div>
+                                            </div>
+                                            <p className="text-slate-500 font-medium leading-relaxed mb-8">
+                                                {selectedBadge.description}
+                                            </p>
+                                            <button
+                                                onClick={() => setSelectedBadge(null)}
+                                                className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-indigo-600 transition-colors"
+                                            >
+                                                Awesome!
+                                            </button>
+                                        </div>
+                                    </motion.div>
+                                </div>
+                            )}
+                        </AnimatePresence>
+
+                        {/* Earned Notification Popup */}
+                        <AnimatePresence>
+                            {showEarnedPopup && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 50 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, scale: 0.9 }}
+                                    className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[101] bg-slate-900 text-white px-8 py-4 rounded-2xl shadow-2xl flex items-center gap-4"
+                                >
+                                    <div className="h-10 w-10 bg-indigo-500 rounded-lg flex items-center justify-center">
+                                        <Sparkles className="w-6 h-6 text-white" />
+                                    </div>
+                                    <div>
+                                        <p className="font-bold">New Achievement Unlocked!</p>
+                                        <p className="text-xs text-slate-400 font-medium tracking-wide uppercase">Check your collection below</p>
+                                    </div>
+                                    <button
+                                        onClick={() => setShowEarnedPopup(false)}
+                                        className="ml-4 p-2 hover:bg-white/10 rounded-full transition-colors"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </section>
+                )}
+
 
                 {!selectedCategory ? (
                     <div className="space-y-10">

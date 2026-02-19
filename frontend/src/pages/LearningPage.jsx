@@ -12,7 +12,10 @@ import {
     BookOpen,
     GraduationCap,
     Sparkles,
-    Languages
+    Languages,
+    Zap,
+    Trophy,
+    Star
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import questionService from '../services/questionService';
@@ -30,6 +33,9 @@ const LearningPage = () => {
     const [feedback, setFeedback] = useState(null);
     const [loading, setLoading] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [sessionCorrectIds, setSessionCorrectIds] = useState([]);
+    const [xpGained, setXpGained] = useState(0);
+    const [showXpPopup, setShowXpPopup] = useState(false);
 
     useEffect(() => {
         if (!session) {
@@ -71,6 +77,13 @@ const LearningPage = () => {
             (user?.preferredLanguage === 'Telugu' && currentQ.explanation_telugu) ? currentQ.explanation_telugu :
                 currentQ.explanation;
 
+        if (isCorrect) {
+            setSessionCorrectIds(prev => [...new Set([...prev, currentQ.id])]);
+            setXpGained(prev => prev + 10);
+            setShowXpPopup(true);
+            setTimeout(() => setShowXpPopup(false), 2000);
+        }
+
         setFeedback({
             isCorrect,
             correctAnswer: currentQ.correctAnswer,
@@ -89,41 +102,81 @@ const LearningPage = () => {
         } else {
             setLoading(true);
             try {
-                // Determine next level or repeat
-                // For now, keep it simple: stay on Beginner until user finishes bank
-                const nextLevel = 'Beginner';
-
-                const seenIds = (user?.progress && user.progress[session.topic])
-                    ? user.progress[session.topic].seenQuestionIds || []
-                    : [];
-
-                const content = await questionService.getSessionContent(session.topic, nextLevel, seenIds);
-
-                const newSession = {
-                    _id: 'local_' + Date.now(),
-                    topic: session.topic,
-                    level: nextLevel,
-                    explanation: (user?.preferredLanguage === 'Tamil' && content.explanation_tamil) ? content.explanation_tamil :
-                        (user?.preferredLanguage === 'Telugu' && content.explanation_telugu) ? content.explanation_telugu :
-                            content.explanation,
-                    workedExample: content.workedExample,
-                    questions: content.questions,
-                    currentStep: 'practice'
-                };
-
-                // Update seen questions in user profile (Firestone)
-                const newSeenIds = [...new Set([...seenIds, ...content.questions.map(q => q.id)])];
+                // Update progress with correct answers from this session
                 const updatedProgress = { ...(user?.progress || {}) };
+                const currentTopicProgress = updatedProgress[session.topic] || { seenQuestionIds: [], correctQuestionIds: [] };
+
+                const newSeenIds = [...new Set([...(currentTopicProgress.seenQuestionIds || []), ...session.questions.map(q => q.id)])];
+                const newCorrectIds = [...new Set([...(currentTopicProgress.correctQuestionIds || []), ...sessionCorrectIds])];
+
                 updatedProgress[session.topic] = {
-                    level: nextLevel,
-                    seenQuestionIds: newSeenIds
+                    ...currentTopicProgress,
+                    seenQuestionIds: newSeenIds,
+                    correctQuestionIds: newCorrectIds
                 };
 
-                await updateUser({ progress: updatedProgress });
+                // Calculate Streak
+                const today = new Date().toISOString().split('T')[0];
+                let currentStreak = user?.streak || 0;
+                let lastDate = user?.lastActiveDate;
 
-                setSession(newSession);
-                setCurrentQuestionIndex(0);
-                setView('question'); // Direct to question to keep flow
+                if (lastDate !== today) {
+                    const yesterday = new Date();
+                    yesterday.setDate(yesterday.getDate() - 1);
+                    const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+                    if (lastDate === yesterdayStr) {
+                        currentStreak += 1;
+                    } else if (!lastDate) {
+                        currentStreak = 1;
+                    } else {
+                        currentStreak = 1; // Reset streak if missed a day
+                    }
+                }
+
+                // Achievement System: Check for new badges
+                const newBadges = [...(user?.badges || [])];
+                const now = new Date();
+                const hour = now.getHours();
+                let earnedNewBadge = false;
+
+                // 1. Early Bird: Completed session before 9 AM
+                if (hour >= 4 && hour < 9) {
+                    if (!newBadges.includes('Early Bird')) {
+                        newBadges.push('Early Bird');
+                        earnedNewBadge = true;
+                    }
+                }
+
+                // 2. Night Owl: Completed session after 10 PM
+                if (hour >= 22 || hour < 4) {
+                    if (!newBadges.includes('Night Owl')) {
+                        newBadges.push('Night Owl');
+                        earnedNewBadge = true;
+                    }
+                }
+
+                // 3. Consistency: 3+ Streak
+                if (currentStreak >= 3 && !newBadges.includes('Streak Warrior')) {
+                    newBadges.push('Streak Warrior');
+                    earnedNewBadge = true;
+                }
+
+                // 4. Score Master: Perfect Session (no questions missed)
+                const totalQuestions = session.questions.length;
+                if (sessionCorrectIds.length === totalQuestions && !newBadges.includes('Mastery Badge')) {
+                    newBadges.push('Mastery Badge');
+                    earnedNewBadge = true;
+                }
+
+                await updateUser({
+                    progress: updatedProgress,
+                    xp: (user?.xp || 0) + xpGained,
+                    streak: currentStreak,
+                    lastActiveDate: today,
+                    badges: newBadges
+                });
+                navigate('/dashboard', { state: { badgeEarned: earnedNewBadge } });
             } catch (err) {
                 console.error(err);
             } finally {
@@ -155,12 +208,27 @@ const LearningPage = () => {
                     </div>
                 </div>
 
-                <div className="w-full h-1 bg-slate-100 mt-auto">
+                <div className="w-full h-1 bg-slate-100 mt-auto relative">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
                         className="h-full bg-indigo-500"
                     />
+
+                    {/* XP Popup */}
+                    <AnimatePresence>
+                        {showXpPopup && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: -40 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute right-6 top-0 flex items-center gap-1 text-amber-500 font-bold"
+                            >
+                                <Sparkles className="w-4 h-4" />
+                                +10 XP
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </header>
 
@@ -275,7 +343,9 @@ const LearningPage = () => {
 
                             <div className="study-card">
                                 <h3 className="text-2xl font-semibold mb-10 text-slate-900 leading-snug">
-                                    {session.questions[currentQuestionIndex].questionText}
+                                    {(user?.preferredLanguage === 'Tamil' && session.questions[currentQuestionIndex].questionText_tamil) ? session.questions[currentQuestionIndex].questionText_tamil :
+                                        (user?.preferredLanguage === 'Telugu' && session.questions[currentQuestionIndex].questionText_telugu) ? session.questions[currentQuestionIndex].questionText_telugu :
+                                            session.questions[currentQuestionIndex].questionText}
                                 </h3>
 
                                 <div className="grid grid-cols-1 gap-4">

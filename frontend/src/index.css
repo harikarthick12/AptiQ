@@ -25,21 +25,38 @@ body {
 
 @layer components {
   .study-card {
-    @apply bg-white border border-slate-200 rounded-2xl shadow-sm p-8 transition-all duration-300;
+    @apply bg-white/70 backdrop-blur-xl border border-white/40 rounded-[32px] shadow-xl shadow-slate-200/50 p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10;
+  }
+
+  .glass-card {
+    @apply bg-white/40 backdrop-blur-md border border-white/20 rounded-3xl shadow-lg;
+  }
+
+  .glass-card-dark {
+    @apply bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl shadow-xl;
   }
 
   .btn-primary {
-    @apply bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-xl font-semibold shadow-sm transition-all active:scale-95 disabled:opacity-50 disabled:active:scale-100;
+    @apply bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 transition-all active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100 hover:-translate-y-0.5;
   }
 
   .btn-secondary {
-    @apply bg-white border border-slate-200 hover:border-indigo-200 text-slate-700 px-6 py-3 rounded-xl font-semibold transition-all;
+    @apply bg-white/50 backdrop-blur-sm border border-slate-200 hover:border-indigo-200 text-slate-700 px-8 py-4 rounded-2xl font-bold transition-all hover:bg-white hover:shadow-md;
   }
 
   .heading-main {
     font-family: 'Poppins', sans-serif;
-    @apply text-3xl font-bold text-slate-900;
+    @apply text-4xl font-extrabold text-slate-900 tracking-tight;
   }
+}
+
+.bg-mesh {
+  background-color: #f8fafc;
+  background-image:
+    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
+    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
+    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+  background-attachment: fixed;
 }
 
 .prose p {

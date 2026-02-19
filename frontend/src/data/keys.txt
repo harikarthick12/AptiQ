@@ -1,0 +1,88 @@
+
+questionBank.js:7:    
+'Number System': {
+questionBank.js:322:    
+'HCF and LCM': {
+questionBank.js:637:    
+'Simplifications': {
+questionBank.js:952:    
+'Profit and Loss': {
+questionBank.js:1267:    
+'Average': {
+questionBank.js:1582:    
+'Ratio and Proportion': {
+questionBank.js:1897:    
+'Mixture and Alligations': 
+{
+questionBank.js:2208:    
+'Percentages': {
+questionBank.js:2523:    
+'Time and Work': {
+questionBank.js:2838:    
+'Pipes and Cisterns': {
+questionBank.js:3149:    
+'Simple and Compound 
+Interest': {
+questionBank.js:3464:    
+'Time Speed and Distance': 
+{
+questionBank.js:3779:    
+'Problems on Trains': {
+questionBank.js:4090:    
+'Boats and Streams': {
+questionBank.js:4403:    
+'Time Complexity': {
+questionBank.js:4714:    
+'Arrays': {
+questionBank.js:5025:    
+'Strings': {
+questionBank.js:5337:    
+'Searching': {
+questionBank.js:5649:    
+'Sorting': {
+questionBank.js:5961:    
+'Recursion': {
+questionBank.js:6273:    
+'Stack': {
+questionBank.js:6585:    
+'Queue': {
+questionBank.js:6897:    
+'Linked List': {
+questionBank.js:7209:    
+'Trees': {
+questionBank.js:7521:    
+'Hashing': {
+questionBank.js:7833:    
+'OOPS': {
+questionBank.js:8145:    
+'Functions': {
+questionBank.js:8461:    
+'DBMS Basics': {
+questionBank.js:8777:    
+'OS Basics': {
+questionBank.js:9095:    
+'Number Series': {
+questionBank.js:9141:    
+'Alphabet Series': {
+questionBank.js:9187:    
+'Coding and Decoding': {
+questionBank.js:9233:    
+'Analogy': {
+questionBank.js:9279:    
+'Classification': {
+questionBank.js:9325:    
+'Direction Sense': {
+questionBank.js:9371:    
+'Blood Relations': {
+questionBank.js:9417:    
+'Clock and Calendar': {
+questionBank.js:9463:    
+'Seating Arrangement': {
+questionBank.js:9509:    
+'Syllogism': {
+questionBank.js:9555:    
+'Venn Diagrams': {
+questionBank.js:9601:    
+'Visual Reasoning': {
+
+

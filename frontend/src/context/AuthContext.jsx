@@ -11,7 +11,11 @@ const TEST_USER = {
     name: 'Test User',
     email: 'test@example.com',
     preferredLanguage: 'English',
-    progress: {}
+    progress: {},
+    xp: 150,
+    streak: 3,
+    lastActiveDate: new Date().toISOString().split('T')[0],
+    badges: ['Early Bird']
 };
 
 export const AuthProvider = ({ children }) => {
@@ -22,13 +26,13 @@ export const AuthProvider = ({ children }) => {
         // Mock checking for a logged-in user in localStorage
         const storedUser = localStorage.getItem('aptiq_user');
         if (storedUser) {
-            setUser(JSON.parse(storedUser));
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
         }
         setLoading(false);
     }, []);
 
     const login = async (email, password) => {
-        // Simple bypass: allow entry if credentials match or just use test user
         if (email === 'test@example.com' && password === 'password123') {
             setUser(TEST_USER);
             localStorage.setItem('aptiq_user', JSON.stringify(TEST_USER));
@@ -44,7 +48,11 @@ export const AuthProvider = ({ children }) => {
             name,
             email,
             preferredLanguage: 'English',
-            progress: {}
+            progress: {},
+            xp: 0,
+            streak: 0,
+            lastActiveDate: new Date().toISOString().split('T')[0],
+            badges: []
         };
         setUser(newUser);
         localStorage.setItem('aptiq_user', JSON.stringify(newUser));

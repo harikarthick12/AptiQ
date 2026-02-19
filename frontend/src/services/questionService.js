@@ -5,17 +5,31 @@ class QuestionService {
     /**
      * Gets content for a session, picking questions the user HAS NOT seen yet.
      */
-    async getSessionContent(topic, level, seenIds = []) {
+    async getSessionContent(topic, currentLevel, seenIds = [], correctIds = []) {
         const topicData = questionBank[topic] || questionBank['Number System'];
 
-        // 1. Get base explanation and example
-        let explanation = topicData.explanation;
-        // In frontend, we'll handle language selection elsewhere or pass it in
+        // Determine Level based on correct answers
+        // Level 1: Beginner (0-9 correct)
+        // Level 2: Intermediate (10-19 correct)
+        // Level 3: Advanced (20+ correct)
+        const correctCount = correctIds.length;
+        let difficulty = 'Beginner';
+        if (correctCount >= 20) difficulty = 'Advanced';
+        else if (correctCount >= 10) difficulty = 'Intermediate';
 
-        // 2. Filter out seen questions
-        let availableQuestions = topicData.questions.filter(q => !seenIds.includes(q.id));
+        // 1. Filter by difficulty
+        let levelQuestions = topicData.questions.filter(q => q.difficulty === difficulty);
 
-        // If we ran out of questions, reset
+        // 2. Filter out seen questions within this difficulty
+        let availableQuestions = levelQuestions.filter(q => !seenIds.includes(q.id));
+
+        // If we ran out of questions in this difficulty, or if the bank is small, 
+        // fallback to any unseen questions in this topic
+        if (availableQuestions.length < 5) {
+            availableQuestions = topicData.questions.filter(q => !seenIds.includes(q.id));
+        }
+
+        // If STILL no questions (bank exhausted), reset and allow all
         if (availableQuestions.length === 0) {
             availableQuestions = topicData.questions;
         }
@@ -30,7 +44,7 @@ class QuestionService {
         // Add a temporary MongoDB-like _id for frontend compatibility
         const formattedQuestions = selected.map(q => ({
             ...q,
-            _id: q.id // Use the bank ID as the unique ID
+            _id: q.id
         }));
 
         return {
@@ -39,7 +53,8 @@ class QuestionService {
             explanation_telugu: topicData.explanation_telugu,
             workedExample: topicData.workedExample,
             questions: formattedQuestions,
-            tip: "Practice makes perfect!"
+            level: difficulty, // Return the actual level used
+            tip: `Welcome to ${difficulty} level!`
         };
     }
 }
