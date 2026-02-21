@@ -28,7 +28,6 @@ import {
 } from 'lucide-react';
 import questionService from '../services/questionService';
 import Logo from '../components/Logo';
-import SkillRadar from '../components/SkillRadar';
 
 const BADGE_DATA = {
     'Early Bird': {
@@ -129,7 +128,16 @@ const DashboardPage = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedBadge, setSelectedBadge] = useState(null);
     const location = useLocation();
-    const [showEarnedPopup, setShowEarnedPopup] = useState(location.state?.badgeEarned || false);
+    const [showEarnedPopup, setShowEarnedPopup] = useState(false);
+
+    // Achievement popup logic
+    React.useEffect(() => {
+        if (location.state?.badgeEarned) {
+            setShowEarnedPopup(true);
+            // Clear the state so it doesn't pop up again on refresh
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
 
     const changeLanguage = async (newLang) => {
         setIsLangUpdating(true);
@@ -183,56 +191,64 @@ const DashboardPage = () => {
         }
     };
 
-    const currentCategoryData = selectedCategory ? topics.find(t => t.category === selectedCategory) : null;
-
-    // Calculate Category Stats for Radar Chart
-    const getCategoryStats = () => {
-        const stats = { aptitude: 0, technical: 0, logical: 0 };
-        topics.forEach(cat => {
-            const totalQuestions = cat.items.length * 30;
-            let correctQuestions = 0;
-            cat.items.forEach(topic => {
-                if (user?.progress && user.progress[topic]) {
-                    correctQuestions += (user.progress[topic].correctQuestionIds?.length || 0);
-                }
-            });
-            const percentage = totalQuestions > 0 ? (correctQuestions / totalQuestions) * 100 : 0;
-            stats[cat.category.toLowerCase()] = Math.max(10, Math.round(percentage));
-        });
-        return stats;
+    const handleTopicClick = (topic) => {
+        startLearning(topic);
     };
 
-    const categoryStats = getCategoryStats();
+    const currentCategoryData = selectedCategory ? topics.find(t => t.category === selectedCategory) : null;
+
+    // Removed getCategoryStats as Skill Radar is deleted
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] text-slate-900 selection:bg-indigo-100 selection:text-indigo-700 font-['Inter'] relative overflow-hidden">
-            {/* Background Decorative Blobs */}
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200/20 blur-[120px] rounded-full" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-200/20 blur-[120px] rounded-full" />
+        <div className="min-h-screen bg-[#e0e5ec] text-[#44476a] selection:bg-indigo-100 selection:text-indigo-700 font-['Inter'] relative overflow-hidden">
+            {/* Background Decorative Blobs - Reduced opacity for softtone */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-200/10 blur-[120px] rounded-full" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-200/10 blur-[120px] rounded-full" />
 
-            {/* Header */}
-            <header className="bg-white border-b border-slate-200 sticky top-0 z-40 backdrop-blur-md bg-white/80">
+            <header className="bg-[#e0e5ec] border-b border-indigo-100/20 sticky top-0 z-40 backdrop-blur-md">
                 <div className="max-w-[1100px] mx-auto px-6 h-20 flex justify-between items-center">
-                    <div className="flex items-center gap-4 cursor-pointer" onClick={() => setSelectedCategory(null)}>
-                        <Logo className="h-10 w-auto" />
-                    </div>
+                    <Logo className="h-10 w-auto" onClick={() => setSelectedCategory(null)} />
 
                     <div className="flex items-center gap-4">
-                        {/* Language Selector */}
-                        <div className="hidden md:flex items-center bg-slate-100/50 border border-slate-200 rounded-xl p-1 gap-1">
-                            {['English', 'Tamil', 'Telugu'].map((lang) => (
-                                <button
-                                    key={lang}
-                                    onClick={() => changeLanguage(lang)}
-                                    disabled={isLangUpdating}
-                                    className={`px-3 py-1.5 text-[11px] font-bold rounded-lg transition-all ${user?.preferredLanguage === lang
-                                        ? 'bg-white text-indigo-600 shadow-sm border border-slate-200'
-                                        : 'text-slate-400 hover:text-slate-600'
-                                        }`}
-                                >
-                                    {lang}
-                                </button>
-                            ))}
+                        {/* Language Selector Slider - Improved with Drag & Click */}
+                        <div className="hidden md:flex items-center nm-inset border-none rounded-2xl p-1 relative overflow-hidden h-12 w-[292px] select-none">
+                            <div className="flex w-full h-full relative z-10">
+                                {['English', 'Tamil', 'Telugu'].map((lang, idx) => {
+                                    const isActive = user?.preferredLanguage === lang;
+                                    return (
+                                        <button
+                                            key={lang}
+                                            onClick={() => changeLanguage(lang)}
+                                            disabled={isLangUpdating}
+                                            className="flex-1 text-[11px] font-black uppercase tracking-widest transition-colors duration-300 flex items-center justify-center h-full outline-none focus:outline-none"
+                                        >
+                                            <span className={`relative z-20 ${isActive ? 'text-indigo-600' : 'text-slate-400'}`}>
+                                                {lang}
+                                            </span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Draggable Indicator */}
+                            <motion.div
+                                drag="x"
+                                dragConstraints={{ left: 0, right: 194 }}
+                                dragElastic={0.05}
+                                dragMomentum={false}
+                                onDragEnd={(event, info) => {
+                                    const dragX = info.offset.x + (user?.preferredLanguage === 'English' ? 0 : user?.preferredLanguage === 'Tamil' ? 97 : 194);
+                                    if (dragX < 50) changeLanguage('English');
+                                    else if (dragX < 145) changeLanguage('Tamil');
+                                    else changeLanguage('Telugu');
+                                }}
+                                animate={{
+                                    x: user?.preferredLanguage === 'English' ? 0 :
+                                        user?.preferredLanguage === 'Tamil' ? 97 : 194
+                                }}
+                                transition={{ type: "spring", bounce: 0.15, duration: 0.5 }}
+                                className="absolute left-1 top-1 bottom-1 w-[95px] nm-flat rounded-xl z-0 cursor-grab active:cursor-grabbing"
+                            />
                         </div>
 
                         <div className="text-right hidden sm:block border-l border-slate-200 pl-4 ml-2">
@@ -241,7 +257,7 @@ const DashboardPage = () => {
                         </div>
                         <button
                             onClick={logout}
-                            className="h-11 w-11 flex items-center justify-center rounded-xl bg-slate-50 border border-slate-100 text-slate-400 hover:text-red-500 hover:bg-red-50 hover:border-red-100 transition-all duration-300"
+                            className="h-12 w-12 flex items-center justify-center rounded-2xl nm-flat text-slate-400 hover:text-red-500 transition-all duration-300 active:nm-inset"
                             title="Logout"
                         >
                             <LogOut className="w-5 h-5" />
@@ -254,17 +270,17 @@ const DashboardPage = () => {
                 {/* Hero Stats */}
                 {!selectedCategory && (
                     <section className="mb-16">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                            {/* Left Side: User Summary */}
+                        <div className="flex flex-col gap-8">
+                            {/* User Summary - Now centered and full width */}
                             <div className="lg:col-span-2 space-y-6">
                                 <motion.div
-                                    initial={{ opacity: 0, x: -20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    className="p-10 rounded-[40px] bg-white border border-slate-200 shadow-xl shadow-slate-200/40 relative overflow-hidden"
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    className="p-10 rounded-[40px] nm-flat relative overflow-hidden w-full"
                                 >
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-4 mb-6">
-                                            <div className="h-16 w-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-indigo-200">
+                                            <div className="h-16 w-16 nm-flat rounded-2xl flex items-center justify-center text-indigo-600 text-2xl font-black">
                                                 {user?.name?.charAt(0) || 'T'}
                                             </div>
                                             <div>
@@ -273,28 +289,21 @@ const DashboardPage = () => {
                                             </div>
                                         </div>
 
-                                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                                            <div className="p-5 rounded-3xl bg-slate-50 border border-slate-100">
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-                                                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Streak</span>
+                                        <div className="flex gap-4">
+                                            {[
+                                                { label: 'Total XP', value: user?.xp || 0, icon: <Trophy className="w-5 h-5 text-amber-500" />, sub: 'Global Rank' },
+                                                { label: 'Day Streak', value: user?.streak || 0, icon: <Flame className="w-5 h-5 text-orange-500" />, sub: 'Active Days' },
+                                                { label: 'Accuracy', value: '82%', icon: <Target className="w-5 h-5 text-emerald-500" />, sub: 'Performance' }
+                                            ].map((stat, i) => (
+                                                <div key={i} className="flex-1 p-6 rounded-3xl nm-inset">
+                                                    <div className="flex items-center gap-3 mb-3 text-slate-500 uppercase tracking-widest text-[9px] font-black">
+                                                        {stat.icon}
+                                                        {stat.label}
+                                                    </div>
+                                                    <div className="text-2xl font-black text-[#44476a]">{stat.value}</div>
+                                                    <div className="text-[10px] text-slate-400 font-bold mt-1 uppercase tracking-wider">{stat.sub}</div>
                                                 </div>
-                                                <p className="text-2xl font-black text-slate-900">{user?.streak || 0} Days</p>
-                                            </div>
-                                            <div className="p-5 rounded-3xl bg-indigo-50/50 border border-indigo-100">
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <Star className="w-4 h-4 text-indigo-600 fill-indigo-600" />
-                                                    <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">XP points</span>
-                                                </div>
-                                                <p className="text-2xl font-black text-indigo-600">{user?.xp || 0}</p>
-                                            </div>
-                                            <div className="p-5 rounded-3xl bg-purple-50/50 border border-purple-100">
-                                                <div className="flex items-center gap-2 mb-2">
-                                                    <Trophy className="w-4 h-4 text-purple-600 fill-purple-600" />
-                                                    <span className="text-[10px] font-black text-purple-400 uppercase tracking-widest">Current Level</span>
-                                                </div>
-                                                <p className="text-2xl font-black text-purple-600">{Math.floor((user?.xp || 0) / 100) + 1}</p>
-                                            </div>
+                                            ))}
                                         </div>
                                     </div>
 
@@ -307,7 +316,7 @@ const DashboardPage = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.1 }}
-                                        className="p-8 rounded-[32px] bg-white border border-slate-200 shadow-sm flex flex-col justify-between"
+                                        className="p-8 rounded-[32px] nm-flat flex flex-col justify-between"
                                     >
                                         <div className="flex justify-between items-start mb-4">
                                             <div className="p-3 bg-emerald-50 rounded-2xl text-emerald-600">
@@ -343,13 +352,13 @@ const DashboardPage = () => {
                                         initial={{ opacity: 0, y: 10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.2 }}
-                                        className="p-8 rounded-[32px] bg-slate-900 border border-slate-800 shadow-xl shadow-slate-900/20 flex flex-col justify-between text-white"
+                                        className="p-8 rounded-[32px] nm-flat flex flex-col justify-between"
                                     >
                                         <div className="flex justify-between items-start mb-4">
-                                            <div className="p-3 bg-white/10 rounded-2xl text-white backdrop-blur-md">
+                                            <div className="p-3 nm-inset rounded-2xl text-indigo-600">
                                                 <TrendingUp className="w-6 h-6" />
                                             </div>
-                                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Accuracy</span>
+                                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Accuracy</span>
                                         </div>
                                         {(() => {
                                             let totalCorrect = 0;
@@ -363,7 +372,7 @@ const DashboardPage = () => {
                                             const accuracy = totalSeen > 0 ? Math.round((totalCorrect / totalSeen) * 100) : 0;
                                             return (
                                                 <div className="pt-2">
-                                                    <h3 className="text-4xl font-black text-white">{accuracy}%</h3>
+                                                    <h3 className="text-4xl font-black text-[#44476a]">{accuracy}%</h3>
                                                     <p className="text-xs text-slate-400 mt-2 font-medium">Overall Precision Index</p>
                                                 </div>
                                             );
@@ -371,22 +380,6 @@ const DashboardPage = () => {
                                     </motion.div>
                                 </div>
                             </div>
-
-                            {/* Right Side: Radar Chart */}
-                            <motion.div
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="p-8 rounded-[40px] bg-white border border-slate-200 shadow-xl shadow-slate-200/40 flex flex-col items-center justify-center text-center relative overflow-hidden"
-                            >
-                                <div className="relative z-10 w-full">
-                                    <h3 className="text-sm font-black text-slate-900 uppercase tracking-[0.2em] mb-4">Skill Radar</h3>
-                                    <SkillRadar stats={categoryStats} />
-                                    <p className="text-xs text-slate-400 font-medium px-4 mt-4">
-                                        Your proficiency profile based on recent adaptive sessions.
-                                    </p>
-                                </div>
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-indigo-50/30 -z-0" />
-                            </motion.div>
                         </div>
                     </section>
                 )}
@@ -395,42 +388,33 @@ const DashboardPage = () => {
                 {!selectedCategory && (
                     <section className="mb-16">
                         <div className="flex items-center gap-3 mb-8">
-                            <div className="h-8 w-8 bg-amber-100 rounded-lg flex items-center justify-center text-amber-600">
-                                <ShieldCheck className="w-5 h-5" />
+                            <div className="h-10 w-10 nm-flat rounded-xl flex items-center justify-center text-amber-600">
+                                <ShieldCheck className="w-6 h-6" />
                             </div>
-                            <h2 className="text-2xl font-bold text-slate-900 tracking-tight">Achievements</h2>
+                            <h2 className="text-2xl font-bold text-[#44476a] tracking-tight">Achievements</h2>
                         </div>
-                        <div className="flex flex-wrap gap-4">
+
+                        <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
                             {(user?.badges || []).length > 0 ? (
-                                user.badges.map((badge, idx) => {
-                                    const details = BADGE_DATA[badge] || {
-                                        description: 'An achievement for your hard work!',
-                                        icon: <Award className="w-5 h-5" />,
-                                        color: 'bg-slate-100 text-slate-600'
-                                    };
-                                    return (
-                                        <motion.button
-                                            key={idx}
-                                            initial={{ opacity: 0, scale: 0.8 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            whileHover={{ y: -5 }}
-                                            onClick={() => setSelectedBadge({ name: badge, ...details })}
-                                            className="px-6 py-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-center gap-4 group hover:border-indigo-200 transition-all text-left"
-                                        >
-                                            <div className={`h-10 w-10 rounded-full flex items-center justify-center ${details.color} group-hover:bg-indigo-600 group-hover:text-white transition-colors`}>
-                                                {details.icon}
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-bold text-slate-900">{badge}</p>
-                                                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest">Unlocked Achievement</p>
-                                            </div>
-                                        </motion.button>
-                                    );
-                                })
+                                user.badges.map((badge, i) => (
+                                    <motion.div
+                                        key={i}
+                                        whileHover={{ scale: 1.05 }}
+                                        className="w-full sm:w-[240px] p-6 rounded-[32px] nm-flat flex flex-col items-center text-center group"
+                                    >
+                                        <div className={`w-16 h-16 rounded-2xl nm-inset flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
+                                            {BADGE_DATA[badge]?.icon}
+                                        </div>
+                                        <span className="text-[10px] font-black uppercase tracking-wider text-[#44476a]/80 mb-1">{badge}</span>
+                                        <span className="text-[9px] text-slate-400 font-semibold leading-tight">{BADGE_DATA[badge]?.description}</span>
+                                    </motion.div>
+                                ))
                             ) : (
-                                <div className="w-full p-8 rounded-3xl border-2 border-dashed border-slate-200 flex flex-col items-center justify-center text-center opacity-60">
-                                    <Award className="w-12 h-12 text-slate-300 mb-2" />
-                                    <p className="text-sm font-medium text-slate-500">No achievements yet. Keep learning to unlock!</p>
+                                <div className="w-full p-12 nm-inset rounded-[40px] text-center border border-dashed border-slate-300">
+                                    <div className="w-16 h-16 nm-flat rounded-2xl mx-auto flex items-center justify-center text-slate-300 mb-4">
+                                        <Trophy className="w-8 h-8 opacity-20" />
+                                    </div>
+                                    <p className="text-slate-400 text-sm font-medium">Complete modules to earn your first badges.</p>
                                 </div>
                             )}
                         </div>
@@ -444,25 +428,25 @@ const DashboardPage = () => {
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0 }}
                                         onClick={() => setSelectedBadge(null)}
-                                        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+                                        className="absolute inset-0 bg-slate-900/40"
                                     />
                                     <motion.div
                                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                                         animate={{ opacity: 1, scale: 1, y: 0 }}
                                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                                        className="relative w-full max-w-sm bg-white rounded-[40px] shadow-2xl overflow-hidden"
+                                        className="relative w-full max-w-sm bg-[#e0e5ec] rounded-[48px] nm-flat overflow-hidden"
                                     >
                                         <div className={`h-32 flex items-center justify-center relative ${selectedBadge.color}`}>
                                             <div className="absolute top-6 right-6">
                                                 <button
                                                     onClick={() => setSelectedBadge(null)}
-                                                    className="h-10 w-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-white/40 transition-colors"
+                                                    className="p-3 bg-white/20 hover:bg-white/40 rounded-full transition-colors"
                                                 >
                                                     <X className="w-5 h-5 text-white" />
                                                 </button>
                                             </div>
-                                            <div className="h-20 w-20 bg-white rounded-3xl shadow-xl flex items-center justify-center text-indigo-600 scale-125">
-                                                {React.cloneElement(selectedBadge.icon, { className: 'w-10 h-10' })}
+                                            <div className="h-24 w-24 nm-flat rounded-3xl flex items-center justify-center text-indigo-600 scale-125">
+                                                {React.cloneElement(selectedBadge.icon, { className: 'w-12 h-12' })}
                                             </div>
                                         </div>
                                         <div className="p-10 text-center">
@@ -518,35 +502,30 @@ const DashboardPage = () => {
 
                 {!selectedCategory ? (
                     <div className="space-y-10">
-                        <div className="flex flex-col gap-2">
-                            <h2 className="text-4xl font-extrabold text-slate-900 tracking-tight">Learning Hub</h2>
-                            <p className="text-slate-500 font-medium">Select a category to begin your adaptive learning journey.</p>
+                        <div className="flex flex-col gap-3">
+                            <h2 className="text-4xl font-extrabold text-[#44476a] tracking-tight">Learning Hub</h2>
+                            <p className="text-slate-500 font-medium">Select a category to explore specialized training modules.</p>
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                            {topics.map((cat, idx) => (
-                                <motion.div
-                                    key={idx}
-                                    whileHover={{ y: -8, scale: 1.02 }}
+                            {topics.map((cat, i) => (
+                                <motion.button
+                                    key={i}
+                                    whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
                                     onClick={() => setSelectedCategory(cat.category)}
-                                    className="cursor-pointer group p-10 rounded-[40px] bg-white border border-slate-200 shadow-sm hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 flex flex-col items-center text-center relative overflow-hidden"
+                                    className="group relative text-left"
                                 >
-                                    <div className={`absolute inset-0 bg-gradient-to-br ${cat.color.replace('bg-', 'from-').replace('text-', 'to-')} opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500`} />
-
-                                    <div className={`h-24 w-24 rounded-3xl mb-8 flex items-center justify-center ${cat.color} transform group-hover:rotate-6 transition-transform duration-500 shadow-inner`}>
-                                        {React.cloneElement(cat.icon, { className: 'w-10 h-10' })}
+                                    <div className="nm-flat p-10 rounded-[50px] transition-all duration-300 group-hover:shadow-[12px_12px_24px_var(--nm-shadow-dark),-12px_-12px_24px_var(--nm-shadow-light)]">
+                                        <div className={`h-16 w-16 nm-inset rounded-3xl flex items-center justify-center mb-8`}>
+                                            <div className={`h-6 w-6 ${cat.color} group-hover:scale-110 transition-transform`}>
+                                                {React.cloneElement(cat.icon, { className: 'w-6 h-6' })}
+                                            </div>
+                                        </div>
+                                        <h3 className="text-2xl font-black mb-3 text-[#44476a] font-['Poppins']">{cat.category}</h3>
+                                        <p className="text-slate-400 text-sm font-medium leading-relaxed">{cat.desc}</p>
                                     </div>
-
-                                    <h3 className="text-2xl font-black text-slate-900 mb-3 tracking-tight group-hover:text-indigo-600 transition-colors">{cat.category}</h3>
-                                    <p className="text-sm text-slate-500 font-medium mb-8">
-                                        {cat.items.length} specialized modules waiting for you to master.
-                                    </p>
-
-                                    <div className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-slate-50 text-[11px] font-black text-slate-400 uppercase tracking-widest group-hover:bg-indigo-600 group-hover:text-white transition-all duration-500">
-                                        Explore Path <ChevronRight className="w-4 h-4" />
-                                    </div>
-                                </motion.div>
+                                </motion.button>
                             ))}
                         </div>
                     </div>
@@ -560,16 +539,16 @@ const DashboardPage = () => {
                             <div className="flex items-center gap-6">
                                 <button
                                     onClick={() => setSelectedCategory(null)}
-                                    className="h-12 w-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:text-indigo-600 hover:border-indigo-200 hover:shadow-lg hover:shadow-indigo-500/10 transition-all group"
+                                    className="h-14 w-14 rounded-[20px] nm-flat flex items-center justify-center text-slate-400 hover:text-indigo-600 transition-all group active:nm-inset"
                                 >
-                                    <ArrowRight className="w-6 h-6 transform rotate-180 group-hover:-translate-x-1 transition-transform" />
+                                    <ArrowRight className="w-7 h-7 transform rotate-180 group-hover:-translate-x-1 transition-transform" />
                                 </button>
                                 <div>
                                     <div className="flex items-center gap-3 mb-1">
-                                        <div className={`p-2 rounded-lg ${currentCategoryData.color} scale-75`}>
+                                        <div className={`p-2.5 rounded-xl nm-inset ${currentCategoryData.color} scale-75`}>
                                             {currentCategoryData.icon}
                                         </div>
-                                        <h2 className="text-3xl font-black text-slate-900 tracking-tight">{selectedCategory}</h2>
+                                        <h2 className="text-3xl font-black text-[#44476a] tracking-tight">{selectedCategory}</h2>
                                     </div>
                                     <p className="text-slate-500 font-medium">Choose a module to start practicing</p>
                                 </div>
@@ -579,44 +558,45 @@ const DashboardPage = () => {
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                             {currentCategoryData.items.map((item, i) => (
                                 <motion.button
                                     key={i}
-                                    layoutId={item}
-                                    onClick={() => startLearning(item)}
-                                    disabled={loading}
-                                    className={`text-left p-8 rounded-[32px] border-2 transition-all duration-500 group relative overflow-hidden ${activeTopic === item
-                                        ? 'bg-indigo-600 border-indigo-600 text-white shadow-2xl shadow-indigo-600/30 ring-4 ring-indigo-50'
-                                        : 'bg-white border-slate-100 hover:border-indigo-200 hover:shadow-2xl hover:shadow-indigo-500/10'
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                    onClick={() => handleTopicClick(item)}
+                                    className={`text-left p-10 rounded-[40px] transition-all duration-500 group relative overflow-hidden ${activeTopic === item
+                                        ? 'nm-inset scale-[0.98]'
+                                        : 'nm-flat hover:scale-[1.02] active:nm-inset'
                                         }`}
                                 >
                                     <div className="flex flex-col relative z-10 h-full justify-between">
                                         <div>
                                             <div className="flex justify-between items-start mb-6">
-                                                <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full ${activeTopic === item ? 'bg-indigo-500 text-white' : 'bg-slate-100 text-slate-400'}`}>
-                                                    Module {i + 1}
-                                                </span>
-                                                {activeTopic === item && (
-                                                    <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                <div className={`p-4 rounded-2xl ${activeTopic === item ? 'nm-flat' : 'nm-inset'} transition-colors`}>
+                                                    <BookOpen className={`w-6 h-6 ${user?.progress && user.progress[item]?.correctQuestionIds?.length > 0 ? 'text-emerald-500' : 'text-indigo-600'}`} />
+                                                </div>
+                                                {(user?.progress && user.progress[item]) && (
+                                                    <div className="flex items-center gap-1.5 px-3 py-1.5 nm-inset rounded-full">
+                                                        <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+                                                        <span className="text-[10px] font-black text-emerald-600 uppercase tracking-widest leading-none">Complete</span>
+                                                    </div>
                                                 )}
                                             </div>
-                                            <h4 className={`text-xl font-bold mb-2 ${activeTopic === item ? 'text-white' : 'text-slate-900'} group-hover:text-indigo-600 transition-colors`}>
+                                            <h4 className={`text-xl font-black mb-2 ${activeTopic === item ? 'text-indigo-600' : 'text-[#44476a]'} group-hover:text-indigo-600 transition-colors`}>
                                                 {item}
                                             </h4>
-                                            <p className={`text-sm ${activeTopic === item ? 'text-indigo-100' : 'text-slate-400'} font-medium`}>
+                                            <p className={`text-sm ${activeTopic === item ? 'text-slate-500' : 'text-slate-400'} font-medium`}>
                                                 Master {item.toLowerCase()} through adaptive AI challenges.
                                             </p>
                                         </div>
 
-                                        <div className="mt-8 flex items-center gap-2 text-[11px] font-black uppercase tracking-widest">
+                                        <div className="mt-8 flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-indigo-600">
                                             {activeTopic === item ? 'Preparing Session...' : 'Launch Path'}
-                                            {!loading && <ChevronRight className={`w-4 h-4 transform group-hover:translate-x-1 transition-transform ${activeTopic === item ? 'text-white' : 'text-indigo-600'}`} />}
+                                            {!loading && <ChevronRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />}
                                         </div>
                                     </div>
-
-                                    {/* Abstract background shape for hover effect */}
-                                    <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-indigo-50 rounded-full scale-0 group-hover:scale-100 transition-transform duration-700 opacity-50 z-0" />
+                                    <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-indigo-500/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-700 opacity-50 z-0" />
                                 </motion.button>
                             ))}
                         </div>
@@ -628,12 +608,11 @@ const DashboardPage = () => {
                     <p className="text-slate-400 text-sm italic font-medium tracking-tight">"The roots of education are bitter, but the fruit is sweet."</p>
                     <div className="mt-8 flex justify-center items-center gap-6 opacity-40">
                         <div className="h-0.5 w-12 bg-slate-200" />
-                        <Logo iconOnly className="h-6 w-6 grayscale" />
                         <div className="h-0.5 w-12 bg-slate-200" />
                     </div>
                 </footer>
             </main>
-        </div>
+        </div >
     );
 };
 

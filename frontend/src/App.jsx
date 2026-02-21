@@ -9,7 +9,7 @@ import PageTransition from './components/PageTransition';
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  if (loading) return <div className="min-h-screen bg-white flex items-center justify-center text-slate-900">Loading...</div>;
+  if (loading) return <div className="min-h-screen bg-[#e0e5ec] flex items-center justify-center text-[#44476a]">Loading...</div>;
   if (!user) return <Navigate to="/login" />;
   return children;
 };

@@ -5,11 +5,15 @@
 @tailwind utilities;
 
 :root {
+  --nm-bg: #e0e5ec;
+  --nm-shadow-dark: #a3b1c6;
+  --nm-shadow-light: #ffffff;
+
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  color: #0F172A;
-  background-color: #F8FAFC;
+  color: #44476a;
+  background-color: var(--nm-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,48 +23,66 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #F8FAFC;
-  color: #0F172A;
+  background-color: var(--nm-bg);
+  color: #44476a;
 }
 
 @layer components {
+  .nm-flat {
+    background: var(--nm-bg);
+    box-shadow: 9px 9px 16px var(--nm-shadow-dark),
+      -9px -9px 16px var(--nm-shadow-light);
+  }
+
+  .nm-inset {
+    background: var(--nm-bg);
+    box-shadow: inset 6px 6px 12px var(--nm-shadow-dark),
+      inset -6px -6px 12px var(--nm-shadow-light);
+  }
+
+  .nm-on-click {
+    @apply transition-all duration-200 active:scale-[0.98];
+    box-shadow: 6px 6px 12px var(--nm-shadow-dark),
+      -6px -6px 12px var(--nm-shadow-light);
+  }
+
+  .nm-on-click:active {
+    box-shadow: inset 4px 4px 8px var(--nm-shadow-dark),
+      inset -4px -4px 8px var(--nm-shadow-light);
+  }
+
   .study-card {
-    @apply bg-white/70 backdrop-blur-xl border border-white/40 rounded-[32px] shadow-xl shadow-slate-200/50 p-10 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-500/10;
-  }
-
-  .glass-card {
-    @apply bg-white/40 backdrop-blur-md border border-white/20 rounded-3xl shadow-lg;
-  }
-
-  .glass-card-dark {
-    @apply bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl shadow-xl;
+    background: var(--nm-bg);
+    box-shadow: 12px 12px 24px var(--nm-shadow-dark),
+      -12px -12px 24px var(--nm-shadow-light);
+    @apply rounded-[40px] p-10 transition-all duration-500;
   }
 
   .btn-primary {
-    @apply bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-indigo-200 transition-all active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100 hover:-translate-y-0.5;
+    background: var(--nm-bg);
+    box-shadow: 6px 6px 12px var(--nm-shadow-dark),
+      -6px -6px 12px var(--nm-shadow-light);
+    @apply text-indigo-600 px-8 py-4 rounded-2xl font-bold transition-all active:scale-[0.98] disabled:opacity-50;
+  }
+
+  .btn-primary:active {
+    box-shadow: inset 4px 4px 8px var(--nm-shadow-dark),
+      inset -4px -4px 8px var(--nm-shadow-light);
   }
 
   .btn-secondary {
-    @apply bg-white/50 backdrop-blur-sm border border-slate-200 hover:border-indigo-200 text-slate-700 px-8 py-4 rounded-2xl font-bold transition-all hover:bg-white hover:shadow-md;
+    @apply btn-primary text-slate-500;
   }
 
   .heading-main {
     font-family: 'Poppins', sans-serif;
-    @apply text-4xl font-extrabold text-slate-900 tracking-tight;
+    @apply text-4xl font-extrabold text-[#44476a] tracking-tight;
   }
 }
 
 .bg-mesh {
-  background-color: #f8fafc;
-  background-image:
-    radial-gradient(at 0% 0%, hsla(253, 16%, 7%, 1) 0, transparent 50%),
-    radial-gradient(at 50% 0%, hsla(225, 39%, 30%, 1) 0, transparent 50%),
-    radial-gradient(at 100% 0%, hsla(339, 49%, 30%, 1) 0, transparent 50%);
+  background-color: var(--nm-bg);
   background-attachment: fixed;
-}
-
-.prose p {
-  @apply mb-4 leading-relaxed text-slate-600;
 }
 
 ::selection {

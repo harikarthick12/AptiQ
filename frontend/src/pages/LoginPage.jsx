@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { motion } from 'framer-motion';
-import { Mail, Lock, User, ArrowRight, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Lock, User, ArrowRight, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 import Logo from '../components/Logo';
 
 const LoginPage = () => {
@@ -10,6 +10,7 @@ const LoginPage = () => {
     const [formData, setFormData] = useState({ name: '', email: '', password: '' });
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const { login, signup } = useAuth();
     const navigate = useNavigate();
 
@@ -32,7 +33,7 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center p-6 selection:bg-indigo-100 selection:text-indigo-700">
+        <div className="min-h-screen bg-[#e0e5ec] text-[#44476a] flex flex-col items-center justify-center p-6 selection:bg-indigo-100 selection:text-indigo-700">
             {/* Logo area */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -45,7 +46,7 @@ const LoginPage = () => {
             <motion.div
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="w-full max-w-[440px] bg-white border border-slate-200 p-10 rounded-3xl shadow-xl shadow-slate-200/50"
+                className="w-full max-w-[480px] nm-flat p-12 rounded-[50px]"
             >
                 <div className="text-center mb-10">
                     <h2 className="heading-main mb-2">
@@ -77,8 +78,8 @@ const LoginPage = () => {
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     {!isLogin && (
-                        <div className="relative">
-                            <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest absolute -top-2 left-4 bg-white px-1 z-10">
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">
                                 Full Name
                             </label>
                             <div className="relative">
@@ -87,7 +88,7 @@ const LoginPage = () => {
                                     type="text"
                                     required
                                     placeholder="Enter your name"
-                                    className="w-full bg-slate-50 border border-slate-100 rounded-xl pl-11 pr-4 py-4 text-slate-900 focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 outline-none transition-all placeholder:text-slate-300"
+                                    className="w-full nm-inset rounded-2xl pl-12 pr-4 py-5 text-[#44476a] outline-none transition-all placeholder:text-slate-400 font-medium border-none focus:ring-2 focus:ring-indigo-300"
                                     value={formData.name}
                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                 />
@@ -95,8 +96,8 @@ const LoginPage = () => {
                         </div>
                     )}
 
-                    <div className="relative">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest absolute -top-2 left-4 bg-white px-1 z-10">
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">
                             Email Address
                         </label>
                         <div className="relative">
@@ -105,47 +106,71 @@ const LoginPage = () => {
                                 type="email"
                                 required
                                 placeholder="name@company.com"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl pl-11 pr-4 py-4 text-slate-900 focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 outline-none transition-all placeholder:text-slate-300"
+                                className="w-full nm-inset rounded-2xl pl-12 pr-4 py-5 text-[#44476a] outline-none transition-all placeholder:text-slate-400 font-medium border-none focus:ring-2 focus:ring-indigo-300"
                                 value={formData.email}
                                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             />
                         </div>
                     </div>
 
-                    <div className="relative">
-                        <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest absolute -top-2 left-4 bg-white px-1 z-10">
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-4">
                             Password
                         </label>
                         <div className="relative">
                             <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 required
                                 placeholder="••••••••"
-                                className="w-full bg-slate-50 border border-slate-100 rounded-xl pl-11 pr-4 py-4 text-slate-900 focus:bg-white focus:border-indigo-600 focus:ring-4 focus:ring-indigo-100 outline-none transition-all placeholder:text-slate-300"
+                                className="w-full nm-inset rounded-2xl pl-12 pr-14 py-5 text-[#44476a] outline-none transition-all placeholder:text-slate-400 font-medium border-none focus:ring-2 focus:ring-indigo-300"
                                 value={formData.password}
                                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                             />
+                            <motion.button
+                                type="button"
+                                whileHover={{ scale: 1.1, rotate: showPassword ? 0 : 15 }}
+                                whileTap={{ scale: 0.8, rotate: -15 }}
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-indigo-600 transition-colors bg-transparent border-none outline-none focus:outline-none"
+                            >
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={showPassword ? 'eye-off' : 'eye'}
+                                        initial={{ opacity: 0, scale: 0.5, y: 10 }}
+                                        animate={{ opacity: 1, scale: 1, y: 0 }}
+                                        exit={{ opacity: 0, scale: 0.5, y: -10 }}
+                                        transition={{
+                                            type: "spring",
+                                            stiffness: 400,
+                                            damping: 10,
+                                            mass: 1
+                                        }}
+                                    >
+                                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </motion.button>
                         </div>
                     </div>
 
                     <button
                         type="submit"
                         disabled={isLoading}
-                        className="w-full btn-primary h-14 flex items-center justify-center gap-2 group"
+                        className="w-full btn-primary h-16 flex items-center justify-center gap-3 group nm-on-click"
                     >
                         {isLoading ? (
-                            <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            <div className="h-6 w-6 border-2 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
                         ) : (
                             <>
-                                {isLogin ? 'Login to Dashboard' : 'Create Mastery Account'}
-                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                <span className="text-lg">{isLogin ? 'Login to Dashboard' : 'Create Mastery Account'}</span>
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </>
                         )}
                     </button>
                 </form>
 
-                <div className="mt-8 pt-8 border-t border-slate-50 text-center">
+                <div className="mt-10 pt-10 nm-inset rounded-[40px] px-6 py-8 text-center bg-transparent">
                     <button
                         onClick={() => setIsLogin(!isLogin)}
                         className="text-slate-500 hover:text-indigo-600 text-sm font-medium transition-colors"

@@ -6,9 +6,9 @@ import Logo from '../components/Logo';
 
 const LandingPage = () => {
     return (
-        <div className="min-h-screen bg-[#F8FAFC] text-slate-900 font-['Inter'] selection:bg-indigo-100 selection:text-indigo-700">
+        <div className="min-h-screen bg-[#e0e5ec] text-[#44476a] font-['Inter'] selection:bg-indigo-100 selection:text-indigo-700">
             {/* Nav */}
-            <nav className="max-w-[1100px] mx-auto px-6 h-20 flex justify-between items-center bg-white/50 backdrop-blur-md sticky top-0 z-50">
+            <nav className="max-w-[1100px] mx-auto px-6 h-24 flex justify-between items-center bg-[#e0e5ec]/50 backdrop-blur-md sticky top-0 z-50">
                 <Logo className="h-10 w-auto" />
                 <div className="flex items-center gap-6">
                     <Link to="/login" className="text-sm font-semibold text-slate-600 hover:text-indigo-600 transition-colors">Login</Link>
@@ -21,10 +21,10 @@ const LandingPage = () => {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full shadow-sm mb-10"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 nm-inset rounded-full mb-12"
                 >
                     <div className="h-2 w-2 bg-indigo-500 rounded-full animate-pulse" />
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-slate-500">Mastery v1.0 • AI-Driven</span>
+                    <span className="text-[10px] uppercase font-black tracking-[0.2em] text-slate-400">Mastery v2.0 • Neumorphic UI</span>
                 </motion.div>
 
                 <motion.h1
@@ -40,19 +40,19 @@ const LandingPage = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-xl text-slate-500 max-w-2xl mb-12 leading-relaxed"
+                    className="text-xl text-slate-500 max-w-2xl mb-16 leading-relaxed font-medium"
                 >
-                    A simple AI tutor that explains things clearly, helps you practice, and builds your confidence step-by-step.
+                    A tactile AI tutor that explains things clearly, helps you practice, and builds your confidence step-by-step.
                 </motion.p>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="flex flex-col sm:flex-row gap-4"
+                    className="flex flex-col sm:flex-row gap-8"
                 >
-                    <Link to="/login" className="btn-primary px-10 h-16 flex items-center justify-center text-lg gap-2 group shadow-xl shadow-indigo-100">
-                        Start Learning Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    <Link to="/login" className="btn-primary px-12 h-20 flex items-center justify-center text-xl gap-3 group nm-on-click">
+                        Start Learning Now <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                     </Link>
                 </motion.div>
 
@@ -81,13 +81,13 @@ const LandingPage = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
-                            className="bg-white border border-slate-100 p-8 rounded-3xl text-left hover:shadow-xl hover:shadow-slate-200/50 transition-all duration-500"
+                            className="nm-flat p-10 rounded-[40px] text-left hover:scale-[1.02] transition-all duration-500 group"
                         >
-                            <div className="h-12 w-12 bg-slate-50 rounded-2xl flex items-center justify-center text-indigo-600 mb-6 border border-slate-100">
+                            <div className="h-14 w-14 nm-inset rounded-2xl flex items-center justify-center text-indigo-600 mb-8 transform group-hover:rotate-6 transition-transform">
                                 {feature.icon}
                             </div>
-                            <h3 className="text-xl font-bold mb-3 text-slate-900">{feature.title}</h3>
-                            <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
+                            <h3 className="text-xl font-black mb-4 text-[#44476a]">{feature.title}</h3>
+                            <p className="text-slate-500 text-sm leading-relaxed font-medium">{feature.desc}</p>
                         </motion.div>
                     ))}
                 </div>
