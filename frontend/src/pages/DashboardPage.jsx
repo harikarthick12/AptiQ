@@ -18,6 +18,7 @@ import {
     ArrowLeft,
     Trophy,
     Zap,
+    Timer,
     Star,
     ShieldCheck,
     Clock,
@@ -130,14 +131,26 @@ const DashboardPage = () => {
     const location = useLocation();
     const [showEarnedPopup, setShowEarnedPopup] = useState(false);
 
+    // Calculate Dynamic Accuracy
+    const overallAccuracy = React.useMemo(() => {
+        if (!user?.progress) return '0%';
+        let totalSeen = 0;
+        let totalCorrect = 0;
+        Object.values(user.progress).forEach(topic => {
+            totalSeen += (topic.seenQuestionIds?.length || 0);
+            totalCorrect += (topic.correctQuestionIds?.length || 0);
+        });
+        return totalSeen > 0 ? Math.round((totalCorrect / totalSeen) * 100) + '%' : '0%';
+    }, [user?.progress]);
+
     // Achievement popup logic
     React.useEffect(() => {
         if (location.state?.badgeEarned) {
             setShowEarnedPopup(true);
-            // Clear the state so it doesn't pop up again on refresh
-            window.history.replaceState({}, document.title);
+            // Clear navigation state to prevent popup from re-appearing
+            navigate(location.pathname, { replace: true, state: {} });
         }
-    }, [location.state]);
+    }, [location.state, location.pathname, navigate]);
 
     const changeLanguage = async (newLang) => {
         setIsLangUpdating(true);
@@ -293,7 +306,7 @@ const DashboardPage = () => {
                                             {[
                                                 { label: 'Total XP', value: user?.xp || 0, icon: <Trophy className="w-5 h-5 text-amber-500" />, sub: 'Global Rank' },
                                                 { label: 'Day Streak', value: user?.streak || 0, icon: <Flame className="w-5 h-5 text-orange-500" />, sub: 'Active Days' },
-                                                { label: 'Accuracy', value: '82%', icon: <Target className="w-5 h-5 text-emerald-500" />, sub: 'Performance' }
+                                                { label: 'Accuracy', value: overallAccuracy, icon: <Target className="w-5 h-5 text-emerald-500" />, sub: 'Performance' }
                                             ].map((stat, i) => (
                                                 <div key={i} className="flex-1 p-6 rounded-3xl nm-inset">
                                                     <div className="flex items-center gap-3 mb-3 text-slate-500 uppercase tracking-widest text-[9px] font-black">
@@ -310,6 +323,43 @@ const DashboardPage = () => {
                                     {/* Abstract background shape */}
                                     <div className="absolute top-[-20%] right-[-10%] w-[300px] h-[300px] bg-indigo-50 rounded-full opacity-40 blur-3xl" />
                                 </motion.div>
+
+                                {/* Elite Challenges Section */}
+                                <div className="mt-10">
+                                    <motion.div
+                                        whileHover={{ scale: 1.01 }}
+                                        onClick={() => navigate('/aptirush')}
+                                        className="nm-flat p-8 rounded-[40px] cursor-pointer group relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6"
+                                    >
+                                        <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                                        <div className="flex items-center gap-6 relative z-10">
+                                            <div className="h-20 w-20 nm-inset rounded-3xl flex items-center justify-center text-indigo-600 transition-transform group-hover:scale-110">
+                                                <Zap className="w-10 h-10 fill-current" />
+                                            </div>
+                                            <div>
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <span className="px-2 py-0.5 bg-amber-100 text-amber-700 text-[9px] font-black uppercase tracking-widest rounded-md">New Mode</span>
+                                                    <h3 className="text-2xl font-black text-slate-900 tracking-tight">AptiRush</h3>
+                                                </div>
+                                                <p className="text-slate-500 font-medium tracking-tight">Rapid-fire timed challenges across all topics. How fast can you solve?</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="flex items-center gap-8 relative z-10 w-full md:w-auto">
+                                            <div className="flex flex-col items-center px-6 border-x border-slate-200">
+                                                <div className="flex items-center gap-2 text-indigo-600 font-black">
+                                                    <Timer className="w-4 h-4" />
+                                                    <span>Timed</span>
+                                                </div>
+                                                <span className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Pressure</span>
+                                            </div>
+                                            <div className="btn-primary h-14 px-8 rounded-2xl flex items-center gap-2 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                                Launch Rush <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <motion.div

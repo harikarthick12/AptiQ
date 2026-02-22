@@ -9,9 +9,6 @@ class QuestionService {
         const topicData = questionBank[topic] || questionBank['Number System'];
 
         // Determine Level based on correct answers
-        // Level 1: Beginner (0-9 correct)
-        // Level 2: Intermediate (10-19 correct)
-        // Level 3: Advanced (20+ correct)
         const correctCount = correctIds.length;
         let difficulty = 'Beginner';
         if (correctCount >= 20) difficulty = 'Advanced';
@@ -55,6 +52,32 @@ class QuestionService {
             questions: formattedQuestions,
             level: difficulty, // Return the actual level used
             tip: `Welcome to ${difficulty} level!`
+        };
+    }
+
+    /**
+     * AptiRush: Pick random questions from ANY topic.
+     */
+    async getRandomBatch(batchSize = 15, seenIds = []) {
+        const allQuestions = [];
+        Object.keys(questionBank).forEach(topic => {
+            allQuestions.push(...questionBank[topic].questions.map(q => ({ ...q, topic })));
+        });
+
+        // Mix it up!
+        const shuffledPool = [...allQuestions].sort(() => 0.5 - Math.random());
+
+        // Try to prioritize unseen questions
+        const unseen = shuffledPool.filter(q => !seenIds.includes(q.id));
+        const pool = unseen.length >= batchSize ? unseen : shuffledPool;
+
+        const selected = pool.slice(0, batchSize);
+
+        return {
+            topic: 'AptiRush',
+            questions: selected.map(q => ({ ...q, _id: q.id })),
+            timeLimit: batchSize * 15, // 15 seconds per question average
+            rewardXp: batchSize * 5
         };
     }
 }

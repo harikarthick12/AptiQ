@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import LearningPage from './pages/LearningPage';
+import AptiRushPage from './pages/AptiRushPage';
 import PageTransition from './components/PageTransition';
 
 const ProtectedRoute = ({ children }) => {
@@ -34,6 +35,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <PageTransition><LearningPage /></PageTransition>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/aptirush"
+          element={
+            <ProtectedRoute>
+              <PageTransition><AptiRushPage /></PageTransition>
             </ProtectedRoute>
           }
         />

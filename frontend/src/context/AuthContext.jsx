@@ -12,10 +12,10 @@ const TEST_USER = {
     email: 'test@example.com',
     preferredLanguage: 'English',
     progress: {},
-    xp: 150,
-    streak: 3,
-    lastActiveDate: new Date().toISOString().split('T')[0],
-    badges: ['Early Bird']
+    xp: 0,
+    streak: 0,
+    lastActiveDate: null,
+    badges: []
 };
 
 export const AuthProvider = ({ children }) => {
