@@ -10,11 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@dataconnect/generated": "file:src/dataconnect-generated",
     "@supabase/supabase-js": "^2.95.3",
     "axios": "^1.13.4",
     "clsx": "^2.1.1",
-    "firebase": "^12.9.0",
     "framer-motion": "^12.31.0",
     "lucide-react": "^0.563.0",
     "path": "^0.12.7",

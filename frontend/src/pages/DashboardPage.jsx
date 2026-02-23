@@ -434,8 +434,8 @@ const DashboardPage = () => {
                     </section>
                 )}
 
-                {/* Achievement Badges Section */}
-                {!selectedCategory && (
+                {/* Achievement Badges Section - Only show if user has earned badges */}
+                {!selectedCategory && (user?.badges || []).length > 0 && (
                     <section className="mb-16">
                         <div className="flex items-center gap-3 mb-8">
                             <div className="h-10 w-10 nm-flat rounded-xl flex items-center justify-center text-amber-600">
@@ -445,28 +445,19 @@ const DashboardPage = () => {
                         </div>
 
                         <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
-                            {(user?.badges || []).length > 0 ? (
-                                user.badges.map((badge, i) => (
-                                    <motion.div
-                                        key={i}
-                                        whileHover={{ scale: 1.05 }}
-                                        className="w-full sm:w-[240px] p-6 rounded-[32px] nm-flat flex flex-col items-center text-center group"
-                                    >
-                                        <div className={`w-16 h-16 rounded-2xl nm-inset flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
-                                            {BADGE_DATA[badge]?.icon}
-                                        </div>
-                                        <span className="text-[10px] font-black uppercase tracking-wider text-[#44476a]/80 mb-1">{badge}</span>
-                                        <span className="text-[9px] text-slate-400 font-semibold leading-tight">{BADGE_DATA[badge]?.description}</span>
-                                    </motion.div>
-                                ))
-                            ) : (
-                                <div className="w-full p-12 nm-inset rounded-[40px] text-center border border-dashed border-slate-300">
-                                    <div className="w-16 h-16 nm-flat rounded-2xl mx-auto flex items-center justify-center text-slate-300 mb-4">
-                                        <Trophy className="w-8 h-8 opacity-20" />
+                            {user.badges.map((badge, i) => (
+                                <motion.div
+                                    key={i}
+                                    whileHover={{ scale: 1.05 }}
+                                    className="w-full sm:w-[240px] p-6 rounded-[32px] nm-flat flex flex-col items-center text-center group"
+                                >
+                                    <div className={`w-16 h-16 rounded-2xl nm-inset flex items-center justify-center mb-4 transition-transform group-hover:scale-110`}>
+                                        {BADGE_DATA[badge]?.icon}
                                     </div>
-                                    <p className="text-slate-400 text-sm font-medium">Complete modules to earn your first badges.</p>
-                                </div>
-                            )}
+                                    <span className="text-[10px] font-black uppercase tracking-wider text-[#44476a]/80 mb-1">{badge}</span>
+                                    <span className="text-[9px] text-slate-400 font-semibold leading-tight">{BADGE_DATA[badge]?.description}</span>
+                                </motion.div>
+                            ))}
                         </div>
 
                         {/* Badge Detail Overlay */}
